@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Trang quản trị</title>
     <style>
         .container {
@@ -32,7 +34,7 @@
                             <h5 class="card-title"><b>Quản lý bài đăng</b></h5>
                             <p class="card-text">
                                 Xem và cập nhật thông tin về các bài đăng của bạn
-                                tại đây.
+                                tại đây
                             </p>
                         </div>
                     </div>
@@ -61,7 +63,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><b>Quản lý đơn hàng</b></h5>
                             <p class="card-text">
-                                Xem thông tin về các đơn hàng mà bạn có tại đây.
+                                Xem thông tin về các đơn hàng mà bạn có tại đây
                             </p>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
                             <h5 class="card-title"><b>Tài khoản quản trị viên</b></h5>
                             <p class="card-text">
                                 Trở thành quản trị viên để đóng góp nội dung cho
-                                trang cộng đồng này.
+                                trang cộng đồng này
                             </p>
                         </div>
                     </div>
