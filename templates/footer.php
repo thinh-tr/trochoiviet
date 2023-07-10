@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <style>
+        section.container {
+        padding-top: 5px;
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-dark text-white">
+        <!-- Section: Links  -->
+        <section class="container">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">TRÒ CHƠI VIỆT</h6>
+                        <p>
+                            Một website cộng đồng nhằm chia sẽ những bài viết thú vị về các trò chơi dân gian Việt
+                            Nam.
+                            Được tạo ra với mong muốn
+                            phổ biến những kiến thức về văn hóa Việt Nam đến cho mọi người.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
+                        <p>
+                            <a href="/trochoiviet" class="text-reset">Trang chủ</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Giới thiệu</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Cửa hàng</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Fan page</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Theo dõi chúng tôi</h6>
+                        <p>
+                            <!-- <img src="{facebookLogo}" alt="facebook logo" /> <a href="#!" class="text-reset">Facebook</a> -->
+                            <img src='/trochoiviet/static/icons/icons8-facebook-48.png' alt='facebook logo'><a href="#!" class="text-reset">Facebook</a>
+                        </p>
+                        <p>
+                            <!-- <img src="{youtubeLogo}" alt="youtube logo" /> <a href="#!" class="text-reset">Youtube</a> -->
+                            <img src='/trochoiviet/static/icons/icons8-youtube-48.png' alt='youtube logo'><a href="#!" class="text-reset">Youtube</a>
+                        </p>
+                        <p>
+                            <!-- <img src="{instagramLogo}" /> <a href="#!" class="text-reset">Instagram</a> -->
+                            <img src='/trochoiviet/static/icons/icons8-instagram-48.png' alt='instagram logo'><a href="#!" class="text-reset">Instagram</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
+                        <p>trochoiviet@gmail.com</p>
+                        <p> + 84 702 948 947</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">trochoiviet.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+</body>
+
+</html>
