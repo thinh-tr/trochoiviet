@@ -25,40 +25,50 @@
     <?php include "../templates/header.php" ?>
     <?php include "./templates/admin_header.php" ?>
 
+    <?php
+        include "./services/admin_service.php";
+
+        // Đăng ký thông tin admin mới
+        if ($_POST["submit"]) {
+            // Kiểm tra qua các trường trong form đăng ký
+            
+        }
+    ?>
+
     <!--form đăng ký quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Đăng ký thông tin quản trị viên</b></h3><br>
         <form class="register-form">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Địa chỉ Email</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Tên người dùng</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="username">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="username" name="username">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1"> 
+                <input type="password" class="form-control" id="exampleFormControlInput1" name="password">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Xác nhận lại mật khẩu</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1"> 
+                <input type="password" class="form-control" id="exampleFormControlInput1" name="confirm-password"> 
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1"> 
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"> 
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
-                <input type="tel" class="form-control" id="exampleFormControlInput1"> 
+                <input type="tel" class="form-control" id="exampleFormControlInput1" name="phone-number"> 
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="self-intro"></textarea>
             </div>
             <div class="mb-3">
-                <button type="button" class="btn btn-success">Đăng ký</button>
+                <button type="submit" class="btn btn-success" name="submit">Đăng ký</button>
                 <a href="/trochoiviet/admin/admin_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
             </div>
         </form>
