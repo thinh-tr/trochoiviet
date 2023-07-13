@@ -22,34 +22,90 @@
 </head>
 
 <body>
-    <?php include "../templates/header.php" ?>
-    <?php include "./templates/admin_header.php" ?>
+    <?php include "../templates/header.php"; ?>
+    <?php include "./templates/admin_header.php"; ?>
+
+    <!--file admin_service-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; ?>
 
     <?php
-        include "./services/admin_service.php";
-
         // Đăng ký thông tin admin mới
-        if ($_POST["submit"]) {
-            // Kiểm tra qua các trường trong form đăng ký
+        if (isset($_POST["submit"])) {
+            // Array chứa thông tin sẽ được ghi vào database
+            $register_infos = array();
             
+            // Kiểm tra qua các trường trong form đăng ký -> trường hợp lệ sẽ được thêm vào array
+
+            // email
+            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) != false) {
+                $register_infos["email"] = $_POST["email"]; // thêm email vào array
+            }
+
+            // password
+            if ($_POST["password"] != null && strlen($_POST["password"]) >= 5) {
+                // Kiểm tra trùng khớp password
+                if ($_POST["password"] === $_POST["confirm-password"]) {
+                    $register_infos["password"] = $_POST["password"];
+                }
+            }
+
+            // name
+            if ($_POST["name"] != null && strlen($_POST["name"]) >= 2) {
+                $register_infos["name"] = $_POST["name"];
+            }
+
+            // phone_number
+            $register_infos["phone_number"] = $_POST["phone-number"] ?? "";
+
+            // join_date
+            $register_infos["join_date"] = time();  // tự động set thời gian đăng ký
+
+            // self_introduction
+            $register_infos["self_intro"] = $_POST["self-intro"] ?? "";
+
+
+            // Kiểm tra lại array
+            $is_valid_array = true;
+            if (!array_key_exists("email", $register_infos)) {
+                $is_valid_array = false;    // email ko hợp lệ
+            } else if (!array_key_exists("password", $register_infos)) {
+                $is_valid_array = false;    // password không hợp lệ
+            } else if (!array_key_exists("name", $register_infos)) {
+                $is_valid_array = false;    // name không hợp lệ
+            }
+
+            if ($is_valid_array) {
+                // tiến hành thêm admin mới
+                $new_admin = new AdminInfo(
+                    $register_infos["email"],
+                    $register_infos["password"],
+                    $register_infos["name"],
+                    $register_infos["phone_number"],
+                    $register_infos["join_date"],
+                    $register_infos["self_intro"]
+                );
+                if (register_new_admin($new_admin)) {
+                    echo("Đăng ký thành công");
+                } else {
+                    echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");
+                }
+            } else {
+                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn')</script>");
+            }
         }
     ?>
 
     <!--form đăng ký quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Đăng ký thông tin quản trị viên</b></h3><br>
-        <form class="register-form">
+        <form class="register-form" method="post">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Địa chỉ Email</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Tên người dùng</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="username" name="username">
-            </div>
-            <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" name="password">
+                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 5 ký tự" name="password">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Xác nhận lại mật khẩu</label>
@@ -57,7 +113,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"> 
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 2 ký tự" name="name"> 
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
@@ -65,10 +121,10 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="self-intro"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-success" name="submit">Đăng ký</button>
+                <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
                 <a href="/trochoiviet/admin/admin_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
             </div>
         </form>

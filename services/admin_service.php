@@ -5,7 +5,11 @@
  *  - Chuyển đổi thông tin thô từ template về dạng object
  */
 
-include "./repositories/admin_repo.php";    // Thêm vào file admin_repo
+include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/admin_repo.php";    // Thêm vào file admin_repo
+
+// Đọc
+
+// Ghi
 
 /**
  * Đăng ký admin mới

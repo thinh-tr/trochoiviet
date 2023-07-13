@@ -7,4 +7,4 @@ $username = "root";
 $password = "";
 
 // Tạo kết nối
-$connection = new PDO($dsn, $username, $password);
+// $connection = new PDO($dsn, $username, $password);
