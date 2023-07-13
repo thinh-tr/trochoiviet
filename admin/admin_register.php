@@ -76,7 +76,7 @@
 
             if ($is_valid_array) {
                 // tiến hành thêm admin mới
-                $new_admin = new AdminInfo(
+                $new_admin = new Entities\AdminInfo(
                     $register_infos["email"],
                     $register_infos["password"],
                     $register_infos["name"],
@@ -84,9 +84,11 @@
                     $register_infos["join_date"],
                     $register_infos["self_intro"]
                 );
-                if (register_new_admin($new_admin)) {
-                    echo("Đăng ký thành công");
+                if (Services\register_new_admin($new_admin)) {
+                    //echo("Đăng ký thành công");
+                    echo("<script>window.alert('Đăng ký thành công tài khoản quản trị " . $register_infos["email"] . "'. Đăng nhập ngay để sử dụng các chức năng dành cho quản trị viên.)</script>");
                 } else {
+                    // Lỗi xử lý data
                     echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");
                 }
             } else {

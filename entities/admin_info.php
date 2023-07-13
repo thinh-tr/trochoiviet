@@ -1,6 +1,7 @@
 <?php
-// Khởi tạo class chứa thông tin admin
+namespace Entities;
 
+// Khởi tạo class chứa thông tin admin
 class AdminInfo {
     // thuộc tính
     private $email; // email

@@ -1,10 +1,11 @@
 <?php
+namespace Services;
+
 /**
  * Chứa các xử lý thông tin trung gian giữa template và database
  *  - Tính toán số liệu
  *  - Chuyển đổi thông tin thô từ template về dạng object
  */
-
 include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/admin_repo.php";    // Thêm vào file admin_repo
 
 // Đọc
@@ -16,12 +17,20 @@ include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/admin_repo.php"; 
  * Input: object chứa thông tin admin mới
  * Output: true -> thêm thành công | false -> không thành công
  */
-function register_new_admin(AdminInfo $new_admin): bool {
-    $service_result = insert_admin($new_admin);
+function register_new_admin(\Entities\AdminInfo $new_admin): bool
+{
+    $service_result = \Repositories\insert_admin($new_admin);
     return $service_result;
 }
 
-// Test
-// Test thêm record mới
-// $my_info = new AdminInfo("cels116@gmail.com", "cels", "12345", "cels", "9035162", time(), "Xin chào!");
-// echo(register_new_admin($my_info));
+
+
+/**
+ * Login
+ * input: username, password
+ * output: AdminInfo object | null
+ */
+function login(string $email, string $password): bool
+{
+    return \Repositories\repo_login($email, $password);
+}
