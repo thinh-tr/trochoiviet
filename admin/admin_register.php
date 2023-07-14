@@ -1,3 +1,7 @@
+<?php
+// Chạy session
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +90,14 @@
                 );
                 if (Services\register_new_admin($new_admin)) {
                     //echo("Đăng ký thành công");
-                    echo("<script>window.alert('Đăng ký thành công tài khoản quản trị " . $register_infos["email"] . "'. Đăng nhập ngay để sử dụng các chức năng dành cho quản trị viên.)</script>");
+                    echo(
+                        <<<END
+                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                                <h5>Đăng ký thành công quản trị viên "{$new_admin->get_email()} - {$new_admin->get_name()}"</h5><br>
+                                Hãy đăng nhập để sử dụng các chức năng dành cho quản trị viên
+                            </div>
+                        END
+                    );    
                 } else {
                     // Lỗi xử lý data
                     echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");

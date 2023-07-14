@@ -28,7 +28,7 @@ function register_new_admin(\Entities\AdminInfo $new_admin): bool
 /**
  * Login
  * input: username, password
- * output: AdminInfo object | null
+ * output: true -> login thành công | false -> không thành công
  */
 function login(string $email, string $password): bool
 {
