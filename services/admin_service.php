@@ -8,10 +8,6 @@ namespace Services;
  */
 include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/admin_repo.php";    // Thêm vào file admin_repo
 
-// Đọc
-
-// Ghi
-
 /**
  * Đăng ký admin mới
  * Input: object chứa thông tin admin mới
@@ -43,4 +39,14 @@ function login(string $email, string $password): bool
 function get_admin_info_by_email(string $email): \Entities\AdminInfo
 {
     return \Repositories\select_admininfo_by_email($email);
+}
+
+/**
+ * Cập nhật thông tin admin
+ * input: email, name, phone_number, self_intro
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_admin_info(string $email, string $name, string $phone_number, string $self_intro): bool
+{
+    return \Repositories\update_admininfo_by_email($email, $name, $phone_number, $self_intro);
 }

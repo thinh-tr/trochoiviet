@@ -1,7 +1,3 @@
-<?php
-// Chạy session
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +42,7 @@ session_start();
             }
 
             // password
-            if ($_POST["password"] != null && strlen($_POST["password"]) >= 5) {
+            if (strlen($_POST["password"]) >= 5) {
                 // Kiểm tra trùng khớp password
                 if ($_POST["password"] === $_POST["confirm-password"]) {
                     $register_infos["password"] = $_POST["password"];
@@ -54,7 +50,7 @@ session_start();
             }
 
             // name
-            if ($_POST["name"] != null && strlen($_POST["name"]) >= 2) {
+            if (strlen($_POST["name"]) >= 2) {
                 $register_infos["name"] = $_POST["name"];
             }
 
@@ -113,19 +109,19 @@ session_start();
         <h3 style="text-align: center;"><b>Đăng ký thông tin quản trị viên</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Địa chỉ Email</label>
+                <label for="exampleFormControlInput1" class="form-label">Địa chỉ email *</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
+                <label for="exampleFormControlInput1" class="form-label">Mật khẩu *</label>
                 <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 5 ký tự" name="password">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Xác nhận lại mật khẩu</label>
+                <label for="exampleFormControlInput1" class="form-label">Xác nhận lại mật khẩu *</label>
                 <input type="password" class="form-control" id="exampleFormControlInput1" name="confirm-password"> 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Họ tên</label>
+                <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 2 ký tự" name="name"> 
             </div>
             <div class="mb-3">

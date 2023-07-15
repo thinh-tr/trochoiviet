@@ -101,3 +101,24 @@ function select_admininfo_by_email(string $email): \Entities\AdminInfo
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Cập nhật thông tin admin
+ * input: name, phone_number, self_intro
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_admininfo_by_email(string $email, string $name, string $phone_number, string $self_intro): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE admin_info
+               SET admin_info.name = '$name',
+               admin_info.phone_number = '$phone_number',
+               admin_info.self_introduction = '$self_intro' WHERE admin_info.email = '$email'";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();   // true nếu update thành công
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

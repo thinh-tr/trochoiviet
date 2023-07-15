@@ -27,49 +27,59 @@
     <?php
     // Code đăng nhập
     if (isset($_POST["submit"])) {   // Nếu như có lệnh login từ phía admin
-        // array chứa login info
-        $login_info = array();
+        if (!isset($_SESSION["admin_email"])) {
+            // array chứa login info
+            $login_info = array();
 
-        // Kiểm tra các trường trong form login
+            // Kiểm tra các trường trong form login
 
-        // email
-        if ($_POST["admin-email"] != null && filter_var($_POST["admin-email"], FILTER_VALIDATE_EMAIL)) {
-            $login_info["admin-email"] = $_POST["admin-email"];  // Thêm trường email vào array
-        }
+            // email
+            if (filter_var($_POST["admin-email"], FILTER_VALIDATE_EMAIL)) {
+                $login_info["admin_email"] = $_POST["admin-email"];  // Thêm trường email vào array
+            }
 
-        // password
-        if ($_POST["admin-password"] != null && strlen($_POST["admin-password"]) > 0) {
-            $login_info["admin-password"] = $_POST["admin-password"];
-        }
+            // password
+            if (strlen($_POST["admin-password"]) > 0) {
+                $login_info["admin_password"] = $_POST["admin-password"];
+            }
 
-        // Kiểm tra lại array
-        $is_valid_array = true;
-        if (!array_key_exists("admin-email", $login_info)) {
-            $is_valid_array = false;
-        } else if (!array_key_exists("admin-password", $login_info)) {
-            $is_valid_array = false;
-        }
+            // Kiểm tra lại array
+            $is_valid_array = true;
+            if (!array_key_exists("admin_email", $login_info)) {
+                $is_valid_array = false;
+            } else if (!array_key_exists("admin_password", $login_info)) {
+                $is_valid_array = false;
+            }
 
-        if ($is_valid_array) {
-            // Tiến hành truy vấn thông tin đăng nhập
-            if (\Services\login($login_info["admin-email"], $login_info["admin-password"])) {
-                // Thêm admin email vào biến session
-                $_SESSION["admin_email"] = $login_info["admin-email"];
-                // Hiển thị thông báo đã login thành công
-                echo(
-                    <<<END
-                        <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                            <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin_email"]}"</h5><br>
-                            Truy cập trang thông tin tài khoản để xem chi tiết
-                        </div>
-                    END
-                );
+            if ($is_valid_array) {
+                // Tiến hành truy vấn thông tin đăng nhập
+                if (\Services\login($login_info["admin_email"], $login_info["admin_password"])) {
+                    // Thêm admin email vào biến session
+                    $_SESSION["admin_email"] = $login_info["admin_email"];
+                    // Hiển thị thông báo đã login thành công
+                    echo(
+                        <<<END
+                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                                <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin_email"]}"</h5><br>
+                                Truy cập trang thông tin tài khoản để xem chi tiết
+                            </div>
+                        END
+                    );
+                } else {
+                    echo ("<script>window.alert('Thông tin đăng nhập chưa chính xác')</script>");
+                }
             } else {
-                echo ("<script>window.alert('Thông tin đăng nhập chưa chính xác')</script>");
+                // Thông tin login chưa đầy đủ -> xuất ra thông báo
+                echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin đăng nhập của bạn');</script>");
             }
         } else {
-            // Thông tin login chưa đầy đủ -> xuất ra thông báo
-            echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin đăng nhập của bạn');</script>");
+            // Thông bao hiện đang có admin đang login
+            echo(<<<END
+                <div style="background-color: rgb(247, 94, 94); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <h5>Quản trị viên "{$_SESSION["admin_email"]}" hiện đang trong phiên làm việc</h5><br>
+                Vui lòng truy cập trang chi tiết tài khoản để đăng xuất trước khi mở phiên đăng nhập mới
+                </div>
+            END);
         }
     }
     ?>
