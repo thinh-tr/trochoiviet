@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +8,124 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Trang thông tin quản trị viên</title>
+    <style>
+        div.container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .register-form {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+    </style>
 </head>
+
 <body>
     <?php include "../templates/header.php" ?> <!--Header-->
     <?php include "./templates/admin_header.php" ?> <!--admin header-->
 
-    <h1>Đây là trang thông tin quản trị viên</h1>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; //Nhập vào file admin service 
+    ?>
+
+    <?php
+    // Lấy ra thông tin admin đang login
+    $admin = null;
+    // Kiểm tra trạng thái đăng nhập
+    if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
+        // Có tồn tại tài khoản login và tiến hành truy vấn thông tin tài khoản từ database
+        $admin = \Services\get_admin_info_by_email($_SESSION["admin_email"]);
+    }
+    ?>
+
+    <!--Đăng xuất-->
+    <?php
+    // Đăng xuất tài khoản
+    if (isset($_POST["btn-logout"])) {
+        // Kiểm tra trạng thái login
+        if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
+            // Xóa biến admin_email trong session và hủy session
+            unset($_SESSION["admin_email"]);
+            session_destroy();  // hủy session
+
+            $admin = null;
+
+            // Hiển thị thông báo đã logout
+            echo (<<<END
+                <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <h5>Đã đăng xuất</h5><br>
+                </div>
+                END
+            );
+        } else {
+            // Trong trường hợp vận chưa có đăng nhập
+            echo (<<<END
+                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <h5>Bạn vẫn chưa đăng nhập</h5><br>
+                </div>
+                END
+            );
+        }
+    }
+    ?>
+
+    <!--form đăng ký quản trị viên-->
+    <div class="container">
+        <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>
+        <form class="register-form" id="admin-info-form" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Địa chỉ Email</label>
+                <input type="email" class="form-control" id="email" name="email" disabled value="<?php if ($admin != null) {
+                                                                                                        echo ($admin->get_email());
+                                                                                                    } ?>">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" name="password" disabled value="<?php if ($admin != null) {
+                                                                                                            echo ($admin->get_password());
+                                                                                                        } ?>">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Đổi mật khẩu</button>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Họ tên</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="không it hơn 2 ký tự" value="<?php if ($admin != null) {
+                                                                                            echo ($admin->get_name());
+                                                                                        } ?>">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
+                <input type="tel" class="form-control" id="phone-number" name="phone-number" value="<?php if ($admin != null) {
+                                                                                                        echo ($admin->get_phone_number());
+                                                                                                    } ?>">
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Ngày tham gia</label>
+                <input type="tel" class="form-control" id="join-date" name="join-date" disabled value="<?php if ($admin != null) {
+                                                                                                            echo (date("d-m-y", $admin->get_join_date()));
+                                                                                                        } ?>">                                                                                 
+            </div>
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
+                <textarea class="form-control" id="self-intro" rows="3" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"><?php if ($admin != null) {
+                                                                                                                                                        echo ($admin->get_self_intro());
+                                                                                                                                                    } ?></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" name="submit" value="submit">Lưu thay đổi</button>
+                <button type="submit" class="btn btn-warning" name="btn-logout" value="submit">Đăng xuất</button>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger">Yêu cầu hủy tài khoản</button>
+            </div>
+        </form>
+    </div>
+
 
     <?php include "../templates/footer.php" ?>
 </body>
+
 </html>

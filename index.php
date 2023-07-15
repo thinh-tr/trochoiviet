@@ -1,7 +1,3 @@
-<?php
-// Khởi tạo session
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 

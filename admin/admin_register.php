@@ -80,14 +80,14 @@ session_start();
 
             if ($is_valid_array) {
                 // tiến hành thêm admin mới
-                $new_admin = new Entities\AdminInfo(
-                    $register_infos["email"],
-                    $register_infos["password"],
-                    $register_infos["name"],
-                    $register_infos["phone_number"],
-                    $register_infos["join_date"],
-                    $register_infos["self_intro"]
-                );
+                $new_admin = new Entities\AdminInfo();
+                $new_admin->set_email($register_infos["email"]);
+                $new_admin->set_password($register_infos["password"]);
+                $new_admin->set_name($register_infos["name"]);
+                $new_admin->set_phone_number($register_infos["phone_number"]);
+                $new_admin->set_join_date($register_infos["join_date"]);
+                $new_admin->set_self_intro($register_infos["self_intro"]);
+
                 if (Services\register_new_admin($new_admin)) {
                     //echo("Đăng ký thành công");
                     echo(

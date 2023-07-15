@@ -34,3 +34,13 @@ function login(string $email, string $password): bool
 {
     return \Repositories\repo_login($email, $password);
 }
+
+/**
+ * Lấy ra thông tin của admin thông qua email\
+ * input: email
+ * output: AdminInfo obj -> có tồn tại | null -> Không tồn tại
+ */
+function get_admin_info_by_email(string $email): \Entities\AdminInfo
+{
+    return \Repositories\select_admininfo_by_email($email);
+}

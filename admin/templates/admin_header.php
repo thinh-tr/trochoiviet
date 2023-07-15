@@ -32,7 +32,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/trochoiviet/admin/admin_login.php">Đăng nhập</a></li>
-                            <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/trochoiviet/admin/admin_info.php">Quản lý tài khoản</a></li>
                         </ul>
                     </li>
                 </ul>

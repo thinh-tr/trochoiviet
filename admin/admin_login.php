@@ -1,7 +1,3 @@
-<?php
-// chạy session
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,12 +54,12 @@ session_start();
             // Tiến hành truy vấn thông tin đăng nhập
             if (\Services\login($login_info["admin-email"], $login_info["admin-password"])) {
                 // Thêm admin email vào biến session
-                $_SESSION["admin-email"] = $login_info["admin-email"];
+                $_SESSION["admin_email"] = $login_info["admin-email"];
                 // Hiển thị thông báo đã login thành công
                 echo(
                     <<<END
                         <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                            <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin-email"]}"</h5><br>
+                            <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin_email"]}"</h5><br>
                             Truy cập trang thông tin tài khoản để xem chi tiết
                         </div>
                     END

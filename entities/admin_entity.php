@@ -12,13 +12,8 @@ class AdminInfo {
     private $self_intro;
 
     // constructor
-    function __construct(string $email, string $password, string $name, string $phone_number, int $join_date, string $self_intro) {
-        $this->email = $email;
-        $this->password = $password;
-        $this->name = $name;
-        $this->phone_number = $phone_number;
-        $this->join_date = $join_date;
-        $this->self_intro = $self_intro;
+    function __construct() {
+
     }
 
     // getter
@@ -44,5 +39,32 @@ class AdminInfo {
 
     public function get_self_intro(): string {
         return $this->self_intro;
+    }
+
+
+    
+    // setter
+    public function set_email(string $email) {
+        $this->email = $email;
+    }
+
+    public function set_password(string $password) {
+        $this->password = $password;
+    }
+
+    public function set_name(string $name) {
+        $this->name = $name;
+    }
+
+    public function set_phone_number(string $phone_number) {
+        $this->phone_number = $phone_number;
+    }
+
+    public function set_join_date(int $join_date) {
+        $this->join_date = $join_date;
+    }
+
+    public function set_self_intro(string $self_intro) {
+        $this->self_intro = $self_intro;
     }
 }

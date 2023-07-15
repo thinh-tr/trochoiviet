@@ -1,7 +1,7 @@
 <?php
 namespace Repositories;
 
-include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/admin_info.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/admin_entity.php";
 
 
 /**
@@ -63,9 +63,9 @@ function repo_login(string $email, string $password): bool
 /**
  * Lấy ra toàn bộ thông tin của AdminInfo thông qua email
  * input: username
- * output: AdminInfo obj -> login thành công | null -> không thành công
+ * output: AdminInfo obj -> có tồn tại thông tin | null -> không tồn tại thông tin
  */
-function select_admininfo_by_username_password(string $email): \Entities\AdminInfo
+function select_admininfo_by_email(string $email): \Entities\AdminInfo
 {
     // Giả sử các tham số đầu vào đều đã được kiểm tra ở service
     try {
@@ -77,14 +77,22 @@ function select_admininfo_by_username_password(string $email): \Entities\AdminIn
         $result = $statement->fetchAll();
         // chuyển kết quả từ dạng array về php obj
         if ($result != false) {
-            $login_admin = new \Entities\AdminInfo(
-                $result["email"],
-                $result["password"],
-                $result["name"],
-                $result["phone_number"],
-                $result["join_date"],
-                $result["self_introduction"]
-            );
+            foreach ($result as $row) {
+                $admin_email = $row["email"];
+                $admin_password = $row["password"];
+                $admin_name = $row["name"];
+                $admin_phone_numer = $row["phone_number"];
+                $admin_join_date = $row["join_date"];
+                $admin_self_intro = $row["self_introduction"];
+            }
+            // gán thông tin vào obj AdminInfo
+            $login_admin = new \Entities\AdminInfo();
+            $login_admin->set_email($admin_email);
+            $login_admin->set_password($admin_password);
+            $login_admin->set_name($admin_name);
+            $login_admin->set_phone_number($admin_phone_numer ?? "");
+            $login_admin->set_join_date($admin_join_date ?? "");
+            $login_admin->set_self_intro($admin_self_intro ?? "");
             return $login_admin;    // Trả ra admin cần login
         } else {
             return null;    // Trả ra null khi không thể xác định thông tin đăng nhập
