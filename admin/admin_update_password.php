@@ -7,6 +7,11 @@
     <title>Cập nhật mật khẩu quản trị viên</title>
 </head>
 <body>
+    <?php include "../templates/header.php" ?> <!--Header-->
+    <?php include "./templates/admin_header.php" ?> <!--admin header-->
+
     
+
+    <?php include "../templates/footer.php" ?>
 </body>
 </html>

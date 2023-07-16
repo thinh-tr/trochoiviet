@@ -1,6 +1,8 @@
 <?php
 namespace Services;
 
+use function Repositories\select_current_admin_password;
+
 /**
  * Chứa các xử lý thông tin trung gian giữa template và database
  *  - Tính toán số liệu
@@ -50,3 +52,15 @@ function update_admin_info(string $email, string $name, string $phone_number, st
 {
     return \Repositories\update_admininfo_by_email($email, $name, $phone_number, $self_intro);
 }
+
+/**
+ * Cập nhật password
+ * input: admin_email, current_password, new_password
+ * output: true -> update thành công | false -> không thành công
+ */
+// function update_password(string $email, string $current_password, string $new_password): bool
+// {
+//     // Kiểm tra current_password do người dùng nhập vào
+//     $db_current_password = \Repositories\select_current_admin_password($email);
+
+// }

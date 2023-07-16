@@ -122,3 +122,48 @@ function update_admininfo_by_email(string $email, string $name, string $phone_nu
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Cập nhật password
+ * input: admin_email, new_password
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_admin_password(string $email, string $new_password): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE admin_info SET admin_info.password = '$new_password' WHERE admin_info.email = '$email'";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();   // Trả ra kết quả truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occurs when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra password hiện tại của admin
+ * input: admin_email
+ * output: password -> thành công | string rỗng -> không tìm thấy
+ */
+function select_current_admin_password(string $email): string
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT admin_info.password FROM admin_info WHERE admin_info.email = '$email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+                $current_password = $row["password"];
+            }
+        } else {
+            $current_password = null;
+        }
+        return $current_password;
+    } catch (\PDOException $ex) {
+        echo("Errors occurs when querying data: " . $ex->getMessage());
+    }
+}
