@@ -84,7 +84,7 @@
                 $new_admin->set_join_date($register_infos["join_date"]);
                 $new_admin->set_self_intro($register_infos["self_intro"]);
 
-                if (Services\register_new_admin($new_admin)) {
+                if (AdminServices\register_new_admin($new_admin)) {
                     //echo("Đăng ký thành công");
                     echo(
                         <<<END

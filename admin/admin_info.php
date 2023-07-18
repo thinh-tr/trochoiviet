@@ -33,7 +33,7 @@
     // Kiểm tra trạng thái đăng nhập
     if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
         // Có tồn tại tài khoản login và tiến hành truy vấn thông tin tài khoản từ database
-        $admin = \Services\get_admin_info_by_email($_SESSION["admin_email"]);
+        $admin = \AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
     }
     ?>
 
@@ -53,7 +53,7 @@
             }
 
             // phone_number
-            if ($_POST["phone-number"] != "") {
+            if ($_POST["phone-number"] != "") { // Nếu phone_number không rỗng
                 if (is_numeric($_POST["phone-number"]) && strlen($_POST["phone-number"]) <= 12) {
                     $update_info_array["phone_number"] = $_POST["phone-number"];
                 }
@@ -68,15 +68,17 @@
             $is_valid_array = true;
             if (!array_key_exists("name", $update_info_array)) {
                 $is_valid_array = false;
+            } else if (!array_key_exists("phone_number", $update_info_array)) {
+                $is_valid_array = false;
             }
 
             // Update khi array hợp lệ
             if ($is_valid_array) {
                 // tiến hành update khi thông tin đã hợp lệ
-                if (\Services\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"])) {
+                if (\AdminServices\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"])) {
                     echo( <<<END
                                 <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                                    <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5><br>
+                                    <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
                                 </div>
                             END);
                 }
@@ -88,7 +90,7 @@
         } else {
             echo (<<<END
                     <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                    <h5>Bạn vẫn chưa đăng nhập</h5><br>
+                    <h5>Bạn vẫn chưa đăng nhập</h5>
                     </div>
                     END);
         }
@@ -110,7 +112,7 @@
             // Hiển thị thông báo đã logout
             echo (<<<END
                 <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Đã đăng xuất</h5><br>
+                <h5>Đã đăng xuất</h5>
                 </div>
                 END
             );
@@ -118,7 +120,7 @@
             // Trong trường hợp vẫn chưa có đăng nhập
             echo (<<<END
                 <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Bạn vẫn chưa đăng nhập</h5><br>
+                <h5>Bạn vẫn chưa đăng nhập</h5>
                 </div>
                 END
             );
@@ -143,7 +145,7 @@
                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <button class="btn btn-info">Đổi mật khẩu</button>
+                <a class="btn btn-info" href="/trochoiviet/admin/admin_update_password.php">Đổi mật khẩu</a>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>

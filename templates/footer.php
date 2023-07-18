@@ -40,7 +40,7 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
                         <p>
-                            <a href="/trochoiviet" class="text-reset">Trang chủ</a>
+                            <a href="/trochoiviet/index.php" class="text-reset">Trang chủ</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">Giới thiệu</a>

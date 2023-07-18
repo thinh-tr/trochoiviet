@@ -1,5 +1,5 @@
 <?php
-namespace Repositories;
+namespace AdminRepositories;
 
 include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/admin_entity.php";
 
@@ -155,14 +155,10 @@ function select_current_admin_password(string $email): string
         $statement = $connection->prepare($sql);
         $statement->execute();
         $result = $statement->fetchAll();
-        if (count($result) > 0) {
-            foreach ($result as $row) {
-                $current_password = $row["password"];
-            }
-        } else {
-            $current_password = null;
+        foreach ($result as $row) {
+            $current_password = $row["password"];
         }
-        return $current_password;
+        return $current_password;   // trả ra password cần lấy
     } catch (\PDOException $ex) {
         echo("Errors occurs when querying data: " . $ex->getMessage());
     }

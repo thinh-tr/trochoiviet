@@ -53,7 +53,7 @@
 
             if ($is_valid_array) {
                 // Tiến hành truy vấn thông tin đăng nhập
-                if (\Services\login($login_info["admin_email"], $login_info["admin_password"])) {
+                if (\AdminServices\login($login_info["admin_email"], $login_info["admin_password"])) {
                     // Thêm admin email vào biến session
                     $_SESSION["admin_email"] = $login_info["admin_email"];
                     // Hiển thị thông báo đã login thành công
@@ -85,14 +85,15 @@
     ?>
 
     <div id="login-body" class="container">
+        <h3 style="text-align: center;"><b>Đăng nhập quản trị viên</b></h3><br>
         <form method="post">
             <div class="mb-3">
                 <label for="admin-email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="admin-email" name="admin-email" aria-describedby="emailHelp" bind:value={email}>
+                <input type="email" class="form-control" id="admin-email" name="admin-email" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="admin-password" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="admin-password" name="admin-password" bind:value={password}>
+                <input type="password" class="form-control" id="admin-password" name="admin-password">
             </div>
             <div class="mb-3 form-check">
             </div>
