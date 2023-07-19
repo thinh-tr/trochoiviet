@@ -22,7 +22,7 @@
         // Lần lượt kiểm tra thông tin trên form sau đó push vào array nếu thông tin đó hợp lệ
 
         // phone_number
-        if (!empty($_POST["phone-number"]) && is_numeric($_POST["phone-number"]) && strlen($_POST["phone-number"]) <= 12) {
+        if (is_numeric($_POST["phone-number"]) && strlen($_POST["phone-number"]) <= 12) {
             $user_info_array["phone_number"] = $_POST["phone-number"];  // thêm vào phone_number
         }
 
@@ -37,7 +37,7 @@
         }
 
         // name
-        if (!empty($_POST["name"]) && strlen($_POST["name"]) >= 2) {
+        if (strlen($_POST["name"]) >= 2) {
             $user_info_array["name"] = $_POST["name"];
         }
 
@@ -48,12 +48,12 @@
         $user_info_array["join_date"] = time();
 
         // Kiểm tra mật khẩu
-        if (!empty($_POST["password"]) && strlen($_POST["password"]) >= 5 && !str_contains($_POST["password"], " ")) {
+        if (strlen($_POST["password"]) >= 5 && !str_contains($_POST["password"], " ")) {
             $user_info_array["password"] = $_POST["password"];  // thêm password vào
         }
 
         // xác nhận lại mật khẩu
-        if (!empty($_POST["confirm-password"]) && $_POST["confirm-password"] == $_POST["password"]) {
+        if ($_POST["confirm-password"] == $_POST["password"]) {
             $user_info_array["confirm_password"] = $_POST["confirm-password"];
         }
 

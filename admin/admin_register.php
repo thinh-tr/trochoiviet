@@ -13,7 +13,6 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
-
         .register-form {
             margin-left: 20%;
             margin-right: 20%;
