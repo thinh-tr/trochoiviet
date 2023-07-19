@@ -6,6 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template</title>
+    <style>
+        div.container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .register-form {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar --><nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -42,11 +53,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Tài khoản
+                        Người dùng
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Đăng nhập</a></li>
-                        <li><a class="dropdown-item" href="#">Thông tin tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/trochoiviet/user/user_register.php">Đăng ký</a></li>
+                        <li><a class="dropdown-item" href="#">Trung tâm người dùng</a></li>
                     </ul>
                 </li>
             </ul>

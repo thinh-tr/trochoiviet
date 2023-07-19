@@ -1,6 +1,7 @@
 <?php
 namespace Entities;
 
+// Class thông tin người dùng
 class UserInfo
 {
     // Thuộc tính
@@ -69,4 +70,52 @@ class UserInfo
         $this->join_date = $join_date;
     }
 
+}
+
+// Class thông tin đăng nhập của người dùng
+class UserLoginInfo
+{
+    // Thuộc tính
+    private $id;
+    private $phone_number;
+    private $password;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // getter
+    public function get_id(): string    // id
+    {
+        return $this->id;
+    }
+
+    public function get_phone_number(): string  // phone_number
+    {
+        return $this->phone_number;
+    }
+
+    public function get_password(): string
+    {
+        return $this->password;
+    }
+
+    //setter
+    public function set_id(string $id): void    // id
+    {
+        $this->id = $id;
+    }
+
+    public function set_phone_number(string $phone_number): void  // phone_number
+    {
+        $this->phone_number = $phone_number;
+    }
+
+    public function set_password(string $password): void    // password
+    {
+        $this->password = $password;
+    }
+    
 }
