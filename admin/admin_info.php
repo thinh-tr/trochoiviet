@@ -25,7 +25,8 @@
     <?php include "../templates/header.php" ?> <!--Header-->
     <?php include "./templates/admin_header.php" ?> <!--admin header-->
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; //Nhập vào file admin service ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; //Nhập vào file admin service 
+    ?>
 
     <?php
     // Lấy ra thông tin admin đang login
@@ -76,7 +77,7 @@
             if ($is_valid_array) {
                 // tiến hành update khi thông tin đã hợp lệ
                 if (\AdminServices\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"])) {
-                    echo( <<<END
+                    echo (<<<END
                                 <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
                                     <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
                                 </div>
@@ -84,9 +85,8 @@
                 }
             } else {
                 // Yêu cầu kiểm tra lại thông tin
-                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
+                echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
             }
-
         } else {
             echo (<<<END
                     <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
@@ -114,23 +114,21 @@
                 <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
                 <h5>Đã đăng xuất</h5>
                 </div>
-                END
-            );
+                END);
         } else {
             // Trong trường hợp vẫn chưa có đăng nhập
             echo (<<<END
                 <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
                 <h5>Bạn vẫn chưa đăng nhập</h5>
                 </div>
-                END
-            );
+                END);
         }
     }
     ?>
 
-    <!--form đăng ký quản trị viên-->
+    <!--form thông tin quản trị viên-->
     <div class="container">
-        <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>
+        <h3 style="text-align: center;"><b>Thông tin người dùng</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Địa chỉ email *</label>
@@ -141,8 +139,8 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Mật khẩu *</label>
                 <input type="password" class="form-control" id="password" name="password" disabled value="<?php if ($admin != null) {
-                                                                                                            echo ($admin->get_password());
-                                                                                                        } ?>">
+                                                                                                                echo ($admin->get_password());
+                                                                                                            } ?>">
             </div>
             <div class="mb-3">
                 <a class="btn btn-info" href="/trochoiviet/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
@@ -150,8 +148,8 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="không it hơn 2 ký tự" value="<?php if ($admin != null) {
-                                                                                            echo ($admin->get_name());
-                                                                                        } ?>">
+                                                                                                                            echo ($admin->get_name());
+                                                                                                                        } ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
@@ -159,19 +157,19 @@
                                                                                                         echo ($admin->get_phone_number());
                                                                                                     } ?>">
 
+
+            </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Ngày tham gia *</label>
                 <input type="tel" class="form-control" id="join-date" name="join-date" disabled value="<?php if ($admin != null) {
                                                                                                             echo (date("d-m-y", $admin->get_join_date()));
-                                                                                                        } ?>">                                                                                 
-            </div>
-
+                                                                                                        } ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
                 <textarea class="form-control" id="self-intro" rows="3" name="self-intro" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"><?php if ($admin != null) {
-                                                                                                                                                        echo ($admin->get_self_intro());
-                                                                                                                                                    } ?></textarea>
+                                                                                                                                                                        echo ($admin->get_self_intro());
+                                                                                                                                                                    } ?></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary" name="submit" value="submit"><i class="bi bi-save-fill"></i> Lưu thay đổi</button>
