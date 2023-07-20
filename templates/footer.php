@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Template</title>
     <style>
         section.container {
@@ -27,10 +28,10 @@
                         <!-- Content -->
                         <h6 class="text-uppercase fw-bold mb-4">TRÒ CHƠI VIỆT</h6>
                         <p>
-                            Một website cộng đồng nhằm chia sẽ những bài viết thú vị về các trò chơi dân gian Việt
+                            Một website cộng đồng đăng tải những bài viết thú vị về các trò chơi dân gian Việt
                             Nam.
                             Được tạo ra với mong muốn
-                            phổ biến những kiến thức về văn hóa Việt Nam đến cho mọi người.
+                            chia sẽ một phần bản sắc văn hóa Việt Nam đến cho các đọc giả.
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -40,15 +41,19 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
                         <p>
+                            <i class="bi bi-house"></i>
                             <a href="/trochoiviet/index.php" class="text-reset">Trang chủ</a>
                         </p>
                         <p>
+                            <i class="bi bi-info-circle"></i>
                             <a href="#!" class="text-reset">Giới thiệu</a>
                         </p>
                         <p>
+                            <i class="bi bi-shop"></i>
                             <a href="#!" class="text-reset">Cửa hàng</a>
                         </p>
                         <p>
+                            <i class="bi bi-people"></i>
                             <a href="#!" class="text-reset">Fan page</a>
                         </p>
                     </div>
