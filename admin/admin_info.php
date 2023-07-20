@@ -145,7 +145,7 @@
                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <a class="btn btn-info" href="/trochoiviet/admin/admin_update_password.php">Đổi mật khẩu</a>
+                <a class="btn btn-info" href="/trochoiviet/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>
@@ -174,12 +174,12 @@
                                                                                                                                                     } ?></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" name="submit" value="submit">Lưu thay đổi</button>
-                <button type="submit" class="btn btn-secondary">Làm mới</button>
-                <button type="submit" class="btn btn-warning" name="btn-logout" value="submit">Đăng xuất</button>
+                <button type="submit" class="btn btn-primary" name="submit" value="submit"><i class="bi bi-save-fill"></i> Lưu thay đổi</button>
+                <button type="submit" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                <button type="submit" class="btn btn-warning" name="btn-logout" value="submit"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-danger">Yêu cầu hủy tài khoản</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu hủy tài khoản</button>
             </div>
         </form>
     </div>

@@ -18,3 +18,13 @@ function create_full_user_info(\Entities\UserInfo $user_info, \Entities\UserLogi
     }
     return $is_created; // Trả ra kết quả khởi tạo
 }
+
+/**
+ * Đăng nhập người dùng
+ * input: phone_number, password
+ * output: true -> login thành công | false -> không thành công
+ */
+function login(string $phone_number, string $password): bool
+{
+    return \UserRepository\repo_login($phone_number, $password);    // trả ra kết quả login
+}

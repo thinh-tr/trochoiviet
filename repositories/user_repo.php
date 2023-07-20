@@ -39,3 +39,28 @@ function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
         echo("Errors occur when  querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Đăng nhập người dùng
+ * input: phone_number, password
+ * output: true -> login thành công | false -> không thành công
+ */
+function repo_login(string $phone_number, string $password): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_login_info WHERE user_login_info.phone_number = '$phone_number' AND user_login_info.password = '$password';";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        // Kiểm tra kết quả truy vấn
+        if (count($result) > 0) {
+            return true;    // login thành công
+        } else {
+            return false;   // không thành công
+        }
+    } catch (\PDOException $ex) {
+        echo("Erros occur when querying data: " . $ex->getMessage());
+    }
+}

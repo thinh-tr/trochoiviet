@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Đăng nhập quản trị viên</title>
     <style>
@@ -88,17 +89,17 @@
         <h3 style="text-align: center;"><b>Đăng nhập quản trị viên</b></h3><br>
         <form method="post">
             <div class="mb-3">
-                <label for="admin-email" class="form-label">Email</label>
+                <label for="admin-email" class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
                 <input type="email" class="form-control" id="admin-email" name="admin-email" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
-                <label for="admin-password" class="form-label">Mật khẩu</label>
+                <label for="admin-password" class="form-label"><i class="bi bi-key-fill"></i> Mật khẩu</label>
                 <input type="password" class="form-control" id="admin-password" name="admin-password">
             </div>
-            <div class="mb-3 form-check">
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng nhập</button><br><br>
+                <a id="register-link" href="/trochoiviet/admin/admin_register.php">Đăng ký trở thành quản trị viên</a>
             </div>
-            <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng nhập</button><br><br>
-            <a id="register-link" href="/trochoiviet/admin/admin_register.php">Đăng ký trở thành quản trị viên</a>
         </form>
     </div>
 
