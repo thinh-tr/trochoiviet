@@ -57,7 +57,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/trochoiviet/user/user_register.php">Đăng ký</a></li>
-                        <li><a class="dropdown-item" href="#">Trung tâm người dùng</a></li>
+                        <li><a class="dropdown-item" href="/trochoiviet/user/user_index.php">Trung tâm người dùng</a></li>
                     </ul>
                 </li>
             </ul>

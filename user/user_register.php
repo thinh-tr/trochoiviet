@@ -10,6 +10,7 @@
 </head>
 <body>
     <?php include "../templates/header.php" ?>  <!--header-->
+    <?php include "./templates/user_header.php" ?> <!--user header-->
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/user_service.php" ?>
 
