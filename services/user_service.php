@@ -28,3 +28,23 @@ function login(string $phone_number, string $password): bool
 {
     return \UserRepository\repo_login($phone_number, $password);    // trả ra kết quả login
 }
+
+/**
+ * Lấy thông tin user thông qua phone_number
+ * input: phone_number
+ * output: UserInfo -> có tồn tại thông tin | null -> không tồn tại thông tin
+ */
+function get_user_info(string $phone_number): \Entities\UserInfo
+{
+    return \UserRepository\select_user_info_by_phone_number($phone_number);
+}
+
+/**
+ * Lấy ra password hiện tại của user
+ * input: phone_number
+ * output: password
+ */
+function get_user_password(string $phone_number): string
+{
+    return \UserRepository\select_current_user_password($phone_number);
+}
