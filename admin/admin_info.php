@@ -34,7 +34,7 @@
     // Kiểm tra trạng thái đăng nhập
     if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
         // Có tồn tại tài khoản login và tiến hành truy vấn thông tin tài khoản từ database
-        $admin = \AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
+        $admin = AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
     }
     ?>
 
@@ -76,13 +76,14 @@
             // Update khi array hợp lệ
             if ($is_valid_array) {
                 // tiến hành update khi thông tin đã hợp lệ
-                if (\AdminServices\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"])) {
-                    echo (<<<END
-                                <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                                    <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
-                                </div>
-                            END);
-                }
+                AdminServices\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"]);
+                // Cập nhật lại thông tin lên form
+                $admin = AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
+                echo (<<<END
+                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                                <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
+                            </div>
+                        END);
             } else {
                 // Yêu cầu kiểm tra lại thông tin
                 echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
@@ -177,7 +178,7 @@
                 <button type="submit" class="btn btn-warning" name="btn-logout" value="submit"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu hủy tài khoản</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu đóng tài khoản</button>
             </div>
         </form>
     </div>

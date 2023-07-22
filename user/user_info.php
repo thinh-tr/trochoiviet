@@ -40,6 +40,84 @@
     }
     ?>
 
+    <!--Đăng xuất-->
+    <?php
+    if (isset($_POST["btn-logout"])) {
+        // Kiểm tra trạng thái login
+        if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["user_phone_number"])) {
+            unset($_SESSION["user_phone_number"]);  // xóa biến user_phone_number tronf SESSION
+            $user_password = "";    // xóa password
+            $user_info = null;  // xóa trống form
+            echo(<<<END
+                <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <h5>Đã đăng xuất</h5>
+                </div>
+                END);
+        } else {
+            // Trong trường hợp vẫn chưa có đăng nhập
+            echo (<<<END
+                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <h5>Bạn vẫn chưa đăng nhập</h5>
+                </div>
+                END);
+        }
+    }
+    ?>
+
+    <!--Cập nhật thông tin-->
+    <?php
+    if (isset($_POST["submit"])) {
+        // Kiểm tra trạng thái login
+        if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["user_phone_number"])) {
+            // array kiểm tra thông tin trên form
+            $update_info_array = array();
+
+            // Kiểm tra qua các trường cần update
+
+            // email (luôn luôn được gán giá trị)
+            if ($_POST["email"] != "" && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) != false) {
+                // kiểm tra tính hợp lệ của email
+                $update_info_array["email"] = $_POST["email"];
+            } else {
+                $update_info_array["email"] = "";
+            }
+
+            // name
+            if (strlen($_POST["name"]) >= 2) {
+                $update_info_array["name"] = $_POST["name"];
+            }
+
+            // Kiểm tra lại update_info_array
+            $is_valid_array = true;
+            if (!array_key_exists("name", $update_info_array)) {
+                $is_valid_array = false;
+            }
+
+            // Tiến hành update nếu thông tin đã hợp lệ
+            if ($is_valid_array) {
+                \UserService\update_user_info($_SESSION["user_phone_number"], $update_info_array["email"], $update_info_array["name"]);
+                // Cập nhật lại thông tin lên form
+                $user_info = UserService\get_user_info($_SESSION["user_phone_number"]);
+                // thông báo đã update thành công
+                echo(<<<END
+                    <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                        <h5>Đã cập nhật thông tin người dùng "{$_SESSION["user_phone_number"]}"</h5>
+                    </div>
+                    END);
+            } else {
+                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
+            }
+        } else {
+            // trường hợp vẫn chưa đăng nhập
+            echo (<<<END
+                    <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                        <h5>Bạn vẫn chưa đăng nhập</h5>
+                    </div>
+                    END);
+        }
+    }
+    ?>
+
     <!--form thông tin quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Thông tin người dùng</b></h3><br>
@@ -90,7 +168,7 @@
                 <button type="submit" class="btn btn-warning" name="btn-logout" value="submit"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu hủy tài khoản</button>
+                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu đóng tài khoản</button>
             </div>
         </form>
     </div>

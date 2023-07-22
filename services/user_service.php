@@ -48,3 +48,13 @@ function get_user_password(string $phone_number): string
 {
     return \UserRepository\select_current_user_password($phone_number);
 }
+
+/**
+ * Update thông tin user thông qua phone_number
+ * input: phone_number, email, name
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_user_info(string $phone_number, string $email, string $name): bool
+{
+    return \UserRepository\update_user_info_by_phone_number($phone_number, $email, $name);
+}

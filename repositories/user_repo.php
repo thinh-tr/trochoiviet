@@ -125,3 +125,21 @@ function select_current_user_password(string $phone_number): string
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Update thông tin user thông qua phone_number
+ * input: phone_number, email, name
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_user_info_by_phone_number(string $phone_number, string $email, string $name): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE user_info SET user_info.email = '$email', user_info.name = '$name' WHERE user_info.phone_number = '$phone_number'";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();   // Trả ra kết quả truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

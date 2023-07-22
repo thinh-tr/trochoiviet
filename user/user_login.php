@@ -63,10 +63,12 @@
                             Truy cập trang thông tin tài khoản để xem chi tiết
                         </div>
                         END);
+                } else {
+                    echo("<script>window.alert('Thông tin đăng nhập không chính xác, vui lòng thử lại')</script>");
                 }
             } else {
                 // Nếu không thì yêu cầu kiểm tra lại thông tin
-                echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin đăng nhập của bạn');</script>");
+                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin đăng nhập của bạn');</script>");
             }
         } else {
             // user khác vẫn đang còn trong phiên đăng nhập -> xuất ra thông báo yêu cầu đăng xuất
