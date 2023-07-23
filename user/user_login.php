@@ -59,7 +59,7 @@
                     $_SESSION["user_phone_number"] = $user_login_array["user_phone_number"];
                     echo(<<<END
                         <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                            <h5>Đăng nhập thành công tài khoản người dùng "{$_SESSION["user_phone_number"]}"</h5><br>
+                            <h5>Đăng nhập thành công tài khoản người dùng "{$_SESSION["user_phone_number"]}"</h5>
                             Truy cập trang thông tin tài khoản để xem chi tiết
                         </div>
                         END);
