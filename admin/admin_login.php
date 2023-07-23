@@ -20,8 +20,8 @@
 </head>
 
 <body>
-    <?php include "../templates/header.php" ?><!--header-->
-    <?php include "./templates/admin_header.php" ?><!--admin header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?><!--header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?><!--admin header-->
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php" ?>
 
@@ -104,7 +104,7 @@
     </div>
 
 
-    <?php include "../templates/footer.php" ?><!--footer-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?><!--footer-->
 </body>
 
 </html>

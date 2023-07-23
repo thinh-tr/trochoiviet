@@ -21,8 +21,8 @@
 </head>
 
 <body>
-    <?php include "../templates/header.php"; ?>
-    <?php include "./templates/admin_header.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
 
     <!--file admin_service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; ?>
@@ -138,7 +138,7 @@
         </form>
     </div>
 
-    <?php include "../templates/footer.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?>
 </body>
 
 </html>

@@ -9,8 +9,8 @@
     <title>Đăng ký người dùng</title>
 </head>
 <body>
-    <?php include "../templates/header.php" ?>  <!--header-->
-    <?php include "./templates/user_header.php" ?> <!--user header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?>  <!--header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--user header-->
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
 
@@ -138,6 +138,6 @@
         </form>
     </div>
 
-    <?php include "../templates/footer.php" ?>  <!--footer-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?>  <!--footer-->
 </body>
 </html>

@@ -21,8 +21,8 @@
 </head>
 
 <body>
-    <?php include "../templates/header.php" ?> <!--Header-->
-    <?php include "./templates/admin_header.php" ?> <!--admin header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?> <!--admin header-->
     <!-- Thân trang -->
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <?php include "../templates/footer.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?>
 </body>
 
 </html>
