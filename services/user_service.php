@@ -58,3 +58,13 @@ function update_user_info(string $phone_number, string $email, string $name): bo
 {
     return \UserRepository\update_user_info_by_phone_number($phone_number, $email, $name);
 }
+
+/**
+ * Kiểm tra xem số điện thoại đã được sử dụng hay chưa
+ * input: phone_number
+ * output: true -> đã được sử dụng | false -> chưa được sử dụng
+ */
+function is_used_user_phone_number(string $phone_number): bool
+{
+    return \UserRepository\is_used_user_phone_number($phone_number);
+}

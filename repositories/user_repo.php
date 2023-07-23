@@ -143,3 +143,26 @@ function update_user_info_by_phone_number(string $phone_number, string $email, s
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Kiểm tra xem số điện thoại đã được sử dụng hay chưa
+ * input: phone_number
+ * output: true -> đã được sử dụng | false -> chưa được sử dụng
+ */
+function is_used_user_phone_number(string $phone_number): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_info WHERE user_info.phone_number = '$phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

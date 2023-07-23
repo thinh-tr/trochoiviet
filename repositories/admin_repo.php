@@ -160,6 +160,29 @@ function select_current_admin_password(string $email): string
         }
         return $current_password;   // trả ra password cần lấy
     } catch (\PDOException $ex) {
-        echo("Errors occurs when querying data: " . $ex->getMessage());
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Kiểm tra xem email đã được đăng ký hay chưa
+ * input: email
+ * output: true -> đã được đăng ký | false -> chưa được đăng ký
+ */
+function is_used_admin_info(string $email): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM admin_info WHERE admin_info.email = '$email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }

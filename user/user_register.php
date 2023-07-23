@@ -23,7 +23,7 @@
         // Lần lượt kiểm tra thông tin trên form sau đó push vào array nếu thông tin đó hợp lệ
 
         // phone_number
-        if (is_numeric($_POST["phone-number"]) && strlen($_POST["phone-number"]) <= 12) {
+        if (is_numeric($_POST["phone-number"]) && strlen($_POST["phone-number"]) <= 12 && !\UserService\is_used_user_phone_number($_POST["phone-number"])) {
             $user_info_array["phone_number"] = $_POST["phone-number"];  // thêm vào phone_number
         }
 
@@ -98,7 +98,7 @@
             }
         } else {
             // thông báo cần kiểm tra lại thông tin
-            echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
+            echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn. Có thể số điện thoại bạn nhập vào đã được sử dụng');</script>");
         }
     }
     ?>
@@ -118,10 +118,6 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Tên *</label>
                 <input type="text" class="form-control" id="name" placeholder="Tối thiểu 2 ký tự" name="name"> 
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Địa chỉ</label>
-                <input type="text" class="form-control" id="address", name="address"></input>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Mật khẩu *</label>

@@ -76,3 +76,13 @@ function update_password(string $email, string $current_password, string $new_pa
     // Tiến hành update password
     return \AdminRepositories\update_admin_password($email, $new_password); // Cập nhật thành công sẽ trả ra true
 }
+
+/**
+ * Lấy ra password hiện tại của admin
+ * input: admin_email
+ * output: password -> thành công | string rỗng -> không tìm thấy
+ */
+function is_used_admin_email(string $email): bool
+{
+    return \AdminRepositories\is_used_admin_info($email);
+}

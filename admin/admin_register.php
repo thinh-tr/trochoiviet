@@ -36,7 +36,7 @@
             // Kiểm tra qua các trường trong form đăng ký -> trường hợp lệ sẽ được thêm vào array
 
             // email
-            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) != false) {
+            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) != false && !\AdminServices\is_used_admin_email($_POST["email"])) {
                 $register_infos["email"] = $_POST["email"]; // thêm email vào array
             }
 
@@ -66,7 +66,7 @@
             // Kiểm tra lại array
             $is_valid_array = true;
             if (!array_key_exists("email", $register_infos)) {
-                $is_valid_array = false;    // email ko hợp lệ
+                $is_valid_array = false;
             } else if (!array_key_exists("password", $register_infos)) {
                 $is_valid_array = false;    // password không hợp lệ
             } else if (!array_key_exists("name", $register_infos)) {
@@ -98,7 +98,7 @@
                     echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");
                 }
             } else {
-                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn')</script>");
+                echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn. Có thể email bạn nhập vào đã được sử dụng')</script>");
             }
         }
     ?>
