@@ -25,7 +25,7 @@
     <?php include "./templates/admin_header.php"; ?>
 
     <!--file admin_service-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; ?>
 
     <?php
         // Đăng ký thông tin admin mới
@@ -133,7 +133,7 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
-                <a href="/trochoiviet/admin/admin_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
+                <a href="./admin/admin_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
             </div>
         </form>
     </div>

@@ -2,7 +2,7 @@
 namespace UserService;
 
 // file repositories
-include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/user_repo.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/repositories/user_repo.php";
 
 /**
  * Tạo user mới với password login

@@ -20,7 +20,7 @@
     <?php include "../templates/header.php" ?> <!--Header-->
     <?php include "./templates/admin_header.php" ?> <!--admin header-->
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php" ?>
 
     <?php
     // Cập nhật password mới
@@ -104,7 +104,7 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary" id="submit" name="submit">Lưu mật khẩu mới</button>
-                <a class="btn btn-danger" href="/trochoiviet/admin/admin_info.php">Hủy</a>
+                <a class="btn btn-danger" href="/admin/admin_info.php">Hủy</a>
             </div>
         </form>
     </div>

@@ -8,7 +8,7 @@ use function Repositories\select_current_admin_password;
  *  - Tính toán số liệu
  *  - Chuyển đổi thông tin thô từ template về dạng object
  */
-include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/repositories/admin_repo.php";    // Thêm vào file admin_repo
+include $_SERVER["DOCUMENT_ROOT"] . "/repositories/admin_repo.php";    // Thêm vào file admin_repo
 
 /**
  * Đăng ký admin mới

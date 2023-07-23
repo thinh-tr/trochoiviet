@@ -42,7 +42,7 @@
                         <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
                         <p>
                             <i class="bi bi-house"></i>
-                            <a href="/trochoiviet/index.php" class="text-reset">Trang chủ</a>
+                            <a href="./index.php" class="text-reset">Trang chủ</a>
                         </p>
                         <p>
                             <i class="bi bi-info-circle"></i>
@@ -65,15 +65,15 @@
                         <h6 class="text-uppercase fw-bold mb-4">Theo dõi chúng tôi</h6>
                         <p>
                             <!-- <img src="{facebookLogo}" alt="facebook logo" /> <a href="#!" class="text-reset">Facebook</a> -->
-                            <img src='/trochoiviet/static/icons/icons8-facebook-48.png' alt='facebook logo'><a href="#!" class="text-reset">Facebook</a>
+                            <img src='/static/icons/icons8-facebook-48.png' alt='facebook logo'><a href="#!" class="text-reset">Facebook</a>
                         </p>
                         <p>
                             <!-- <img src="{youtubeLogo}" alt="youtube logo" /> <a href="#!" class="text-reset">Youtube</a> -->
-                            <img src='/trochoiviet/static/icons/icons8-youtube-48.png' alt='youtube logo'><a href="#!" class="text-reset">Youtube</a>
+                            <img src='/static/icons/icons8-youtube-48.png' alt='youtube logo'><a href="#!" class="text-reset">Youtube</a>
                         </p>
                         <p>
                             <!-- <img src="{instagramLogo}" /> <a href="#!" class="text-reset">Instagram</a> -->
-                            <img src='/trochoiviet/static/icons/icons8-instagram-48.png' alt='instagram logo'><a href="#!" class="text-reset">Instagram</a>
+                            <img src='/static/icons/icons8-instagram-48.png' alt='instagram logo'><a href="#!" class="text-reset">Instagram</a>
                         </p>
                     </div>
                     <!-- Grid column -->

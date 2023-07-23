@@ -25,7 +25,7 @@
     <?php include "../templates/header.php" ?> <!--Header-->
     <?php include "./templates/admin_header.php" ?> <!--admin header-->
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php"; //Nhập vào file admin service 
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; //Nhập vào file admin service 
     ?>
 
     <?php
@@ -144,7 +144,7 @@
                                                                                                             } ?>">
             </div>
             <div class="mb-3">
-                <a class="btn btn-info" href="/trochoiviet/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
+                <a class="btn btn-info" href="/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>

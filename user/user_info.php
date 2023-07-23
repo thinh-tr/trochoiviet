@@ -27,7 +27,7 @@
     <?php include "./templates/user_header.php" ?> <!--user header-->
 
     <!--service-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/user_service.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
 
     <?php
     // lấy ra thông tin user đang login

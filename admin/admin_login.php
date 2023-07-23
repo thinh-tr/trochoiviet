@@ -23,7 +23,7 @@
     <?php include "../templates/header.php" ?><!--header-->
     <?php include "./templates/admin_header.php" ?><!--admin header-->
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/admin_service.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php" ?>
 
     <?php
     // Code đăng nhập
@@ -98,7 +98,7 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng nhập</button><br><br>
-                <a id="register-link" href="/trochoiviet/admin/admin_register.php">Đăng ký trở thành quản trị viên</a>
+                <a id="register-link" href="/admin/admin_register.php">Đăng ký trở thành quản trị viên</a>
             </div>
         </form>
     </div>

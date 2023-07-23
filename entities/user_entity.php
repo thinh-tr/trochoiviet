@@ -8,7 +8,6 @@ class UserInfo
     private $phone_number;
     private $email;
     private $name;
-    private $address;
     private $join_date;
 
     // constructor
@@ -33,11 +32,6 @@ class UserInfo
         return $this->name;
     }
 
-    public function get_address(): string   // address
-    {
-        return $this->address;
-    }
-
     public function get_join_date(): int    // join_date
     {
         return $this->join_date;
@@ -58,11 +52,6 @@ class UserInfo
     public function set_name(string $name): void  // name
     {
         $this->name = $name;
-    }
-
-    public function set_address(string $address): void   // address
-    {
-        $this->address = $address;
     }
 
     public function set_join_date(int $join_date): void    // join_date

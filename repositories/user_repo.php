@@ -2,7 +2,7 @@
 namespace UserRepository;
 
 // user entities
-include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/user_entity.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/entities/user_entity.php";
 
 /**
  * Tạo thông tin UserInfo mới (không bao gồm mật khẩu login)
@@ -12,9 +12,9 @@ include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/user_entity.php";
 function insert_user_info(\Entities\UserInfo $user_info): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "INSERT INTO db_trochoiviet.user_info VALUES('{$user_info->get_phone_number()}', '{$user_info->get_email()}', '{$user_info->get_name()}', '{$user_info->get_address()}', {$user_info->get_join_date()})";
+        $sql = "INSERT INTO db_trochoiviet.user_info VALUES('{$user_info->get_phone_number()}', '{$user_info->get_email()}', '{$user_info->get_name()}', {$user_info->get_join_date()})";
         $statement = $connection->prepare($sql);
         return $statement->execute();
     } catch (\PDOexception $ex) {
@@ -30,7 +30,7 @@ function insert_user_info(\Entities\UserInfo $user_info): bool
 function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "INSERT INTO db_trochoiviet.user_login_info VALUES('{$user_login_info->get_id()}', '{$user_login_info->get_phone_number()}', '{$user_login_info->get_password()}')";
         $statement = $connection->prepare($sql);
@@ -48,7 +48,7 @@ function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
 function repo_login(string $phone_number, string $password): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "SELECT * FROM user_login_info WHERE user_login_info.phone_number = '$phone_number' AND user_login_info.password = '$password';";
         $statement = $connection->prepare($sql);
@@ -73,7 +73,7 @@ function repo_login(string $phone_number, string $password): bool
 function select_user_info_by_phone_number(string $phone_number): \Entities\UserInfo
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "SELECT * FROM user_info WHERE user_info.phone_number = '$phone_number'";
         $statement = $connection->prepare($sql);
@@ -111,7 +111,7 @@ function select_user_info_by_phone_number(string $phone_number): \Entities\UserI
 function select_current_user_password(string $phone_number): string
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "SELECT password FROM user_login_info WHERE user_login_info.phone_number = '$phone_number'";
         $statement = $connection->prepare($sql);
@@ -134,7 +134,7 @@ function select_current_user_password(string $phone_number): string
 function update_user_info_by_phone_number(string $phone_number, string $email, string $name): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "UPDATE user_info SET user_info.email = '$email', user_info.name = '$name' WHERE user_info.phone_number = '$phone_number'";
         $statement = $connection->prepare($sql);

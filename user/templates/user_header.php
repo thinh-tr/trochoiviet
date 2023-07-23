@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">Đơn hàng của bạn</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/trochoiviet/user/user_info.php">Thông tin tài khoản</a>
+                        <a class="nav-link" href="/user/user_info.php">Thông tin tài khoản</a>
                     </li>
                 </ul>
             </div>

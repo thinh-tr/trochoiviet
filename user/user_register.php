@@ -12,7 +12,7 @@
     <?php include "../templates/header.php" ?>  <!--header-->
     <?php include "./templates/user_header.php" ?> <!--user header-->
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/user_service.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
 
     <?php
     // Tạo thông tin user mới
@@ -78,7 +78,6 @@
             $user_info->set_phone_number($user_info_array["phone_number"]); // phone_number
             $user_info->set_email($user_info_array["email"]);   // email
             $user_info->set_name($user_info_array["name"]); // name
-            $user_info->set_address($user_info_array["address"]);   // address
             $user_info->set_join_date($user_info_array["join_date"]);   // join_date
 
             $user_login_info = new \Entities\UserLoginInfo();   // login info

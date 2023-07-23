@@ -1,7 +1,7 @@
 <?php
 namespace AdminRepositories;
 
-include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/admin_entity.php";
+include $_SERVER["DOCUMENT_ROOT"] . "/entities/admin_entity.php";
 
 
 /**
@@ -13,7 +13,7 @@ function insert_admin(\Entities\AdminInfo $new_admin): bool
 {
     // Giả sử các tham số có trong $new_admin đều đã được kiểm tra ở service
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";  // yêu cầu file thông tin để kết nối với db
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";  // yêu cầu file thông tin để kết nối với db
         $connection = new \PDO($dsn, $username, $db_password);  // Khởi tạo connection
         $sql = sprintf(
             "INSERT INTO admin_info VALUES('%s', '%s', '%s', '%s', %u, '%s')",
@@ -43,7 +43,7 @@ function insert_admin(\Entities\AdminInfo $new_admin): bool
 function repo_login(string $email, string $password): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = sprintf("SELECT * FROM admin_info WHERE admin_info.email = '%s' AND admin_info.password = '%s'", $email, $password);
         $statement = $connection->prepare($sql);
@@ -69,7 +69,7 @@ function select_admininfo_by_email(string $email): \Entities\AdminInfo
 {
     // Giả sử các tham số đầu vào đều đã được kiểm tra ở service
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);  // Khởi tạo connection
         $sql = sprintf("SELECT * FROM admin_info WHERE admin_info.email = '%s'", $email);
         $statement = $connection->prepare($sql);
@@ -110,7 +110,7 @@ function select_admininfo_by_email(string $email): \Entities\AdminInfo
 function update_admininfo_by_email(string $email, string $name, string $phone_number, string $self_intro): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "UPDATE admin_info
                SET admin_info.name = '$name',
@@ -131,7 +131,7 @@ function update_admininfo_by_email(string $email, string $name, string $phone_nu
 function update_admin_password(string $email, string $new_password): bool
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "UPDATE admin_info SET admin_info.password = '$new_password' WHERE admin_info.email = '$email'";
         $statement = $connection->prepare($sql);
@@ -149,7 +149,7 @@ function update_admin_password(string $email, string $new_password): bool
 function select_current_admin_password(string $email): string
 {
     try {
-        require $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/connection_info.php";
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "SELECT admin_info.password FROM admin_info WHERE admin_info.email = '$email'";
         $statement = $connection->prepare($sql);

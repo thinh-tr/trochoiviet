@@ -24,7 +24,7 @@
     <?php include "./templates/user_header.php" ?> <!--user header-->
 
     <!--user service-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/services/user_service.php" ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
 
     <?php
     // Xử lý đăng nhập
