@@ -30,19 +30,19 @@
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./static/images/KeoCo.jpg" class="d-block w-100" alt="..." height="500">
+                    <img src="/static/images/KeoCo.jpg" class="d-block w-100" alt="..." height="500">
                 </div>
                 <div class="carousel-item">
-                    <img src="./static/images/LuyenAi.jpg" class="d-block w-100" alt="..." height="500">
+                    <img src="/static/images/LuyenAi.jpg" class="d-block w-100" alt="..." height="500">
                 </div>
                 <div class="carousel-item">
-                    <img src="./static/images/Naucom.jpg" class="d-block w-100" alt="..." height="500">
+                    <img src="/static/images/Naucom.jpg" class="d-block w-100" alt="..." height="500">
                 </div>
                 <div class="carousel-item">
-                    <img src="./static/images/NgheNghiep.jpg" class="d-block w-100" alt="..." height="500">
+                    <img src="/static/images/NgheNghiep.jpg" class="d-block w-100" alt="..." height="500">
                 </div>
                 <div class="carousel-item">
-                    <img src="./static/images/DuaThuyen.jpg" class="d-block w-100" alt="..." height="500">
+                    <img src="/static/images/DuaThuyen.jpg" class="d-block w-100" alt="..." height="500">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -77,7 +77,7 @@
         <!-- Nội dung phần thân trang -->
         <div class="container">
             <div class="card">
-                <img src="./static/images/LuyenAi.jpg" class="card-img-top" alt="...">
+                <img src="/static/images/LuyenAi.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Trò chơi luyến ái</b></h5>
                     <p class="card-text">Là nhóm trò chơi mang tính chất thiên về tình yêu đôi lứa. Dưới chế độ
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="./static/images/PhaoDat.jpg" class="card-img-top" alt="...">
+                <img src="/static/images/PhaoDat.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Trò chơi phong tục</b></h5>
                     <p class="card-text">Trò chơi phong tục gồm các trò chơi nghiêng tính thiêng liêng, mang
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="./static/images/DuaThuyen.jpg" class="card-img-top" alt="...">
+                <img src="/static/images/DuaThuyen.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Trò chơi trận chiến</b></h5>
                     <p class="card-text">Nhóm trò chơi chiến trận có hai loại thành phần tham gia, một là giữa
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="./static/images/Oanquan-1.jpg" class="card-img-top" alt="...">
+                <img src="/static/images/Oanquan-1.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Trò chơi trí tuệ</b></h5>
                     <p class="card-text">Trò chơi trí tuệ là loại trò chơi chiếm một phần khá lớn trong tổng thể
@@ -133,7 +133,7 @@
                 </div>
             </div>
             <div class="card">
-                <img src="./static/images/NgheNghiep.jpg" class="card-img-top" alt="...">
+                <img src="/static/images/NgheNghiep.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><b>Trò chơi nghề nghiệp</b></h5>
                     <p class="card-text">Nhóm trò chơi nghề nghiệp là tập hợp những trò chơi mô phỏng và mang
