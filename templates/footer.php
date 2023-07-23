@@ -42,7 +42,7 @@
                         <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
                         <p>
                             <i class="bi bi-house"></i>
-                            <a href="./index.php" class="text-reset">Trang chủ</a>
+                            <a href="/index.php" class="text-reset">Trang chủ</a>
                         </p>
                         <p>
                             <i class="bi bi-info-circle"></i>
