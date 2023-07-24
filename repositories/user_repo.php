@@ -166,3 +166,39 @@ function is_used_user_phone_number(string $phone_number): bool
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Khởi tạo password mới cho user
+ * input: UserLoginInfo
+ * output: true -> tạo thành công | false -> không thành công
+ */
+function insert_user_new_password(\entities\UserLoginInfo $user_login_info): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO user_login_info VALUES('{$user_login_info->get_id()}', '{$user_login_info->get_phone_number()}', '{$user_login_info->get_password()}')";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Update user password
+ * input: phone_number, new_password
+ * output: true -> uodate thành công | false -> không thành công
+ */
+function update_user_password(string $phone_number, string $new_password): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE user_login_info SET user_login_info.password = '$new_password' where user_login_info.phone_number = '$phone_number'";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

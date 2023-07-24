@@ -68,3 +68,35 @@ function is_used_user_phone_number(string $phone_number): bool
 {
     return \UserRepository\is_used_user_phone_number($phone_number);
 }
+
+/**
+ * Khởi tạo password mới cho user
+ * input: password
+ * output: true -> tạo thành công | false -> không thành công
+ */
+function create_user_password(\Entities\UserLoginInfo $user_login_info): bool
+{
+    return \UserRepository\insert_user_new_password($user_login_info);
+}
+
+/**
+ * Update user password
+ * input: phone_number, current_password, new_password
+ * output: true -> update thành công | false -> không thành công
+ */
+function update_user_password(string $phone_number, string $current_password, string $new_password): bool
+{
+    // Kiểm tra current_password đầu vào
+    $user_current_password = \UserRepository\select_current_user_password($phone_number);
+    if ($current_password != $user_current_password) {
+        return false;
+    }
+
+    // Kiểm tra password mới
+    if (empty($new_password) || strlen($new_password) < 5) {
+        return false;
+    }
+
+    // update password
+    return \UserRepository\update_user_password($phone_number, $new_password);
+}

@@ -152,7 +152,7 @@
             </div>
 
             <div class="mb-3">
-                <a class="btn btn-info" href="#"><i class="bi bi-file-earmark-lock2-fill"></i> Cập nhật mật khẩu</a>
+                <a class="btn btn-info" href="/user/user_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Cập nhật mật khẩu</a>
             </div>
 
             <div class="mb-3">

@@ -129,7 +129,7 @@
 
     <!--form thông tin quản trị viên-->
     <div class="container">
-        <h3 style="text-align: center;"><b>Thông tin người dùng</b></h3><br>
+        <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Địa chỉ email *</label>
