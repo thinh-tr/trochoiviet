@@ -56,7 +56,8 @@
                         Người dùng
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/user/user_register.php">Đăng ký</a></li>
+                        <li><a class="dropdown-item" href="/user/user_register.php">Đăng ký tài khoản</a></li>
+                        <li><a class="dropdown-item" href="/user/user_password_register.php">Đăng ký mật khẩu</a></li>
                         <li><a class="dropdown-item" href="/user/user_login.php">Đăng nhập</a></li>
                         <li><a class="dropdown-item" href="/user/user_index.php">Trung tâm người dùng</a></li>
                     </ul>

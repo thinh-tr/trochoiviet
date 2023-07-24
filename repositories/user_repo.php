@@ -83,7 +83,7 @@ function select_user_info_by_phone_number(string $phone_number): \Entities\UserI
         if ($result != false) {
             foreach ($result as $row) {
                 $user_phone_number = $row["phone_number"];
-                $user_email = $row["email"];
+                $user_email = $row["email"] ?? "";  // Nếu nhận lại kết quả null từ truy vấn thì được gán là chuỗi rỗng
                 $user_name = $row["name"];
                 $user_join_date = $row["join_date"];
             }
@@ -198,6 +198,52 @@ function update_user_password(string $phone_number, string $new_password): bool
         $sql = "UPDATE user_login_info SET user_login_info.password = '$new_password' where user_login_info.phone_number = '$phone_number'";
         $statement = $connection->prepare($sql);
         return $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Kiểm tra xem UserInfo đã tồn tại hay chưa
+ * input: phone_number
+ * output: true -> đã tồn tại | false -> chưa tồn tại
+ */
+function is_user_info_exists(string $phone_number): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_info WHERE user_info.phone_number = '$phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Kiểm tra xem UserLoginInfo đã tồn tại hay chưa,
+ * input: phone_number,
+ * output: true -> đã tồn tại | false -> chưa tồn tại
+ */
+function is_user_login_info_exists(string $phone_number): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_login_info WHERE user_login_info.phone_number = '$phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            return true;
+        }
+        return false;
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }

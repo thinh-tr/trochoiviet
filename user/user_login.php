@@ -74,7 +74,7 @@
             // user khác vẫn đang còn trong phiên đăng nhập -> xuất ra thông báo yêu cầu đăng xuất
             echo(<<<END
                 <div style="background-color: rgb(247, 94, 94); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Người dùng "{$_SESSION["user_phone_number"]}" hiện đang trong phiên làm việc</h5><br>
+                <h5>Người dùng "{$_SESSION["user_phone_number"]}" hiện đang trong phiên làm việc</h5>
                 Vui lòng truy cập trang thông tin tài khoản để đăng xuất trước khi mở phiên đăng nhập mới
             </div>
         END);

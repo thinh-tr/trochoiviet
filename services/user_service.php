@@ -100,3 +100,23 @@ function update_user_password(string $phone_number, string $current_password, st
     // update password
     return \UserRepository\update_user_password($phone_number, $new_password);
 }
+
+/**
+ * Kiểm tra xem UserInfo đã tồn tại hay chưa
+ * input: phone_number
+ * output: true -> đã tồn tại | false -> chưa tồn tại
+ */
+function is_user_info_exists(string $phone_number): bool
+{
+    return \UserRepository\is_user_info_exists($phone_number);
+}
+
+/**
+ * Kiểm tra xem UserLoginInfo đã tồn tại hay chưa,
+ * input: phone_number,
+ * output: true -> đã tồn tại | false -> chưa tồn tại
+ */
+function is_user_login_info_exists(string $phone_number): bool
+{
+    return \UserRepository\is_user_login_info_exists($phone_number);
+}
