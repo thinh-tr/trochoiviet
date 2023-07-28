@@ -1,8 +1,6 @@
 <?php
 namespace AdminServices;
 
-use function Repositories\select_current_admin_password;
-
 /**
  * Chứa các xử lý thông tin trung gian giữa template và database
  *  - Tính toán số liệu

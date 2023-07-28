@@ -32,10 +32,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/index.php">Trang chủ</a>
+                    <a class="nav-link" aria-current="page" href="/index.php"></i> Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Bài viết</a>
+                    <a class="nav-link" href="/post/post_index.php"> Bài viết</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Cửa hàng</a>
@@ -63,8 +63,8 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </div>
     </div>

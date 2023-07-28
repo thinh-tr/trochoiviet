@@ -19,7 +19,7 @@
                         <a class="nav-link" href="#">Bài viết đã thích</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bài viết đang theo dõi</a>
+                        <a class="nav-link" href="#">Bài viết đã lưu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Đơn hàng của bạn</a>

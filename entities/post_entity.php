@@ -7,10 +7,10 @@ class Post
     // Thuộc tính
     private $id;
     private $name;
+    private $description;
     private $cover_image_link;
     private $created_date;
     private $modified_date;
-    private $like_number;
     private $admin_email;
 
     // constructor
@@ -30,6 +30,11 @@ class Post
         return $this->name;
     }
 
+    public function get_description(): string   // description
+    {
+        return $this->description;
+    }
+
     public function get_cover_image_link(): string  // cover_image_link
     {
         return $this->cover_image_link;
@@ -43,11 +48,6 @@ class Post
     public function get_modified_date(): int    // modified_date
     {
         return $this->modified_date;
-    }
-
-    public function get_like_number(): int  // like_number
-    {
-        return $this->like_number;
     }
 
     public function get_admin_email(): string   // admin_email
@@ -66,6 +66,11 @@ class Post
         $this->name = $name;
     }
 
+    public function set_description(string $description): void
+    {
+        $this->description = $description;
+    }
+
     public function set_cover_image_link(string $cover_image_link): void  // cover_image_link
     {
         $this->cover_image_link = $cover_image_link;
@@ -79,11 +84,6 @@ class Post
     public function set_modified_date(int $modified_date): void    // modified_date
     {
         $this->modified_date = $modified_date;
-    }
-
-    public function set_like_number(int $like_number): void  // like_number
-    {
-        $this->like_number = $like_number;
     }
 
     public function set_admin_email(string $admin_email): void   // admin_email
