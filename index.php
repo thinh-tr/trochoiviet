@@ -66,9 +66,10 @@
                 <iframe width="680" height="420" src="https://www.youtube.com/embed/dqgsa7-y2Yc?start=153" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
+        <br>
         <!-- Embedded Video -->
 
-        <h1 style="text-align: center;">Một số loại hình trò chơi dân gian</h1><br>
+        <h1 style="text-align: center;"><b>Một số loại hình trò chơi dân gian</b></h1><br>
         <!-- Nội dung phần thân trang -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 g-4">

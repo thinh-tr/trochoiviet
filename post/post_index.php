@@ -282,6 +282,10 @@ function service_get_randomly_6_posts(): array
     .card h5 {
         font-weight: bold;
     }
+
+    div.col-4 {
+        width: 20%;
+    }
 </style>
 
 <body>
@@ -297,197 +301,216 @@ $random_posts = service_get_randomly_6_posts(); //
 ?>
 
 <div class="container">
-    <!--hiển thị các post mới nhất-->
-    <div class="container">
-        <h2><i class="bi bi-newspaper"></i> Bài viết mới</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php
-        if (count($newest_posts) > 0) {
-            foreach($newest_posts as $post) {
-                // Hiển thị các bài viết mới
-        ?>
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $post->get_name() ?></h5>
-                            <p class="card-text"><?= $post->get_description() ?></p>
-                        </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
-                    </div>
-                    </div>
-                </div>
-        <?php
-            }
-        } else {
-        ?>
-        <!--Hiển thị place holder vì không tìm thấy kết quả-->
-            <div class="card" aria-hidden="true">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                        <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
-        </div>
-    </div><br>
+    <!--scroll nav menu-->
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+        <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục bài viết</b></a>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
+            </li>
+        </ul>
+    </nav>
 
-    <div class="container">
-        <!--Bài viết có số lượt thích nhiều nhất-->
-        <h2><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php
-        if (count($most_liked_posts) > 0) {
-            foreach($most_liked_posts as $post) {
-                // Hiển thị các bài viết mới
-        ?>
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+        <div class="container">
+            <!--hiển thị các post mới nhất-->
+            <h2 id="list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            if (count($newest_posts) > 0) {
+                foreach($newest_posts as $post) {
+                    // Hiển thị các bài viết mới
+            ?>
                 <div class="col">
                     <div class="card h-100">
                         <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
+                            <a class="btn btn-primary" href="#">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                     </div>
                     </div>
                 </div>
-        <?php
-            }
-        } else {
-        ?>
-        <!--Hiển thị place holder vì không tìm thấy kết quả-->
-            <div class="card" aria-hidden="true">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                        <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+            <?php
+                }
+            } else {
+            ?>
+            <!--Hiển thị place holder vì không tìm thấy kết quả-->
+                <div class="card" aria-hidden="true">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
                 </div>
-            </div>
-        <?php
-        }
-        ?>
-        </div>
-    </div><br>
+            <?php
+            }
+            ?>
+            </div><br>
 
-    <div class="container">
-        <!--Bài viết có số lượt comment nhiều nhất-->
-        <h2><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php
-        if (count($most_commented_posts) > 0) {
-            foreach($most_commented_posts as $post) {
-                // Hiển thị các bài viết mới
-        ?>
+            <!--Bài viết có số lượt thích nhiều nhất-->
+            <h2 id="list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            if (count($most_liked_posts) > 0) {
+                foreach($most_liked_posts as $post) {
+                    // Hiển thị các bài viết mới
+            ?>
                 <div class="col">
                     <div class="card h-100">
                         <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
+                            <a class="btn btn-primary" href="#">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                     </div>
                     </div>
                 </div>
-        <?php
-            }
-        } else {
-        ?>
-        <!--Hiển thị place holder vì không tìm thấy kết quả-->
-            <div class="card" aria-hidden="true">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                        <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+            <?php
+                }
+            } else {
+            ?>
+            <!--Hiển thị place holder vì không tìm thấy kết quả-->
+                <div class="card" aria-hidden="true">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
                 </div>
-            </div>
-        <?php
-        }
-        ?>
-        </div>
-    </div><br>
+            <?php
+            }
+            ?>
+            </div><br>
 
-    <div class="container">
-        <!--Bài viết đề xuất-->
-        <h2><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php
-        if (count($random_posts) > 0) {
-            foreach($random_posts as $post) {
-                // Hiển thị các bài viết mới
-        ?>
+            <!--Bài viết có số lượt comment nhiều nhất-->
+            <h2 id="list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            if (count($most_commented_posts) > 0) {
+                foreach($most_commented_posts as $post) {
+                    // Hiển thị các bài viết mới
+            ?>
                 <div class="col">
                     <div class="card h-100">
                         <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
+                            <a class="btn btn-primary" href="#">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                     </div>
                     </div>
                 </div>
-        <?php
-            }
-        } else {
-        ?>
-        <!--Hiển thị place holder vì không tìm thấy kết quả-->
-            <div class="card" aria-hidden="true">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                        <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+            <?php
+                }
+            } else {
+            ?>
+            <!--Hiển thị place holder vì không tìm thấy kết quả-->
+                <div class="card" aria-hidden="true">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
                 </div>
+            <?php
+            }
+            ?>
+            </div><br>
+
+            <!--Bài viết đề xuất-->
+            <h2 id="list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            if (count($random_posts) > 0) {
+                foreach($random_posts as $post) {
+                    // Hiển thị các bài viết mới
+            ?>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $post->get_name() ?></h5>
+                            <p class="card-text"><?= $post->get_description() ?></p>
+                            <a class="btn btn-primary" href="#">Đến xem</a>
+                        </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
+                    </div>
+                    </div>
+                </div>
+            <?php
+                }
+            } else {
+            ?>
+            <!--Hiển thị place holder vì không tìm thấy kết quả-->
+                <div class="card" aria-hidden="true">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
             </div>
-        <?php
-        }
-        ?>
         </div>
-    </div><br>
+    </div>
 </div>
 
 <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php"; ?> <!--footer-->

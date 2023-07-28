@@ -15,6 +15,7 @@
             margin-left: 20%;
             margin-right: 20%;
         }
+
     </style>
 </head>
 <body>
