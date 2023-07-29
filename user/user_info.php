@@ -50,15 +50,14 @@
             $user_password = "";    // xóa password
             $user_info = null;  // xóa trống form
             echo(<<<END
-                <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Đã đăng xuất</h5>
+                <div class="alert alert-primary" role="alert">
+                    <h5>Đã đăng xuất</h5>
                 </div>
                 END);
         } else {
-            // Trong trường hợp vẫn chưa có đăng nhập
-            echo (<<<END
-                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Bạn vẫn chưa đăng nhập</h5>
+            echo(<<<END
+                <div class="alert alert-warning" role="alert">
+                    <h5>Bạn vẫn chưa đăng nhập</h5>
                 </div>
                 END);
         }
@@ -98,23 +97,20 @@
             if ($is_valid_array) {
                 \UserService\update_user_info($_SESSION["user_phone_number"], $update_info_array["email"], $update_info_array["name"]);
                 // Cập nhật lại thông tin lên form
-                $user_info = UserService\get_user_info($_SESSION["user_phone_number"]);
-                // thông báo đã update thành công
                 echo(<<<END
-                    <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                    <div class="alert alert-success" role="alert">
                         <h5>Đã cập nhật thông tin người dùng "{$_SESSION["user_phone_number"]}"</h5>
-                    </div>
+                    </div>              
                     END);
             } else {
                 echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
             }
         } else {
-            // trường hợp vẫn chưa đăng nhập
-            echo (<<<END
-                    <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                        <h5>Bạn vẫn chưa đăng nhập</h5>
-                    </div>
-                    END);
+            echo(<<<END
+                <div class="alert alert-warning" role="alert">
+                    <h5>Bạn vẫn chưa đăng nhập</h5>
+                </div>
+                END);
         }
     }
     ?>

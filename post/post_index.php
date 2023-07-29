@@ -336,7 +336,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="#">Đến xem</a>
+                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
@@ -383,7 +383,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="#">Đến xem</a>
+                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
@@ -430,7 +430,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="#">Đến xem</a>
+                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
@@ -477,7 +477,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="#">Đến xem</a>
+                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>

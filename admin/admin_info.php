@@ -80,21 +80,21 @@
                 AdminServices\update_admin_info($_SESSION["admin_email"], $update_info_array["name"], $update_info_array["phone_number"], $update_info_array["self_intro"]);
                 // Cập nhật lại thông tin lên form
                 $admin = AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
-                echo (<<<END
-                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                                <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
-                            </div>
-                        END);
+                echo(<<<END
+                    <div class="alert alert-success" role="alert">
+                        <h5>Đã cập nhật thông tin quản trị viên "{$_SESSION["admin_email"]}"</h5>
+                    </div>
+                    END);
             } else {
                 // Yêu cầu kiểm tra lại thông tin
                 echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn');</script>");
             }
         } else {
-            echo (<<<END
-                    <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+            echo(<<<END
+                <div class="alert alert-warning" role="alert">
                     <h5>Bạn vẫn chưa đăng nhập</h5>
-                    </div>
-                    END);
+                </div>          
+                END);
         }
     }
     ?>
@@ -110,18 +110,15 @@
             session_destroy();  // hủy session
             // xóa trống form
             $admin = null;
-
-            // Hiển thị thông báo đã logout
-            echo (<<<END
-                <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Đã đăng xuất</h5>
+            echo(<<<END
+                <div class="alert alert-primary" role="alert">
+                    <h5>Đã đăng xuất</h5>
                 </div>
                 END);
         } else {
-            // Trong trường hợp vẫn chưa có đăng nhập
-            echo (<<<END
-                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Bạn vẫn chưa đăng nhập</h5>
+            echo(<<<END
+                <div class="alert alert-warning" role="alert">
+                    <h5>Bạn vẫn chưa đăng nhập</h5>
                 </div>
                 END);
         }

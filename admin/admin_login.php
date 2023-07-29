@@ -58,15 +58,12 @@
                 if (\AdminServices\login($login_info["admin_email"], $login_info["admin_password"])) {
                     // Thêm admin email vào biến session
                     $_SESSION["admin_email"] = $login_info["admin_email"];
-                    // Hiển thị thông báo đã login thành công
-                    echo(
-                        <<<END
-                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                                <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin_email"]}"</h5>
-                                Truy cập trang thông tin tài khoản để xem chi tiết
-                            </div>
-                        END
-                    );
+                    echo(<<<END
+                        <div class="alert alert-success" role="alert">
+                            <h5>Đăng nhập thành công tài khoản quản trị "{$_SESSION["admin_email"]}"</h5>
+                            Truy cập trang thông tin tài khoản để xem chi tiết
+                        </div>                  
+                        END);
                 } else {
                     echo ("<script>window.alert('Thông tin đăng nhập chưa chính xác')</script>");
                 }
@@ -75,13 +72,12 @@
                 echo ("<script>window.alert('Vui lòng kiểm tra lại thông tin đăng nhập của bạn');</script>");
             }
         } else {
-            // Thông bao hiện đang có admin đang login
             echo(<<<END
-                <div style="background-color: rgb(247, 94, 94); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                <h5>Quản trị viên "{$_SESSION["admin_email"]}" hiện đang trong phiên làm việc</h5>
-                Vui lòng truy cập trang chi tiết tài khoản để đăng xuất trước khi mở phiên đăng nhập mới
+                <div class="alert alert-danger" role="alert">
+                    <h5>Quản trị viên "{$_SESSION["admin_email"]}" hiện đang trong phiên làm việc</h5>
+                    Vui lòng truy cập trang chi tiết tài khoản để đăng xuất trước khi mở phiên đăng nhập mới
                 </div>
-            END);
+                END);
         }
     }
     ?>

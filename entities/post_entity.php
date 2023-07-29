@@ -1,7 +1,7 @@
 <?php
 namespace Entities;
 
-// class chứa thông tin trò chơi
+// class chứa thông tin của một Post
 class Post
 {
     // Thuộc tính
@@ -90,5 +90,112 @@ class Post
     {
         $this->admin_email = $admin_email;
     }
+}
 
+// class chứa thông tin của một Post Content
+class PostContent
+{
+    // Thuộc tính
+    private $id;
+    private $title;
+    private $content;
+    private $post_id;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // getter
+    public function get_id(): string    // id
+    {
+        return $this->id;
+    }
+
+    public function get_title(): string     // title
+    {
+        return $this->title;
+    }
+
+    public function get_content(): string   // content
+    {
+        return $this->content;
+    }
+
+    public function get_post_id(): string   // post_id
+    {
+        return $this->post_id;
+    }
+
+
+    // setter
+    public function set_id(string $id): void    // id
+    {
+        $this->id = $id;
+    }
+
+    public function set_title(string $title): void     // title
+    {
+        $this->title = $title;
+    }
+
+    public function set_content(string $content): void   // content
+    {
+        $this->content = $content;
+    }
+
+    public function set_post_id(string $post_id): void   // post_id
+    {
+        $this->post_id = $post_id;
+    }
+
+}
+
+// class chứa thông tin của một Post Content Image
+class PostContentImage
+{
+    // Thuộc tính
+    private $id;
+    private $image_link;
+    private $post_content_id;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // Getter
+    public function get_id(): string    // id
+    {
+        return $this->id;
+    }
+
+    public function get_image_link(): string    // image_link
+    {
+        return $this->image_link;
+    }
+
+    public function get_post_content_id(): string   // post_content_id
+    {
+        return $this->post_content_id;
+    }
+
+
+    // Setter
+    public function set_id(string $id): void    // id
+    {
+        $this->id = $id;
+    }
+
+    public function set_image_link(string $image_link): void    // image_link
+    {
+        $this->image_link = $image_link;
+    }
+
+    public function set_post_content_id(string $post_content_id): void   // post_content_id
+    {
+        $this->post_content_id = $post_content_id;
+    }
 }

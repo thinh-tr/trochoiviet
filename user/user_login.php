@@ -59,10 +59,10 @@
                     // Thêm biến user_phone_number vào SESSION
                     $_SESSION["user_phone_number"] = $user_login_array["user_phone_number"];
                     echo(<<<END
-                        <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
-                            <h5>Đăng nhập thành công tài khoản người dùng "{$_SESSION["user_phone_number"]}"</h5>
-                            Truy cập trang thông tin tài khoản để xem chi tiết
-                        </div>
+                            <div class="alert alert-success" role="alert">
+                                <h5>Đăng nhập thành công tài khoản người dùng "{$_SESSION["user_phone_number"]}"</h5>
+                                Truy cập trang thông tin tài khoản để xem chi tiết
+                            </div>
                         END);
                 } else {
                     echo("<script>window.alert('Thông tin đăng nhập không chính xác, vui lòng thử lại')</script>");
@@ -73,13 +73,17 @@
             }
         } else {
             // user khác vẫn đang còn trong phiên đăng nhập -> xuất ra thông báo yêu cầu đăng xuất
+        //     echo(<<<END
+        //         <div style="background-color: rgb(247, 94, 94); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+        //         
+        //     </div>
+        // END);
             echo(<<<END
-                <div style="background-color: rgb(247, 94, 94); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <div class="alert alert-danger" role="alert">
                 <h5>Người dùng "{$_SESSION["user_phone_number"]}" hiện đang trong phiên làm việc</h5>
                 Vui lòng truy cập trang thông tin tài khoản để đăng xuất trước khi mở phiên đăng nhập mới
-            </div>
-        END);
-
+                </div>
+                END);
         }
     }
     ?>
