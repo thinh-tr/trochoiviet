@@ -101,6 +101,56 @@ function service_get_post_content_image_by_post_content_id(string $post_content_
 {
     return repo_select_post_content_image_by_post_content_id($post_content_id);
 }
+
+
+/**
+ * Repository
+ * Lấy ra array chứa thông tin của các video được nhúng trong bài post
+ * input: post_id
+ * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
+ */
+function repo_select_post_video_by_post_id(string $post_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_video WHERE post_video.post_id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $post_video_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // trường hợp tìm được kết quả
+            foreach ($result as $row) {
+                // lần lượt chuyển kết quả tìm được vào array kết quả
+                $post_video = new \Entities\PostVideo();
+                $post_video->set_id($row["id"]);
+                $post_video->set_video_link($row["video_link"]);
+                $post_video->set_post_id($row["post_id"]);
+                array_push($post_video_array, $post_video);
+            }
+            // trả ra array chứa kết quả
+            return $post_video_array;
+        }
+        // Nếu không tìm được kết quả
+        return $post_video_array;   // trả ra array rỗng
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Service
+ * Lấy ra array chứa thông tin của các video được nhúng trong bài post
+ * input: post_id
+ * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
+ */
+function get_post_video_by_post_id(string $post_id): array
+{
+    return repo_select_post_video_by_post_id($post_id);
+}
+
 ?>
 
 <?php session_start(); ?>

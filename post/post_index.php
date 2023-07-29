@@ -8,12 +8,12 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php";    // entity
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function repo_get_10_newest_post(): array
+function repo_get_newest_post(): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "SELECT * FROM post ORDER BY post.created_date DESC LIMIT 10;";
+        $sql = "SELECT * FROM post ORDER BY post.created_date DESC LIMIT 12;";
         $statement = $connection->prepare($sql);
         $statement->execute();
 
@@ -52,9 +52,9 @@ function repo_get_10_newest_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function service_get_10_newest_post(): array
+function service_get_newest_post(): array
 {
-    return repo_get_10_newest_post();
+    return repo_get_newest_post();
 }
 
 
@@ -66,7 +66,7 @@ function service_get_10_newest_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function repo_get_10_liked_post(): array
+function repo_get_liked_post(): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
@@ -75,7 +75,7 @@ function repo_get_10_liked_post(): array
                 FROM post_likes
                 GROUP BY post_likes.post_id
                 ORDER BY likes_number DESC
-                LIMIT 10;";
+                LIMIT 12;";
         $get_likes_number = $connection->prepare($sql1);
         $get_likes_number->execute();
         $likes_number_result = $get_likes_number->fetchAll();
@@ -127,9 +127,9 @@ function repo_get_10_liked_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng
  */
-function service_get_10_liked_post(): array
+function service_get_liked_post(): array
 {
-    return repo_get_10_liked_post();
+    return repo_get_liked_post();
 }
 
 
@@ -140,7 +140,7 @@ function service_get_10_liked_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function repo_get_10_most_commented_post(): array
+function repo_get_most_commented_post(): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
@@ -149,7 +149,7 @@ function repo_get_10_most_commented_post(): array
                 FROM post_comment
                 GROUP BY post_comment.post_id
                 ORDER BY comment_number DESC
-                LIMIT 10";
+                LIMIT 12";
         $get_comment_number = $connection->prepare($sql1);
         $get_comment_number->execute();
         $comment_number_result = $get_comment_number->fetchAll();
@@ -201,9 +201,9 @@ function repo_get_10_most_commented_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function service_get_10_most_commented_post(): array
+function service_get_most_commented_post(): array
 {
-    return repo_get_10_most_commented_post();
+    return repo_get_most_commented_post();
 }
 
 
@@ -214,7 +214,7 @@ function service_get_10_most_commented_post(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function repo_get_randomly_6_posts(): array
+function repo_get_randomly_posts(): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
@@ -256,9 +256,9 @@ function repo_get_randomly_6_posts(): array
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function service_get_randomly_6_posts(): array
+function service_get_randomly_posts(): array
 {
-    return repo_get_randomly_6_posts();
+    return repo_get_randomly_posts();
 }
 ?>
 
@@ -294,10 +294,10 @@ function service_get_randomly_6_posts(): array
 
 <?php
 // lấy ra danh sách các bài viết mới thêm gần đây
-$newest_posts = service_get_10_newest_post();    // post mới
-$most_liked_posts = service_get_10_liked_post(); // post được like nhiều nhất
-$most_commented_posts = service_get_10_most_commented_post();    // post được comment nhiều nhất
-$random_posts = service_get_randomly_6_posts(); //
+$newest_posts = service_get_newest_post();    // post mới
+$most_liked_posts = service_get_liked_post(); // post được like nhiều nhất
+$most_commented_posts = service_get_most_commented_post();    // post được comment nhiều nhất
+$random_posts = service_get_randomly_posts(); //
 ?>
 
 <div class="container">
@@ -383,7 +383,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
+                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
@@ -430,7 +430,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
+                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
@@ -477,7 +477,7 @@ $random_posts = service_get_randomly_6_posts(); //
                         <div class="card-body">
                             <h5 class="card-title"><?= $post->get_name() ?></h5>
                             <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="<?= $post->get_id() ?>">Đến xem</a>
+                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
                         </div>
                     <div class="card-footer">
                         <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>

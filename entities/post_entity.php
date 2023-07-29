@@ -199,3 +199,51 @@ class PostContentImage
         $this->post_content_id = $post_content_id;
     }
 }
+
+// class chứa thông tin về link nhúng video
+class PostVideo
+{
+    // thuộc tính
+    private $id;
+    private $video_link;
+    private $post_id;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // Getter
+    public function get_id(): string
+    {
+        return $this->id;
+    }
+
+    public function get_video_link(): string
+    {
+        return $this->video_link;
+    }
+
+    public function get_post_id(): string
+    {
+        return $this->post_id;
+    }
+
+    // Setter
+    public function set_id(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function set_video_link(string $video_link): void
+    {
+        $this->video_link = $video_link;
+    }
+
+    public function set_post_id(string $post_id): void
+    {
+        $this->post_id = $post_id;
+    }
+
+}
