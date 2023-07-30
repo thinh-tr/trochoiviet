@@ -13,7 +13,7 @@ function repo_select_post_contents_by_post_id(string $post_id): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
-        $connection = new \PDO($dsn, $username, $password);
+        $connection = new \PDO($dsn, $username, $db_password);
         $sql = "SELECT * FROM post_content WHERE post_content.post_id = '$post_id'";
         $statement = $connection->prepare($sql);
         $statement->execute();
