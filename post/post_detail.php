@@ -126,6 +126,7 @@ function repo_select_post_video_by_post_id(string $post_id): array
                 // lần lượt chuyển kết quả tìm được vào array kết quả
                 $post_video = new \Entities\PostVideo();
                 $post_video->set_id($row["id"]);
+                $post_video->set_video_source($row["video_source"]);
                 $post_video->set_video_link($row["video_link"]);
                 $post_video->set_post_id($row["post_id"]);
                 array_push($post_video_array, $post_video);
@@ -146,7 +147,7 @@ function repo_select_post_video_by_post_id(string $post_id): array
  * input: post_id
  * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
  */
-function get_post_video_by_post_id(string $post_id): array
+function service_get_post_video_by_post_id(string $post_id): array
 {
     return repo_select_post_video_by_post_id($post_id);
 }
@@ -182,6 +183,7 @@ function get_post_video_by_post_id(string $post_id): array
     $post_contents = array();   // array chứa post content
     $post_likes = -1;
     $post_comments = -1;
+    $post_videos = array(); // array chứa post video
     // nhận lệnh từ url và bắt đầu truy vấn thông tin
     if (isset($_GET["post-id"])) {
         // Truy vấn thông tin theo post_id
@@ -189,9 +191,15 @@ function get_post_video_by_post_id(string $post_id): array
         $post_contents = service_get_post_contents_by_post_id($_GET["post-id"]);    // Lấy ra các content của post cần hiển thị
         $post_likes = \PostService\get_post_like_number($_GET["post-id"]);
         $post_comments = \PostService\get_post_comment_number($_GET["post-id"]);
+        $post_videos = service_get_post_video_by_post_id($_GET["post-id"]); // Lấy ra thông tin video được nhúng trong bài viết
     }
     ?>
     
+    <!--Điều hướng-->
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+        <a class="btn btn-primary" href="/post/post_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
+    </nav>
+
     <!--Nội dung bài viết-->
     <div class="container">
         <?php
@@ -201,14 +209,14 @@ function get_post_video_by_post_id(string $post_id): array
         <!--Thông tin post-->
         <!--Đầu bài viết-->
         <div class="card mb-3">
-        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="..." style="height: 300px;">
+        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="..." style="height: 500px;">
         <div class="card-body">
             <h1 class="card-title" style="text-align: center; font-weight: bold;"><?= $post->get_name() ?></h1>
             <p class="card-text"><?= $post->get_description() ?></p>
             <p class="card-text"><small class="text-body-secondary"><b>Tác giả:</b> <?= $post->get_admin_email() ?><br> <b>Ngày đăng:</b> <?= date("d-m-Y, H:i:s", $post->get_created_date()) ?><br> <b>Ngày cập nhật:</b> <?= date("d-m-Y, H:i:s", $post->get_created_date()) ?></small></p>
         </div>
         </div>
-        
+        <!-- Nút thích và bình luận -->
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
                 <form class="container-fluid justify-content-start">
@@ -217,7 +225,7 @@ function get_post_video_by_post_id(string $post_id): array
                 </form>
             </div>
         </nav>
-        <!--Hiển thị các post content và hình ảnhcủa post-->
+        <!--Hiển thị các post content và hình ảnh của post-->
         <div class="container">
         <?php
         if (count($post_contents) > 0) {
@@ -252,6 +260,37 @@ function get_post_video_by_post_id(string $post_id): array
             ?>
         <?php
             }
+        ?>
+        <h3><b>Một số video về trò chơi</b></h3><br>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <?php
+            // Hiển thị các video được nhúng trong bài viết
+            if (count($post_videos) > 0) {
+                foreach ($post_videos as $video) {
+        ?>
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="card-text">Nguồn: <?= $video->get_video_source() ?></p>
+                        <div class="video" style="text-align: center">
+                            <iframe src="<?= $video->get_video_link() ?>" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+                }
+            } else {
+        ?>
+            <!--Thông báo bài viết hiện không có video được chia sẽ-->
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-info-circle-fill"></i> Không có video nào được chia sẽ
+            </div>
+        <?php
+            }
+        ?>
+        </div>
+        <?php
         } else {
         ?>
             <!--Thông báo bài viết hiện đang cập nhật thông tin-->

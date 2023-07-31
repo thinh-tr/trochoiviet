@@ -61,14 +61,14 @@
                 // cập nhật password
                 if (AdminServices\update_password($_SESSION["admin_email"], $update_password_array["current_password"], $update_password_array["new_password"])) {
                     echo(<<<END
-                        <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                        <div class="alert alert-success" role="alert">
                             <h5>Đã cập nhật mật khẩu</h5>
                             Hãy đăng nhập lại bằng mật khẩu mới
-                        </div>
-                    END);
+                        </div>                  
+                        END);
                 } else {
                     echo(<<<END
-                        <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                        <div class="alert alert-warning" role="alert">
                             <h5>Hãy kiểm tra lại mật khẩu của bạn</h5>
                         </div>
                     END);    
@@ -80,7 +80,7 @@
         } else {
             // Không có login -> xuất ra thông báo
             echo(<<<END
-                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <div class="alert alert-warning" role="alert">
                     <h5>Bạn vẫn chưa đăng nhập</h5>
                 </div>
             END);

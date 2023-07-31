@@ -205,6 +205,7 @@ class PostVideo
 {
     // thuộc tính
     private $id;
+    private $video_source;
     private $video_link;
     private $post_id;
 
@@ -218,6 +219,11 @@ class PostVideo
     public function get_id(): string
     {
         return $this->id;
+    }
+
+    public function get_video_source(): string
+    {
+        return $this->video_source;
     }
 
     public function get_video_link(): string
@@ -234,6 +240,11 @@ class PostVideo
     public function set_id(string $id): void
     {
         $this->id = $id;
+    }
+
+    public function set_video_source(string $video_source): void
+    {
+        $this->video_source = $video_source;
     }
 
     public function set_video_link(string $video_link): void

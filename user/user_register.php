@@ -89,7 +89,7 @@
             if (\UserService\create_full_user_info($user_info, $user_login_info)) {
                 // Thông báo tạo thành công
                 echo(<<<END
-                    <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                    <div class="alert alert-success" role="alert">
                         <h5>Đăng ký thành công người dùng "{$user_info->get_phone_number()} - {$user_info->get_name()}"</h5>
                     </div>
                 END);
@@ -130,7 +130,7 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
-                <a href="#"><button type="button" class="btn btn-danger">Hủy</button></a>
+                <a href="/user/user_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
             </div>
         </form>
     </div>

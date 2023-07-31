@@ -300,26 +300,25 @@ $most_commented_posts = service_get_most_commented_post();    // post được c
 $random_posts = service_get_randomly_posts(); //
 ?>
 
+<!--scroll nav menu-->
+<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+    <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục bài viết</b></a>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
+        </li>
+    </ul>
+</nav>
 <div class="container">
-    <!--scroll nav menu-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục bài viết</b></a>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
-            </li>
-        </ul>
-    </nav>
-
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
         <div class="container">
             <!--hiển thị các post mới nhất-->

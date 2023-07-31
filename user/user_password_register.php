@@ -67,7 +67,7 @@
 
                 if(\UserService\create_user_password($user_login_info)) {
                     echo(<<<END
-                            <div style="background-color: rgb(102, 242, 106); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                            <div class="alert alert-success" role="alert">
                                 <h5>Đã tạo thành công nhật mật khẩu cho người dùng {$register_password_array["phone_number"]}</h5>
                                 Hãy đăng nhập để sử dụng tài khoản của bạn
                             </div>
@@ -79,7 +79,7 @@
             } else {
                 // Nếu UserInfo vẫn chưa tồn tại thì xuất ra cảnh báo
                 echo(<<<END
-                <div style="background-color: rgb(255, 219, 59); width: 100%; height: 15%; text-align: center; color: white; padding: 10px;">
+                <div class="alert alert-warning" role="alert">
                     <h5>Thông tin người dùng của bạn vẫn chưa được hệ thống lưu trữ hoặc đã được đăng ký mật khẩu từ trước, vui lòng sử dụng trang đăng ký tài khoản để đăng ký hoặc đăng nhập trực tiếp</h5>
                 </div>
                 END);        
