@@ -45,3 +45,44 @@ function get_post_comment_number(string $post_id): int
 {
     return \PostRepository\select_post_comment_by_post_id($post_id);
 }
+
+/**
+ * Tăng lượt views của post lên 1
+ * input: post_id
+ * output: void
+ */
+function increase_post_views(string $post_id): void
+{
+    \PostRepository\update_post_views($post_id);
+}
+
+
+/**
+ * Kiểm tra xem người dùng đã like một post nào đó hay chưa
+ * input: post_id, user_phone_number
+ * output: true -> đã like | false -> chưa like
+ */
+function is_liked_post(string $post_id, string $user_phone_number): bool
+{
+    return \PostRepository\is_liked_post($post_id, $user_phone_number);
+}
+
+/**
+ * Thích bài viết
+ * input: post_id, user_phone_number
+ * output: void
+ */
+function like_post(string $post_id, string $user_phone_number): void
+{
+    \PostRepository\insert_like($post_id, $user_phone_number);
+}
+
+/**
+ * Bỏ thích bài viết
+ * input: post_id, user_phone_number
+ * output: void
+ */
+function unlike_post(string $post_id, string $user_phone_number): void
+{
+    \PostRepository\delete_like($post_id, $user_phone_number);
+}

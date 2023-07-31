@@ -11,6 +11,7 @@ class Post
     private $cover_image_link;
     private $created_date;
     private $modified_date;
+    private $views;
     private $admin_email;
 
     // constructor
@@ -50,6 +51,11 @@ class Post
         return $this->modified_date;
     }
 
+    public function get_views(): int
+    {
+        return $this->views;
+    }
+
     public function get_admin_email(): string   // admin_email
     {
         return $this->admin_email;
@@ -84,6 +90,11 @@ class Post
     public function set_modified_date(int $modified_date): void    // modified_date
     {
         $this->modified_date = $modified_date;
+    }
+
+    public function set_views(int $views): void
+    {
+        $this->views = $views;
     }
 
     public function set_admin_email(string $admin_email): void   // admin_email

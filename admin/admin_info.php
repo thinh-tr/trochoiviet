@@ -19,6 +19,10 @@
             margin-left: 20%;
             margin-right: 20%;
         }
+
+        .mb-3 button {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 

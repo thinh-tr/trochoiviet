@@ -286,6 +286,10 @@ function service_get_randomly_posts(): array
     div.col-4 {
         width: 20%;
     }
+
+    .col a {
+        text-decoration: none;
+    }
 </style>
 
 <body>
@@ -327,20 +331,20 @@ $random_posts = service_get_randomly_posts(); //
             <?php
             if (count($newest_posts) > 0) {
                 foreach($newest_posts as $post) {
-                    // Hiển thị các bài viết mới
             ?>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $post->get_name() ?></h5>
-                            <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
+                    <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                        <div class="card h-100">
+                            <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $post->get_name() ?></h5>
+                                <p class="card-text"><?= $post->get_description() ?></p>
+                            </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                         </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
-                    </div>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             <?php
                 }
@@ -374,20 +378,20 @@ $random_posts = service_get_randomly_posts(); //
             <?php
             if (count($most_liked_posts) > 0) {
                 foreach($most_liked_posts as $post) {
-                    // Hiển thị các bài viết mới
             ?>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $post->get_name() ?></h5>
-                            <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
+                    <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                        <div class="card h-100">
+                            <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $post->get_name() ?></h5>
+                                <p class="card-text"><?= $post->get_description() ?></p>
+                            </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                         </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
-                    </div>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             <?php
                 }
@@ -421,20 +425,20 @@ $random_posts = service_get_randomly_posts(); //
             <?php
             if (count($most_commented_posts) > 0) {
                 foreach($most_commented_posts as $post) {
-                    // Hiển thị các bài viết mới
             ?>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $post->get_name() ?></h5>
-                            <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
+                    <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                        <div class="card h-100">
+                            <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $post->get_name() ?></h5>
+                                <p class="card-text"><?= $post->get_description() ?></p>
+                            </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                         </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
-                    </div>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             <?php
                 }
@@ -468,20 +472,20 @@ $random_posts = service_get_randomly_posts(); //
             <?php
             if (count($random_posts) > 0) {
                 foreach($random_posts as $post) {
-                    // Hiển thị các bài viết mới
             ?>
                 <div class="col">
-                    <div class="card h-100">
-                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $post->get_name() ?></h5>
-                            <p class="card-text"><?= $post->get_description() ?></p>
-                            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">Đến xem</a>
+                    <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                        <div class="card h-100">
+                            <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $post->get_name() ?></h5>
+                                <p class="card-text"><?= $post->get_description() ?></p>
+                            </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
                         </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
-                    </div>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             <?php
                 }

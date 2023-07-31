@@ -73,6 +73,7 @@ function select_post_by_id(string $post_id): \Entities\Post
             $post->set_cover_image_link($result[0]["cover_image_link"]);    // gán cover_image_link
             $post->set_created_date($result[0]["created_date"]);  // gán created_date
             $post->set_modified_date($result[0]["modified_date"] ?? $result[0]["created_date"]);    // modified_date
+            $post->set_views($result[0]["views"]);  // views
             $post->set_admin_email($result[0]["admin_email"]);  // admin email
 
             // trả ra Post obj tìm được
@@ -129,4 +130,115 @@ function select_post_comment_by_post_id(string $post_id): int
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
+}
+
+/**
+ * Tăng lượt views của post lên 1
+ * input: post_id
+ * output: void
+ */
+function update_post_views(string $post_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post SET post.views = post.views + 1 WHERE post.id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Like và bỏ like
+ * input: user_phone_number, post_id
+ * output: void
+ */
+function update_post_likes(string $user_phone_number, string $post_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+
+        // Kiểm tra xem người dùng này đã like post hay chưa
+        $sql_like_checking = "SELECT * FROM post_likes WHERE post_likes.post_id = '$post_id' and post_likes.user_phone_number = '$user_phone_number'";
+        $like_checking_statement = $connection->prepare($sql_like_checking);
+        $like_checking_statement->execute();
+        $is_liked = $like_checking_statement->fetchAll();
+        // Kiểm tra kết quả
+        if ($is_liked != false && count($is_liked) > 0) {
+            // Trường hợp đã like -> tiến hành hủy like
+
+        } else {
+            // Trường hợp chưa like -> tiến hành like
+
+        }
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Kiểm tra xem người dùng đã like một post nào đó hay chưa
+ * input: post_id, user_phone_number
+ * output: true -> đã like | false -> chưa like
+ */
+function is_liked_post(string $post_id, string $user_phone_number): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_likes WHERE post_likes.post_id = '$post_id' and post_likes.user_phone_number = '$user_phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if ($result != false && count($result) > 0) {
+            // Trường hợp đã like
+            return true;
+        } else {
+            // Trường hợp chưa like
+            return false;
+        }
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm like cho post
+ * input: post_id, user_phone_number
+ * output: void
+ */
+function insert_like(string $post_id, string $user_phone_number): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $uniqid = uniqid();
+        $sql = "INSERT INTO post_likes VALUES('$uniqid', '$post_id', '$user_phone_number');";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // chạy truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa like của post
+ * input: post_id, user_phone_number
+ * output: void
+ */
+function delete_like(string $post_id, string $user_phone_number): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM post_likes WHERE post_likes.post_id = '$post_id' and post_likes.user_phone_number = '$user_phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // chạy truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+
 }

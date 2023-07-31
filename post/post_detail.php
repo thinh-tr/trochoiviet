@@ -194,6 +194,36 @@ function service_get_post_video_by_post_id(string $post_id): array
         $post_videos = service_get_post_video_by_post_id($_GET["post-id"]); // Lấy ra thông tin video được nhúng trong bài viết
     }
     ?>
+
+    <?php
+    // Xử lý khi user like bài viết
+    if (isset($_POST["like-submit"])) {
+        // Kiểm tra login
+        if (isset($_SESSION["user_phone_number"]) && isset($post)) {
+            // Xử lý thêm hoặc xóa like
+            if (\PostService\is_liked_post($post->get_id(), $_SESSION["user_phone_number"])) {
+                // Bỏ thích
+                \PostService\unlike_post($post->get_id(), $_SESSION["user_phone_number"]);
+                echo(<<<END
+                    <div class="alert alert-danger" role="alert">
+                        Đã bỏ thích bài viết
+                    </div>
+                    END);
+            } else {
+                // Thích
+                \PostService\like_post($post->get_id(), $_SESSION["user_phone_number"]);
+                echo(<<<END
+                    <div class="alert alert-success" role="alert">
+                        Đã thích bài viết
+                    </div>
+                    END);
+            }
+        } else {
+            echo("<script>window.alert('Vui lòng đăng nhập để sử dụng chức năng này')</script>");
+        }
+    }
+    ?>
+
     
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
@@ -209,7 +239,7 @@ function service_get_post_video_by_post_id(string $post_id): array
         <!--Thông tin post-->
         <!--Đầu bài viết-->
         <div class="card mb-3">
-        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="..." style="height: 500px;">
+        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="..." style="height: 350px;">
         <div class="card-body">
             <h1 class="card-title" style="text-align: center; font-weight: bold;"><?= $post->get_name() ?></h1>
             <p class="card-text"><?= $post->get_description() ?></p>
@@ -219,10 +249,15 @@ function service_get_post_video_by_post_id(string $post_id): array
         <!-- Nút thích và bình luận -->
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-                <form class="container-fluid justify-content-start">
-                    <button class="btn btn-outline-primary me-2" type="button"><i class="bi bi-hand-thumbs-up-fill"></i> <?= $post_likes ?></button>
+                <form class="container-fluid justify-content-start" method="post">
+                    <button class="btn btn-outline-info me-2" type="button"><i class="bi bi-eye-fill"></i> <?= $post->get_views() ?></button>
                     <button class="btn btn-outline-warning me-2" type="button"><i class="bi bi-chat-fill"></i> <?= $post_comments ?></button>
+                    <button class="btn btn-outline-primary me-2" type="submit" id="like-submit" name="like-submit"><i class="bi bi-hand-thumbs-up-fill"></i> <?= $post_likes ?></button>
                 </form>
+                <?php
+                // Tăng post lên 1 view
+                PostService\increase_post_views($post->get_id());
+                ?>
             </div>
         </nav>
         <!--Hiển thị các post content và hình ảnh của post-->

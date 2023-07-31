@@ -62,8 +62,10 @@
                     dân gian là gì nhé!
                 </div>
             </div>
-            <div class="video">
-                <iframe width="680" height="420" src="https://www.youtube.com/embed/dqgsa7-y2Yc?start=153" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="card">
+                <div class="video">
+                    <iframe width="680" height="420" src="https://www.youtube.com/embed/dqgsa7-y2Yc?start=153" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
         <br>
@@ -158,7 +160,6 @@
         <!-- Home body -->
 
     </div>
-
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?> <!--footer-->
 </body>
