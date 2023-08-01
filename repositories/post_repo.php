@@ -242,3 +242,21 @@ function delete_like(string $post_id, string $user_phone_number): void
     }
 
 }
+
+/**
+ * Thêm bình luận mới
+ * input: obj PostComment
+ * output: true -> Đăng tải thành công | false -> không thành công
+ */
+function insert_comment(\Entities\PostComment $post_comment): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO post_comment VALUES('{$post_comment->get_id()}', '{$post_comment->get_created_date()}', '{$post_comment->get_content()}', '{$post_comment->get_user_phone_number()}', '{$post_comment->get_post_id()}')";
+        $statement = $connection->prepare($sql);
+        return $statement->execute();   // trả ra kết quả truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

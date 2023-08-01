@@ -269,3 +269,75 @@ class PostVideo
     }
 
 }
+
+
+// class lưu thông tin bình luận bài viết
+class PostComment
+{
+    // Thuộc tính
+    private $id;
+    private $created_date;
+    private $content;
+    private $user_phone_number;
+    private $post_id;
+
+    // Constructor
+    public function __construct()
+    {
+        
+    }
+
+    // Getter
+    public function get_id(): string
+    {
+        return $this->id;
+    }
+
+    public function get_created_date(): int
+    {
+        return $this->created_date;
+    }
+
+    public function get_content(): string
+    {
+        return $this->content;
+    }
+
+    public function get_user_phone_number(): string
+    {
+        return $this->user_phone_number;
+    }
+
+    public function get_post_id(): string
+    {
+        return $this->post_id;
+    }
+
+
+    // Setter
+    public function set_id(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function set_created_date(int $created_date): void
+    {
+        $this->created_date = $created_date;
+    }
+
+    public function set_content(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    public function set_user_phone_number(string $user_phone_number): void
+    {
+        $this->user_phone_number = $user_phone_number;
+    }
+
+    public function set_post_id(string $post_id): void
+    {
+        $this->post_id = $post_id;
+    }
+
+}

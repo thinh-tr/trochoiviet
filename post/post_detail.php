@@ -251,7 +251,7 @@ function service_get_post_video_by_post_id(string $post_id): array
             <div class="container-fluid">
                 <form class="container-fluid justify-content-start" method="post">
                     <button class="btn btn-outline-info me-2" type="button"><i class="bi bi-eye-fill"></i> <?= $post->get_views() ?></button>
-                    <button class="btn btn-outline-warning me-2" type="button"><i class="bi bi-chat-fill"></i> <?= $post_comments ?></button>
+                    <a class="btn btn-outline-warning me-2" href="/post/post_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-chat-fill"></i> <?= $post_comments ?></a>
                     <button class="btn btn-outline-primary me-2" type="submit" id="like-submit" name="like-submit"><i class="bi bi-hand-thumbs-up-fill"></i> <?= $post_likes ?></button>
                 </form>
                 <?php

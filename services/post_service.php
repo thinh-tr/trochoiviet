@@ -86,3 +86,13 @@ function unlike_post(string $post_id, string $user_phone_number): void
 {
     \PostRepository\delete_like($post_id, $user_phone_number);
 }
+
+/**
+ * Thêm bình luận mới
+ * input: obj PostComment
+ * output: true -> Đăng tải thành công | false -> không thành công
+ */
+function add_new_comment(\Entities\PostComment $post_comment): bool
+{
+    return \PostRepository\insert_comment($post_comment);
+}

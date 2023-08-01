@@ -315,7 +315,7 @@ $random_posts = service_get_randomly_posts(); //
             <a class="nav-link" href="#list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</a>
+            <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Được bàn luận nhiều nhất</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
