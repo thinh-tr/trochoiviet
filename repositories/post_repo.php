@@ -260,3 +260,90 @@ function insert_comment(\Entities\PostComment $post_comment): bool
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Xóa bình luận được chọn
+ * input: comment_id
+ * output: true -> xóa thành công | fasle -> không thành công
+ */
+function delete_comment(string $comment_id): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM post_comment WHERE post_comment.id = '$comment_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra thông tin post_comment theo id
+ * input: comment_id
+ * output: obj PostComment -> tìm thấy thông tin | null -> không tìm thấy
+ */
+function select_comment_by_id(string $comment_id): \Entities\PostComment
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_comment WHERE post_comment.id = '$comment_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $comment = null;
+        // Kiểm tra kết quả
+        if ($result != false && count($result) > 0) {
+            $comment = new \Entities\PostComment();
+            // lấy ra kết quả
+            $comment->set_id($result[0]["id"]);
+            $comment->set_created_date($result[0]["created_date"]);
+            $comment->set_content($result[0]["content"]);
+            $comment->set_user_phone_number($result[0]["user_phone_number"]);
+            $comment->set_post_id($result[0]["post_id"]);
+        }
+        // trường hợp không tìm ra kết quả
+        return $comment;
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Làm sạch các bình luận bị bỏ rống (xóa bình luận)
+ * input: user_phone_number
+ * output: void
+ */
+function delete_null_comments(string $user_phone_number): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM post_comment WHERE post_comment.content = '' AND post_comment.user_phone_number = '$user_phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // chạy lệnh truy vấn
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Cập nhật nội dung cho các bình luận
+ * input: comment_id, content
+ * output: void
+ */
+function update_comment_content(string $comment_id, string $content): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post_comment SET post_comment.content = '$content' WHERE post_comment.id = '$comment_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // chạy lệnh truy vấn
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}

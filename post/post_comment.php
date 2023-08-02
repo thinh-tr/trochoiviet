@@ -113,6 +113,7 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php" ?>   <!--Service-->
 
+    <!--Xử lý tải thông tin trang-->
     <?php
     // Biến lưu các comment của bài viết
     $post = new \Entities\Post();   // obj trống
@@ -131,6 +132,27 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     }
     ?>
 
+    <!--Xử lý xóa toàn bộ các comment rỗng-->
+    <?php
+    if (isset($_POST["delete-null-comment"])) {
+        // Kiểm tra login
+        if (isset($_SESSION["user_phone_number"])) {
+            \PostService\clean_null_comment($_SESSION["user_phone_number"]);    // xóa các comment rỗng
+            echo(<<<END
+            <div class="alert alert-success" role="alert">
+                Đã xóa tất cả các bình luận mà bạn bỏ rống
+            </div>
+            END);
+        } else {
+            echo(<<<END
+            <div class="alert alert-warning" role="alert">
+                Bạn vẫn chưa đăng nhập
+            </div>
+            END);
+        }
+    }
+    ?>
+
     <!--scroll nav menu-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
@@ -143,6 +165,11 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
             </li>
             <li>
                 <a class="nav-link" href="/post/post_new_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-plus"></i> Thêm bình luận</a>
+            </li>
+            <li>
+                <form method="post">
+                    <button class="btn btn-warning" id="delete-null-comment" name="delete-null-comment"><i class="bi bi-arrow-repeat"></i> Làm sạch các bình luận bỏ rống</button>
+                </form>
             </li>
         </ul>
     </nav>
@@ -188,7 +215,7 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
                     foreach ($post_comments_of_user as $comment) {
                 ?>
                 <!--card chứa nội dung comment-->
-                        <!--card chứa nội dung comment-->
+                    <!--card chứa nội dung comment-->
                     <div class="card border-warning w-75 mb-3">
                         <div class="card-header">
                             <small class="text-body-secondary">Bình luận của: <b><?= $comment->get_user_phone_number() ?></b></small>,
@@ -196,6 +223,11 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
                         </div>
                         <div class="card-body">
                             <p class="card-text"><?= $comment->get_content() ?></p>
+                        </div>
+                        <div class="card-footer">
+                            <form method="post">
+                                <a class="btn btn-warning" href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $comment->get_id() ?>"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
+                            </form>
                         </div>
                     </div>
                 <?php

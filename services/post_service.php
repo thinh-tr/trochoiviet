@@ -96,3 +96,43 @@ function add_new_comment(\Entities\PostComment $post_comment): bool
 {
     return \PostRepository\insert_comment($post_comment);
 }
+
+/**
+ * Xóa bình luận được chọn
+ * input: comment_id
+ * output: true -> xóa thành công | fasle -> không thành công
+ */
+function delete_comment(string $comment_id): bool
+{
+    return \PostRepository\delete_comment($comment_id);
+}
+
+/**
+ * Lấy ra thông tin post_comment theo id
+ * input: comment_id
+ * output: obj PostComment -> tìm thấy thông tin | null -> không tìm thấy
+ */
+function get_comment(string $comment_id): \Entities\PostComment
+{
+    return \PostRepository\select_comment_by_id($comment_id);
+}
+
+/**
+ * Làm sạch các bình luận bị bỏ rống (xóa bình luận) theo user_phone_number
+ * input: user_phone_number
+ * output: void
+ */
+function clean_null_comment(string $user_phone_number): void
+{
+    \PostRepository\delete_null_comments($user_phone_number);
+}
+
+/**
+ * Cập nhật nội dung cho các bình luận
+ * input: comment_id, content
+ * output: void
+ */
+function update_comment_content(string $comment_id, string $content): void
+{
+    \PostRepository\update_comment_content($comment_id, $content);
+}

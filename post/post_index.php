@@ -252,7 +252,7 @@ function repo_get_randomly_posts(): array
 
 /**
  * Service
- * Truy vấn ngẫu nhiên 3 bài viết
+ * Truy vấn ngẫu nhiên 6 bài viết
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
@@ -260,6 +260,62 @@ function service_get_randomly_posts(): array
 {
     return repo_get_randomly_posts();
 }
+
+
+
+/**
+ * Repository
+ * Truy vấn 12 bài viết có số lượt xem nhiều nhất
+ * input: none
+ * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
+ */
+function repo_get_most_views_posts(): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post ORDER BY post.views DESC LIMIT 12";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        // Biến chứa kết quả cần trả ra
+        $posts = array();
+
+        if ($result != false) {
+            // Lần lượt lấy ra thông tin của các post rồi push vào array
+            foreach ($result as $row) {
+                $post = new \Entities\Post();
+                $post->set_id($row["id"]);
+                $post->set_name($row["name"]);
+                $post->set_description($row["description"]);
+                $post->set_cover_image_link($row["cover_image_link"]);
+                $post->set_created_date($row["created_date"]);
+                $post->set_modified_date($row["modified_date"] ?? $row["created_date"]);
+                $post->set_admin_email($row["admin_email"]);
+                array_push($posts, $post);   // thêm post vào array chứa kết quả
+            }
+            // trả ra kết quả
+            return $posts;
+        }
+        // trả ra array rỗng khi không tìm được kết quả
+        return $posts;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Service
+ * Truy vấn 12 bài viết có số lượt xem nhiều nhất
+ * input: none
+ * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
+ */
+function service_get_most_views_posts(): array
+{
+    return repo_get_most_views_posts();
+}
+
 ?>
 
 <?php session_start(); ?>
@@ -299,6 +355,7 @@ function service_get_randomly_posts(): array
 <?php
 // lấy ra danh sách các bài viết mới thêm gần đây
 $newest_posts = service_get_newest_post();    // post mới
+$most_views_posts = service_get_most_views_posts(); // post được xem nhiều
 $most_liked_posts = service_get_liked_post(); // post được like nhiều nhất
 $most_commented_posts = service_get_most_commented_post();    // post được comment nhiều nhất
 $random_posts = service_get_randomly_posts(); //
@@ -312,13 +369,16 @@ $random_posts = service_get_randomly_posts(); //
             <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</a>
+            <a class="nav-link" href="#list-item-2"><i class="bi bi-graph-up"></i> Được xem nhiều nhất</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#list-item-3"><i class="bi bi-chat"></i> Được bàn luận nhiều nhất</a>
+            <a class="nav-link" href="#list-item-3"><i class="bi bi-balloon-heart"></i> Được yêu thích nhất</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
+            <a class="nav-link" href="#list-item-4"><i class="bi bi-chat"></i> Được bàn luận nhiều nhất</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
         </li>
     </ul>
 </nav>
@@ -372,8 +432,55 @@ $random_posts = service_get_randomly_posts(); //
             ?>
             </div><br>
 
+            <!--Hiển thị post có nhiều lượt xem nhiều nhất-->
+            <h2 id="list-item-2"><i class="bi bi-graph-up"></i> Bài viết có lượt xem nhiều nhất</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <?php
+            if (count($most_views_posts) > 0) {
+                foreach($most_views_posts as $post) {
+            ?>
+                <div class="col">
+                    <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                        <div class="card h-100">
+                            <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $post->get_name() ?></h5>
+                                <p class="card-text"><?= $post->get_description() ?></p>
+                            </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
+                        </div>
+                        </div>
+                    </a>
+                </div>
+            <?php
+                }
+            } else {
+            ?>
+            <!--Hiển thị place holder vì không tìm thấy kết quả-->
+                <div class="card" aria-hidden="true">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+            </div><br>
+
             <!--Bài viết có số lượt thích nhiều nhất-->
-            <h2 id="list-item-2"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h2>
+            <h2 id="list-item-3"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
             if (count($most_liked_posts) > 0) {
@@ -420,7 +527,7 @@ $random_posts = service_get_randomly_posts(); //
             </div><br>
 
             <!--Bài viết có số lượt comment nhiều nhất-->
-            <h2 id="list-item-3"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h2>
+            <h2 id="list-item-4"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
             if (count($most_commented_posts) > 0) {
@@ -467,7 +574,7 @@ $random_posts = service_get_randomly_posts(); //
             </div><br>
 
             <!--Bài viết đề xuất-->
-            <h2 id="list-item-4"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h2>
+            <h2 id="list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
             if (count($random_posts) > 0) {
