@@ -380,6 +380,11 @@ $random_posts = service_get_randomly_posts(); //
         <li class="nav-item">
             <a class="nav-link" href="#list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
         </li>
+        <li class="nav-item">
+            <form method="post">
+                <button class="btn btn-info"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
+            </form>
+        </li>
     </ul>
 </nav>
 <div class="container">

@@ -266,15 +266,14 @@ function insert_comment(\Entities\PostComment $post_comment): bool
  * input: comment_id
  * output: true -> xóa thành công | fasle -> không thành công
  */
-function delete_comment(string $comment_id): bool
+function delete_comment(string $comment_id): void
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "DELETE FROM post_comment WHERE post_comment.id = '$comment_id'";
         $statement = $connection->prepare($sql);
-        $statement->execute();
-        return $statement->fetchAll();
+        $statement->execute();  // xóa comment
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
@@ -307,24 +306,6 @@ function select_comment_by_id(string $comment_id): \Entities\PostComment
         }
         // trường hợp không tìm ra kết quả
         return $comment;
-    } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
-    }
-}
-
-/**
- * Làm sạch các bình luận bị bỏ rống (xóa bình luận)
- * input: user_phone_number
- * output: void
- */
-function delete_null_comments(string $user_phone_number): void
-{
-    try {
-        require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
-        $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "DELETE FROM post_comment WHERE post_comment.content = '' AND post_comment.user_phone_number = '$user_phone_number'";
-        $statement = $connection->prepare($sql);
-        $statement->execute();  // chạy lệnh truy vấn
     } catch (\PDOException $ex) {
         echo("Error occur when querying data: " . $ex->getMessage());
     }

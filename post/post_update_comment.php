@@ -38,8 +38,8 @@
     // Nếu có lệnh thêm comment từ template
     if (isset($_POST["comment-submit"])) {
         // Kiểm tra thông tin từ form
-        if (strlen($_POST["comment-content"]) <= 8000 && isset($post)) {
-            // comment không nhiều hơn 8000 ký tự
+        if (strlen($_POST["comment-content"]) >= 2 && strlen($_POST["comment-content"]) <= 8000 && isset($post)) {
+            // comment không ít hơn 2 và nhiều hơn 8000 ký tự
             // Cập nhật comment
             \PostService\update_comment_content($comment->get_id(), $_POST["comment-content"]);
             echo(<<<END
@@ -58,9 +58,6 @@
     <div class="container">
         <h3>Cập nhật bình luận cho bài viết: <?php if (isset($post)) {echo($post->get_name());}?> </h3>
         <div class="container">
-            <div class="alert alert-info" role="alert">
-                <i class="bi bi-info-circle-fill"></i> Hãy cập nhật nội dung rỗng cho các bình luận, sau đó quay lại trang bình luận và chọn nút làm sạch bình luận rỗng để xóa chúng
-            </div>
             <form method="post">
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Nội dung bình luận của bạn</label>

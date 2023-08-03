@@ -102,9 +102,9 @@ function add_new_comment(\Entities\PostComment $post_comment): bool
  * input: comment_id
  * output: true -> xóa thành công | fasle -> không thành công
  */
-function delete_comment(string $comment_id): bool
+function delete_comment(string $comment_id): void
 {
-    return \PostRepository\delete_comment($comment_id);
+    \PostRepository\delete_comment($comment_id);
 }
 
 /**
@@ -117,15 +117,6 @@ function get_comment(string $comment_id): \Entities\PostComment
     return \PostRepository\select_comment_by_id($comment_id);
 }
 
-/**
- * Làm sạch các bình luận bị bỏ rống (xóa bình luận) theo user_phone_number
- * input: user_phone_number
- * output: void
- */
-function clean_null_comment(string $user_phone_number): void
-{
-    \PostRepository\delete_null_comments($user_phone_number);
-}
 
 /**
  * Cập nhật nội dung cho các bình luận

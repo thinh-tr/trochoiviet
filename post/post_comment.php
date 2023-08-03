@@ -132,23 +132,17 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     }
     ?>
 
-    <!--Xử lý xóa toàn bộ các comment rỗng-->
+    <!--Xử lý xóa comment được chọn-->
     <?php
-    if (isset($_POST["delete-null-comment"])) {
-        // Kiểm tra login
-        if (isset($_SESSION["user_phone_number"])) {
-            \PostService\clean_null_comment($_SESSION["user_phone_number"]);    // xóa các comment rỗng
+    for ($i = 0; $i < count($post_comments_of_user); $i++) {
+        if (isset($_POST["{$post_comments_of_user[$i]->get_id()}"])) {
+            // chạy lệnh xóa comment được chọn
+            \PostService\delete_comment($post_comments_of_user[$i]->get_id());
             echo(<<<END
-            <div class="alert alert-success" role="alert">
-                Đã xóa tất cả các bình luận mà bạn bỏ rống
-            </div>
-            END);
-        } else {
-            echo(<<<END
-            <div class="alert alert-warning" role="alert">
-                Bạn vẫn chưa đăng nhập
-            </div>
-            END);
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle-fill"></i> Đã xóa bình luận
+                </div>          
+                END);
         }
     }
     ?>
@@ -168,7 +162,7 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
             </li>
             <li>
                 <form method="post">
-                    <button class="btn btn-warning" id="delete-null-comment" name="delete-null-comment"><i class="bi bi-arrow-repeat"></i> Làm sạch các bình luận bỏ rống</button>
+                    <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
                 </form>
             </li>
         </ul>
@@ -212,21 +206,22 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
             <div class="container">
                 <?php
                 if (count($post_comments_of_user) > 0) {
-                    foreach ($post_comments_of_user as $comment) {
+                    for ($i = 0; $i < count($post_comments_of_user); $i++) {
                 ?>
                 <!--card chứa nội dung comment-->
                     <!--card chứa nội dung comment-->
                     <div class="card border-warning w-75 mb-3">
                         <div class="card-header">
-                            <small class="text-body-secondary">Bình luận của: <b><?= $comment->get_user_phone_number() ?></b></small>,
-                            <small class="text-body-secondary">Ngày đăng: <b><?= date("d-m-Y", $comment->get_created_date()) ?></b></small>
+                            <small class="text-body-secondary">Bình luận của: <b><?= $post_comments_of_user[$i]->get_user_phone_number() ?></b></small>,
+                            <small class="text-body-secondary">Ngày đăng: <b><?= date("d-m-Y", $post_comments_of_user[$i]->get_created_date()) ?></b></small>
                         </div>
                         <div class="card-body">
-                            <p class="card-text"><?= $comment->get_content() ?></p>
+                            <p class="card-text"><?= $post_comments_of_user[$i]->get_content() ?></p>
                         </div>
                         <div class="card-footer">
                             <form method="post">
                                 <a class="btn btn-warning" href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $comment->get_id() ?>"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
+                                <button class="btn btn-danger" id="<?= $post_comments_of_user[$i]->get_id() ?>" name="<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể hoàn tác)</button>
                             </form>
                         </div>
                     </div>
