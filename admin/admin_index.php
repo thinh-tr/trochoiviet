@@ -28,7 +28,7 @@
     <!-- Thân trang -->
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            <a href="#">
+            <a href="/admin/admin_post_manager_index.php">
                 <div class="col">
                     <div class="card">
                         <img src="../static/images/Social-Post.png" class="card-img-top" alt="..." />

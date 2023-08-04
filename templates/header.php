@@ -19,6 +19,7 @@
     </style>
 </head>
 <body>
+
     <!-- Navbar --><nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -63,9 +64,8 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+            <form class="d-flex" role="search" method="post">
+                <a class="btn btn-outline-info" href="/post_search_page.php"><i class="bi bi-search"></i></button> Tìm kiếm</a>
             </form>
         </div>
     </div>

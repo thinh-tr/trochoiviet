@@ -445,3 +445,193 @@ function select_follow_posts_by_user_phone_number(string $user_phone_number): ar
         echo("Error occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Lấy tất cả các post được tạo bởi một admin chỉ định
+ * input: admin_email
+ * output: array chứa Post obj | array rỗng -> không có kết quả
+ */
+function select_posts_by_admin_email(string $admin_email): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post WHERE post.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        // Kiểm tra kết quả tìm được
+        $post_array = array();  // array chứa kết quả trả về
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+                $post = new \Entities\Post();
+                $post->set_id($row["id"]);
+                $post->set_name($row["name"]);
+                $post->set_description($row["description"]);
+                $post->set_cover_image_link($row["cover_image_link"]);
+                $post->set_created_date($row["created_date"]);
+                $post->set_modified_date($row["modified_date"] ?? $row["created_date"]);
+                $post->set_views($row["views"]);
+                $post->set_admin_email($row["admin_email"]);
+                // push post vừa tìm được vào array kết quả
+                array_push($post_array, $post);
+            }
+        }
+        // trả ra array kết quả
+        return $post_array;
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+
+/**
+ * Repository
+ * Lấy ra array chứa các post_content của một post theo post id
+ * input: post_id
+ * output: array chứa post_content -> có kết quả | array rỗng -> không có kết quả
+ */
+function select_post_contents_by_post_id(string $post_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_content WHERE post_content.post_id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $post_contents = array();   // Biến chứa các contents sẽ được trả ra
+
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                $content = new \Entities\PostContent();    // biến chứa thông tin content
+                $content->set_id($row["id"]);
+                $content->set_title($row["title"]);
+                $content->set_content($row["content"]);
+                $content->set_post_id($row["post_id"]);
+                // thêm content tìm được vào array kết quả
+                array_push($post_contents, $content);
+            }
+            // Trả ra array chứa kết quả sau khi đã thêm tất cả content
+            return $post_contents;
+        }
+        // trả ra array rỗng
+        return $post_contents;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+
+/**
+ * Repository
+ * Lấy ra thông tin của các PostContentImage thông qua post_content_id
+ * input: post_content_id
+ * output: array chứa các PosrtContentImage -> tìm thấy kết quả | array rỗng -> không tìm thấy kết quả
+ */
+function select_post_content_image_by_post_content_id(string $post_content_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_content_image WHERE post_content_image.post_content_id = '$post_content_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $post_content_images = array(); // Biến chứa content image cần trả ra
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            // trường hợp tìm được kết quả
+            // Lần lượt lấy ra các PostContentImage rồi push vào array kết quả
+            foreach ($result as $row) {
+                $content_image = new \Entities\PostContentImage();
+                $content_image->set_id($row["id"]);
+                $content_image->set_image_link($row["image_link"]);
+                $content_image->set_post_content_id($row["post_content_id"]);
+                array_push($post_content_images, $content_image);   // push
+            }
+            // trả ra array kết quả tìm được
+            return $post_content_images;
+        }
+        // trường hợp không tìm được kết quả
+        return $post_content_images;    // trả ra array rỗng
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Repository
+ * Lấy ra array chứa thông tin của các video được nhúng trong bài post
+ * input: post_id
+ * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
+ */
+function select_post_video_by_post_id(string $post_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_video WHERE post_video.post_id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $post_video_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // trường hợp tìm được kết quả
+            foreach ($result as $row) {
+                // lần lượt chuyển kết quả tìm được vào array kết quả
+                $post_video = new \Entities\PostVideo();
+                $post_video->set_id($row["id"]);
+                $post_video->set_video_source($row["video_source"]);
+                $post_video->set_video_link($row["video_link"]);
+                $post_video->set_post_id($row["post_id"]);
+                array_push($post_video_array, $post_video);
+            }
+            // trả ra array chứa kết quả
+            return $post_video_array;
+        }
+        // Nếu không tìm được kết quả
+        return $post_video_array;   // trả ra array rỗng
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Tìm kiếm bài viết theo tên
+ * input: post_name
+ * output: array post obj | array rỗng -> không có kết quả
+ */
+function select_post_by_keyword(string $keyword): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post WHERE post.name LIKE '%$keyword%'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $search_array = array();    // array chứa kết quả tìm kiếm
+        // Kiểm tra kết quả trả về
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+                $post = new \Entities\Post();
+                $post->set_id($row["id"]);
+                $post->set_name($row["name"]);
+                $post->set_description($row["description"]);
+                $post->set_cover_image_link($row["cover_image_link"]);
+                $post->set_created_date($row["created_date"]);
+                $post->set_modified_date($row["modified_date"] ?? $row["created_date"]);
+                $post->set_views($row["views"]);
+                $post->set_admin_email($row["admin_email"]);
+                array_push($search_array, $post);   // push post tìm được vào array kết quả
+            }
+        }
+        // trả ra kết quả
+        return $search_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

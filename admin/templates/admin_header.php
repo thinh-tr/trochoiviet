@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-file-earmark-post"></i> Quản lý bài đăng</a>
+                        <a class="nav-link" href="/admin/admin_post_manager_index.php"><i class="bi bi-file-earmark-post"></i> Quản lý bài đăng</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-shop"></i> Quản lý cửa hàng</a>

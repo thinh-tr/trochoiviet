@@ -90,12 +90,14 @@
                                         <h5 class="card-title"><?= $user_like_posts[$i]->get_name() ?></h5>
                                         <p class="card-text"><?= $user_like_posts[$i]->get_description() ?></p>
                                     </div>
-                                <div class="card-footer">
-                                    <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$user_like_posts[$i]->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $user_like_posts[$i]->get_admin_email() ?></small><br>
-                                    <form method="post">
-                                        <button type="submit" class="btn btn-danger" id="<?= $user_like_posts[$i]->get_id() ?>" name="<?= $user_like_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa</button>
-                                    </form>
-                                </div>
+                                    <div class="card-footer">
+                                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$user_like_posts[$i]->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $user_like_posts[$i]->get_admin_email() ?></small><br>
+                                    </div>
+                                    <div class="card-footer">
+                                        <form method="post">
+                                            <button type="submit" class="btn btn-danger" id="<?= $user_like_posts[$i]->get_id() ?>" name="<?= $user_like_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </a>
                         </div>

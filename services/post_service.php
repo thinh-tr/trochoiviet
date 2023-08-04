@@ -177,3 +177,57 @@ function get_follow_posts(string $user_phone_number): array
 {
     return \PostRepository\select_follow_posts_by_user_phone_number($user_phone_number);
 }
+
+/**
+ * Lấy tất cả các post được tạo bởi một admin chỉ định
+ * input: admin_email
+ * output: array chứa Post obj | array rỗng -> không có kết quả
+ */
+function get_posts_by_admin(string $admin_email): array
+{
+    return \PostRepository\select_posts_by_admin_email($admin_email);
+}
+
+/**
+ * Service
+ * Lấy ra array chứa các post_content của một post theo post id
+ * input: post_id
+ * output: array chứa post_content -> có kết quả | array rỗng -> không có kết quả
+ */
+function get_post_contents_by_post_id(string $post_id): array
+{
+    return \PostRepository\select_post_contents_by_post_id($post_id);
+}
+
+
+/**
+ * Service
+ * Lấy ra thông tin của các PostContentImage thông qua post_content_id
+ * input: post_content_id
+ * output: array chứa các PosrtContentImage -> tìm thấy kết quả | array rỗng -> không tìm thấy kết quả
+ */
+function get_post_content_image_by_post_content_id(string $post_content_id): array
+{
+    return \PostRepository\select_post_content_image_by_post_content_id($post_content_id);
+}
+
+/**
+ * Service
+ * Lấy ra array chứa thông tin của các video được nhúng trong bài post
+ * input: post_id
+ * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
+ */
+function get_post_video_by_post_id(string $post_id): array
+{
+    return \PostRepository\select_post_video_by_post_id($post_id);
+}
+
+/**
+ * Tìm kiếm bài viết theo tên
+ * input: post_name
+ * output: array post obj | array rỗng -> không có kết quả
+ */
+function search_post(string $keyword): array
+{
+    return \PostRepository\select_post_by_keyword($keyword);
+}

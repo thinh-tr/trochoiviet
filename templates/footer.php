@@ -10,7 +10,6 @@
     <style>
         section.container {
         padding-top: 5px;
-        margin-bottom: 10px;
     }
     </style>
 </head>
@@ -65,15 +64,15 @@
                         <h6 class="text-uppercase fw-bold mb-4">Theo dõi chúng tôi</h6>
                         <p>
                             <!-- <img src="{facebookLogo}" alt="facebook logo" /> <a href="#!" class="text-reset">Facebook</a> -->
-                            <img src='/static/icons/icons8-facebook-48.png' alt='facebook logo'><a href="#!" class="text-reset">Facebook</a>
+                            <i class="bi bi-facebook"></i> <a href="#!" class="text-reset">Facebook</a>
                         </p>
                         <p>
                             <!-- <img src="{youtubeLogo}" alt="youtube logo" /> <a href="#!" class="text-reset">Youtube</a> -->
-                            <img src='/static/icons/icons8-youtube-48.png' alt='youtube logo'><a href="#!" class="text-reset">Youtube</a>
+                            <i class="bi bi-youtube"></i> <a href="#!" class="text-reset">Youtube</a>
                         </p>
                         <p>
                             <!-- <img src="{instagramLogo}" /> <a href="#!" class="text-reset">Instagram</a> -->
-                            <img src='/static/icons/icons8-instagram-48.png' alt='instagram logo'><a href="#!" class="text-reset">Instagram</a>
+                            <i class="bi bi-instagram"></i> <a href="#!" class="text-reset">Instagram</a>
                         </p>
                     </div>
                     <!-- Grid column -->
