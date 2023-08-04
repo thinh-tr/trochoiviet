@@ -328,3 +328,120 @@ function update_comment_content(string $comment_id, string $content): void
         echo("Error occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Thêm post vào mục post được theo dõi của user
+ * input: UserPostFollow
+ * output: bool
+ */
+function insert_user_post_follow(string $user_phone_number, string $post_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $uniqid = uniqid();
+        $sql = "INSERT INTO user_post_follow VALUES('$uniqid', '$user_phone_number', '$post_id')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();   // trả ra kết quả truy vấn
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa user post follow
+ * input: user_post_follow_id
+ * output: void
+ */
+function delete_user_post_follow(string $user_phone_number, string $post_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM user_post_follow WHERE user_post_follow.user_phone_number = '$user_phone_number' AND user_post_follow.post_id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();   // Xóa follow được chọn
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Kiểm tra xem user đã follow post hay chưa
+ * input: user_phone_number, post_id
+ * output: true -> đã follow | false -> chưa follow
+ */
+function is_post_followed(string $user_phone_number, string $post_id): bool
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_post_follow WHERE user_post_follow.user_phone_number = '$user_phone_number' AND user_post_follow.post_id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (count($result) > 0) {
+            return true;    // đã follow
+        } else {
+            return false;   // chưa follow
+        }
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra danh sách post được like bởi một user chỉ định
+ * input: user_phone_number
+ * output: array chứa post obj | array rỗng -> không có kết quả
+ */
+function select_liked_posts_by_user_phone_number(string $user_phone_number): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT post_likes.post_id FROM post_likes WHERE post_likes.user_phone_number = '$user_phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $liked_posts_array = array();
+        // Lấy ra kết quả
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+                $post = select_post_by_id($row["post_id"]);    // lấy ra post obj tương ứng với id
+                array_push($liked_posts_array, $post);  // thêm post tìm được vào array kết quả
+            }
+        }
+        return $liked_posts_array; // trả ra biến kết quả
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra danh sách post được follow bởi một user chỉ định,
+ * input: user_phone_number,
+ * output: array chứa post obj | array rỗng -> không có kết quả
+ */
+function select_follow_posts_by_user_phone_number(string $user_phone_number): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM user_post_follow WHERE user_post_follow.user_phone_number = '$user_phone_number'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $follow_posts_array = array();
+        // Lấy ra kết quả
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+                $post = select_post_by_id($row["post_id"]);    // lấy ra post obj tương ứng với id
+                array_push($follow_posts_array, $post);  // thêm post tìm được vào array kết quả
+            }
+        }
+        return $follow_posts_array; // trả ra biến kết quả
+    } catch (\PDOException $ex) {
+        echo("Error occur when querying data: " . $ex->getMessage());
+    }
+}

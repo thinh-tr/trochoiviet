@@ -224,6 +224,34 @@ function service_get_post_video_by_post_id(string $post_id): array
     }
     ?>
 
+    <?php
+    // Xử lý khi user follow bài viết
+    if (isset($_POST["follow-submit"])) {
+        // Kiểm tra login
+        if (isset($_SESSION["user_phone_number"]) && isset($post)) {
+            // Xử lý follow hoặc unfollow
+            if (\PostService\is_post_followed($_SESSION["user_phone_number"], $post->get_id())) {
+                // Bỏ follow
+                \PostService\unfollow_post($_SESSION["user_phone_number"], $post->get_id());
+                echo(<<<END
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-check-circle-fill"></i> Đã bỏ theo dõi bài viết
+                    </div>
+                    END);
+            } else {
+                // follow
+                \PostService\follow_post($_SESSION["user_phone_number"], $post->get_id());
+                    echo(<<<END
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-circle-fill"></i> Đã theo dõi bài viết
+                    </div>
+                    END);
+            }
+        } else {
+            echo("<script>window.alert('Vui lòng đăng nhập để sử dụng chức năng này')</script>");
+        }
+    }
+    ?>
     
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
@@ -253,6 +281,7 @@ function service_get_post_video_by_post_id(string $post_id): array
                     <button class="btn btn-outline-info me-2" type="button"><i class="bi bi-eye-fill"></i> <?= $post->get_views() ?></button>
                     <a class="btn btn-outline-warning me-2" href="/post/post_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-chat-fill"></i> <?= $post_comments ?></a>
                     <button class="btn btn-outline-primary me-2" type="submit" id="like-submit" name="like-submit"><i class="bi bi-hand-thumbs-up-fill"></i> <?= $post_likes ?></button>
+                    <button class="btn btn-outline-primary me-2" type="submit" id="follow-submit" name="follow-submit"><i class="bi bi-bookmark-fill"></i></button>
                     <a class="btn btn-secondary" href="https://www.facebook.com/sharer/sharer.php?u=<?= $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] ?>"><i class="bi bi-arrow-right-short"></i> <i class="bi bi-facebook"></i></i></a>
                 </form>
                 <?php

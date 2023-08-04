@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Trang thông tin quản trị viên</title>
     <style>
         div.container {
@@ -129,18 +130,22 @@
     }
     ?>
 
+    <!--Điều hướng-->
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
+    </nav>
     <!--form thông tin quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Địa chỉ email *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-envelope-fill"></i> Địa chỉ email *</label>
                 <input type="email" class="form-control" id="email" name="email" disabled value="<?php if ($admin != null) {
                                                                                                         echo ($admin->get_email());
                                                                                                     } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Mật khẩu *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-key-fill"></i> Mật khẩu *</label>
                 <input type="password" class="form-control" id="password" name="password" disabled value="<?php if ($admin != null) {
                                                                                                                 echo ($admin->get_password());
                                                                                                             } ?>">
@@ -149,13 +154,13 @@
                 <a class="btn btn-info" href="/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-info-circle-fill"></i> Họ tên *</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="không it hơn 2 ký tự" value="<?php if ($admin != null) {
                                                                                                                             echo ($admin->get_name());
                                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-telephone-fill"></i> Số điện thoại</label>
                 <input type="tel" class="form-control" id="phone-number" name="phone-number" value="<?php if ($admin != null) {
                                                                                                         echo ($admin->get_phone_number());
                                                                                                     } ?>">
@@ -163,13 +168,13 @@
 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Ngày tham gia *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-calendar-check-fill"></i> Ngày tham gia *</label>
                 <input type="tel" class="form-control" id="join-date" name="join-date" disabled value="<?php if ($admin != null) {
                                                                                                             echo (date("d-m-y", $admin->get_join_date()));
                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
+                <label for="exampleFormControlTextarea1" class="form-label"><i class="bi bi-info-circle-fill"></i> Tự giới thiệu</label>
                 <textarea class="form-control" id="self-intro" rows="3" name="self-intro" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"><?php if ($admin != null) {
                                                                                                                                                                         echo ($admin->get_self_intro());
                                                                                                                                                                     } ?></textarea>

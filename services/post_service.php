@@ -127,3 +127,53 @@ function update_comment_content(string $comment_id, string $content): void
 {
     \PostRepository\update_comment_content($comment_id, $content);
 }
+
+/**
+ * Thêm post vào mục post được theo dõi của user
+ * input: UserPostFollow
+ * output: bool
+ */
+function follow_post(string $user_phone_number, string $post_id): void
+{
+    \PostRepository\insert_user_post_follow($user_phone_number, $post_id);
+}
+
+/**
+ * Xóa user post follow
+ * input: user_post_follow_id
+ * output: void
+ */
+function unfollow_post(string $user_phone_number, string $post_id): void
+{
+    \PostRepository\delete_user_post_follow($user_phone_number, $post_id);
+}
+
+/**
+ * Kiểm tra xem user đã follow post hay chưa
+ * input: user_phone_number, post_id
+ * output: true -> đã follow | false -> chưa follow
+ */
+function is_post_followed(string $user_phone_number, string $post_id): bool
+{
+    return \PostRepository\is_post_followed($user_phone_number, $post_id);
+}
+
+/**
+ * Lấy ra danh sách post_id được like bởi một user chỉ định
+ * input: user_phone_number
+ * output: array chứa post obj | array rỗng -> không có kết quả
+ */
+function get_liked_posts(string $user_phone_number): array
+{
+    return \PostRepository\select_liked_posts_by_user_phone_number($user_phone_number);
+}
+
+/**
+ * Lấy ra danh sách post được follow bởi một user chỉ định
+ * input: user_phone_number
+ * output: array chứa post obj | array rỗng -> không có kết quả
+ */
+function get_follow_posts(string $user_phone_number): array
+{
+    return \PostRepository\select_follow_posts_by_user_phone_number($user_phone_number);
+}

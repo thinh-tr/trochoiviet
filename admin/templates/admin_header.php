@@ -18,21 +18,21 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản lý bài đăng</a>
+                        <a class="nav-link" href="#"><i class="bi bi-file-earmark-post"></i> Quản lý bài đăng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản lý cửa hàng</a>
+                        <a class="nav-link" href="#"><i class="bi bi-shop"></i> Quản lý cửa hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Quản lý đơn hàng</a>
+                        <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Quản lý đơn hàng</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Tài khoản quản trị viên
+                            <i class="bi bi-gear"></i> Tài khoản quản trị viên
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/admin_login.php">Đăng nhập</a></li>
-                            <li><a class="dropdown-item" href="/admin/admin_info.php">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/admin/admin_login.php"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</a></li>
+                            <li><a class="dropdown-item" href="/admin/admin_info.php"><i class="bi bi-info-circle"></i> Thông tin tài khoản</a></li>
                         </ul>
                     </li>
                 </ul>

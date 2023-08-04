@@ -28,7 +28,7 @@
     <!-- Thân trang -->
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            <a href="#">
+            <a href="/user/user_like_posts.php">
                 <div class="col">
                     <div class="card">
                         <img src="../static/images/liked_post.jpg" class="card-img-top" alt="..." />
@@ -39,7 +39,7 @@
                 </div>
             </a>
 
-            <a href="#">
+            <a href="/user/user_follow_posts.php">
                 <div class="col">
                     <div class="card">
                         <img src="../static/images/follow.jpg" class="card-img-top" alt="..." />
@@ -61,7 +61,7 @@
                 </div>
             </a>
 
-            <a href="#">
+            <a href="/user/user_info.php">
                 <div class="col">
                     <div class="card">
                         <img src="../static/images/user_account.png" class="card-img-top" alt="..." />

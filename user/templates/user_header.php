@@ -16,16 +16,16 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bài viết đã thích</a>
+                        <a class="nav-link" href="/user/user_like_posts.php"><i class="bi bi-hand-thumbs-up"></i> Bài viết đã thích</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bài viết đã lưu</a>
+                        <a class="nav-link" href="/user/user_follow_posts.php"><i class="bi bi-save"></i> Bài viết đang theo dõi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Đơn hàng của bạn</a>
+                        <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Đơn hàng của bạn</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/user_info.php">Thông tin tài khoản</a>
+                        <a class="nav-link" href="/user/user_info.php"><i class="bi bi-person"></i> Thông tin tài khoản</a>
                     </li>
                 </ul>
             </div>

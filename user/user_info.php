@@ -119,12 +119,16 @@
     }
     ?>
 
+    <!--Điều hướng-->
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+        <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
+    </nav>
     <!--form thông tin quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Thông tin người dùng</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
-                <label for="phone-number" class="form-label">Số điện thoại *</label>
+                <label for="phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> Số điện thoại *</label>
                 <input type="tel" class="form-control" id="phone-number" name="phone-number" disabled value="<?php if ($user_info != null) {
                                                                                                         echo ($user_info->get_phone_number());
                                                                                                     } ?>">
@@ -132,21 +136,21 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Địa chỉ email</label>
+                <label for="email" class="form-label"><i class="bi bi-envelope-fill"></i> Địa chỉ email</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?php if ($user_info != null) {
                                                                                                         echo ($user_info->get_email());
                                                                                                     } ?>">
             </div>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Họ tên *</label>
+                <label for="name" class="form-label"><i class="bi bi-info-circle-fill"></i> Họ tên *</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="không ít hơn 2 ký tự" value="<?php if ($user_info != null) {
                                                                                                                             echo ($user_info->get_name());
                                                                                                                         } ?>">
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu</label>
+                <label for="password" class="form-label"><i class="bi bi-key-fill"></i> Mật khẩu</label>
                 <input type="password" class="form-control" id="password" name="password" disabled value="<?php if ($user_password != "") {
                                                                                                                 echo ($user_password);
                                                                                                             } ?>">
@@ -157,7 +161,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="join-date" class="form-label">Ngày tham gia *</label>
+                <label for="join-date" class="form-label"><i class="bi bi-calendar-check-fill"></i> Ngày tham gia *</label>
                 <input type="tel" class="form-control" id="join-date" name="join-date" disabled value="<?php if ($user_info != null) {
                                                                                                             echo (date("d-m-y", $user_info->get_join_date()));
                                                                                                         } ?>">
