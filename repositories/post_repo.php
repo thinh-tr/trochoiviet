@@ -635,3 +635,27 @@ function select_post_by_keyword(string $keyword): array
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Cập nhật thông tin của Post theo post_id
+ * input: post_id, post_name, post_description, post_cover_image, post_modified_date, post_views
+ * output: void
+ */
+function update_post_info_by_post_id(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post
+                SET post.name = '$post_name',
+                    post.description = '$post_description',
+                    post.cover_image_link = '$post_cover_image_link',
+                    post.modified_date = $post_modified_date,
+                    post.views = $post_views
+                WHERE post.id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

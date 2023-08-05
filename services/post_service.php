@@ -231,3 +231,13 @@ function search_post(string $keyword): array
 {
     return \PostRepository\select_post_by_keyword($keyword);
 }
+
+/**
+ * Cập nhật thông tin của Post theo post_id
+ * input: post_id, post_name, post_description, post_cover_image, post_modified_date, post_views
+ * output: void
+ */
+function update_post_info(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void
+{
+    \PostRepository\update_post_info_by_post_id($post_id, $post_name, $post_description, $post_cover_image_link, $post_modified_date, $post_views);
+}

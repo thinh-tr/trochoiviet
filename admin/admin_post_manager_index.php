@@ -52,6 +52,7 @@
         <ul class="nav nav-bills">
             <li class="nav-item">
                 <form method="post">
+                    <a href="#" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm bài viết mới</a>
                     <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
                 </form>
             </li>
@@ -72,7 +73,7 @@
                         // Lần lượt hiển thị ra các post
                     ?>
                         <div class="col">
-                            <a href="">
+                            <a href="/admin/admin_post_edit.php?post-id=<?= $admin_posts[$i]->get_id() ?>">
                                 <div class="card h-100">
                                     <img src="<?= $admin_posts[$i]->get_cover_image_link() ?>" class="card-img-top" alt="...">
                                     <div class="card-body">
