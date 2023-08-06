@@ -80,9 +80,72 @@
     }
     ?>
 
+    <?php
+    // Xử lý thêm thông tin post content
+    if (isset($_POST["content-submit"])) {
+        // Kiểm tra các thông tin trên form
+        $content_info_array = array();
+
+        // Kiểm tra title
+        if (strlen($_POST["new-content-title"]) >= 2) {
+            $content_info_array["content_title"] = $_POST["new-content-title"];
+        }
+
+        // Kiểm tra content
+        if (strlen($_POST["new-content-body"]) >= 20) {
+            $content_info_array["content_body"] = $_POST["new-content-body"];
+        }
+
+        // Kiểm tra lại array
+        $is_valid_array = true;
+        if (!array_key_exists("content_title", $content_info_array)) {
+            $is_valid_array = false;
+        } else if (!array_key_exists("content_body", $content_info_array)) {
+            $is_valid_array = false;
+        }
+
+        // Thêm mới nếu thông tin hợp lệ
+        if ($is_valid_array) {
+            $content = new \Entities\PostContent();
+            $content->set_id(uniqid());
+            $content->set_title($content_info_array["content_title"]);
+            $content->set_content($content_info_array["content_body"]);
+            $content->set_post_id($post->get_id());
+            \PostService\add_post_content($content);
+            echo(<<<END
+                <div class="alert alert-success" role="alert">
+                    Đã thêm nội dung bài viết
+                </div>         
+                END);
+        } else {
+            echo("<script>window.alert('Vui lòng kiểm tra lại thông tin nội dung bạn vừa nhập')</script>");
+        }
+    }
+    ?>
+
+    <?php
+    // Xử lý xóa post_content
+    for ($i = 0; $i < count($post_content_array); $i++) {
+        if (isset($_POST[$post_content_array[$i]->get_id()])) {
+            // Xóa post_content
+            \PostService\delete_post_content($post_content_array[$i]->get_id());
+            echo(<<<END
+                <div class="alert alert-danger" role="alert">
+                    Đã xóa nội dung bài viết
+                </div>
+                END);
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_post_manager_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
+        <ul class="nav nav-pills">
+            <form method="post">
+                <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+            </form>
+        </ul>
     </nav>
 
     <div class="container">
@@ -127,30 +190,44 @@
 
             <!--Thông tin nội dung bài viết-->
             <h3><i class="bi bi-postcard"></i> <b>Nội dung bài viết</b></h3>
-            <nav id="post-content-nav" class="navbar bg-body-tertiary px-3 mb-3">
-                <a class="btn btn-warning" href="#"><i class="bi bi-plus-lg"></i> Thêm đoạn nội dung</a>
-            </nav>
+            <h5><i class="bi bi-plus-lg"></i> <b>Thêm đoạn nội dung mới</b></h5>
+            <!--Form dùng đề tải lên đoạn nội dung mới-->
+            <form method="post" class="border border-warning" style="border-style: solid; border-width: 5px; border-radius: 5px; margin-bottom: 5px;">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="new-content-title" class="form-label"><b>Tiêu đề nội dung *</b></label>
+                        <input type="text" class="form-control" id="new-content-title" name="new-content-title" placeholder="Tiêu đề đoạn nội dung mới (Từ 2 ký tự trở lên)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-content-body" class="form-label"><b>Nội dung *</b></label>
+                        <textarea class="form-control" id="new-content-body" name="new-content-body" placeholder="Đoạn nội dung (Từ 20 ký tự trở lên)" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary" id="content-submit" name="content-submit"><i class="bi bi-arrow-up-square-fill"></i> Tải lên</button>
+                        <button class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Hủy</button>
+                    </div>
+                </div>
+            </form><br>
             <!--Hiển thị các đoạn nội dung mà post này có-->
+            <h5><b>Các đoạn  nội dung hiện có</b></h5>
             <?php
             if (count($post_content_array) > 0) {
                 for ($i = 0; $i < count($post_content_array); $i++) {
             ?>
-            <form method="post" style="border-style: solid; border-width: 2px; border-radius: 5px; margin-bottom: 5px;">
-                <div class="container">
-                    <div class="mb-3">
-                        <label for="content-title-<?= $post_content_array[$i]->get_id() ?>" class="form-label"><b>Tiêu đề nội dung *</b></label>
-                        <input type="text" class="form-control" id="content-title-<?= $post_content_array[$i]->get_id() ?>" name="content-title-<?= $post_content_array[$i]->get_id() ?>" placeholder="Tiêu đề đoạn nội dung (từ 2 ký tự trở lên)" value="<?= $post_content_array[$i]->get_title() ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="content-body-<?= $post_content_array[$i]->get_id() ?>" class="form-label"><b>Nội dung *</b></label>
-                        <textarea class="form-control" id="content-body-<?= $post_content_array[$i]->get_id() ?>" name="content-body-<?= $post_content_array[$i]->get_id() ?>" rows="3"><?= $post_content_array[$i]->get_content() ?></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-primary" name="content-save-submit-<?= $post_content_array[$i]->get_id() ?>"><i class="bi bi-arrow-up-square-fill"></i> Lưu</button>
-                        <button class="btn btn-danger" name="content-cancel"><i class="bi bi-x-square-fill"></i> Hủy</button>
-                    </div>
+            <!--Hiển thị các content nằm trong post-->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><b><?= $post_content_array[$i]->get_title() ?></b></h5>
+                    <p class="card-text"><?= $post_content_array[$i]->get_content() ?></p>
                 </div>
-            </form>
+                <div class="card-footer">
+                    <form method="post">
+                        <a href="/admin/admin_post_content_edit.php?post-id=<?= $post->get_id() ?>&content-id=<?= $post_content_array[$i]->get_id() ?>" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
+                        <button class="btn btn-danger" name="<?= $post_content_array[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (không thể phục hồi)</button>
+                    </form>
+                </div>
+            </div>
+
             <?php
                 }
             } else {

@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <form method="post">
-                                            <button type="submit" class="btn btn-danger" id="<?= $admin_posts[$i]->get_id() ?>" name="<?= $admin_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa ( <i class="bi bi-exclamation-triangle-fill"></i> Không thể phục hồi )</button>
+                                            <button type="submit" class="btn btn-danger" id="<?= $admin_posts[$i]->get_id() ?>" name="<?= $admin_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể phục hồi)</button>
                                         </form>
                                     </div>
                                 </div>

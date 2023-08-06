@@ -659,3 +659,135 @@ function update_post_info_by_post_id(string $post_id, string $post_name, string 
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Cập nhật đoạn nội dung cho post
+ * input: content_title, content_body
+ * output: void
+ */
+function update_post_content_by_content_id(string $content_id, string $content_title, string $content_body): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post_content
+                SET post_content.title = '$content_title',
+                    post_content.content = '$content_body'
+                WHERE post_content.id = '$content_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra thông tin của post content thông qua id
+ * input: content_id
+ * output: PostContent obj | null -> không tìm thấy thông tin
+ */
+function select_content_by_content_id(string $content_id): \Entities\PostContent
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_content WHERE post_content.id = '$content_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        // Biến chứa kết quả trả ra
+        $content = null;
+        // Kiểm tra kết quả trả ra
+        if ($result != false && count($result) > 0) {
+            $content = new \Entities\PostContent();
+            $content->set_id($result[0]["id"]); // gán id
+            $content->set_title($result[0]["title"]);   // gán title
+            $content->set_content($result[0]["content"]);   // gán content
+            $content->set_post_id($result[0]["post_id"]);   // gán post_id
+        }
+        // trả ra kết quả
+        return $content;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm PostContentImage
+ * input: PostContentImage obj
+ * output: void
+ */
+function insert_content_image_link(\Entities\PostContentImage $content_image): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO post_content_image VALUES('{$content_image->get_id()}', '{$content_image->get_image_link()}', '{$content_image->get_post_content_id()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa content_image
+ * input: content_image_id
+ * output: void
+ */
+function delete_content_image_by_id(string $image_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM post_content_image WHERE post_content_image.id = '$image_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm post_content mới
+ * input: PostContent
+ * output: void
+ */
+function insert_post_content(\Entities\PostContent $post_content): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO post_content VALUES('{$post_content->get_id()}', '{$post_content->get_title()}', '{$post_content->get_content()}', '{$post_content->get_post_id()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();      // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+
+/**
+ * Xóa post_content
+ * input: content_id
+ * output: void
+ */
+function delete_post_content(string $content_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql_delete_images = "DELETE FROM post_content_image WHERE post_content_image.post_content_id = '$content_id'";
+        $sql_delete_content = "DELETE FROM post_content WHERE post_content.id = '$content_id'";
+        
+        // xóa images
+        $delete_images = $connection->prepare($sql_delete_images);
+        $delete_images->execute();  // thực hiện truy vấn
+
+        // xóa content
+        $delete_content = $connection->prepare($sql_delete_content);
+        $delete_content->execute(); // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

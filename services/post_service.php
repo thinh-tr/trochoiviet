@@ -241,3 +241,63 @@ function update_post_info(string $post_id, string $post_name, string $post_descr
 {
     \PostRepository\update_post_info_by_post_id($post_id, $post_name, $post_description, $post_cover_image_link, $post_modified_date, $post_views);
 }
+
+/**
+ * Cập nhật đoạn nội dung cho post
+ * input: content_title, content_body
+ * output: void
+ */
+function update_post_content(string $content_id, string $content_title, string $content_body): void
+{
+    \PostRepository\update_post_content_by_content_id($content_id, $content_title, $content_body);
+}
+
+/**
+ * Lấy ra thông tin của post content thông qua id
+ * input: content_id
+ * output: PostContent obj | null -> không tìm thấy thông tin
+ */
+function get_post_content(string $content_id): \Entities\PostContent
+{
+    return \PostRepository\select_content_by_content_id($content_id);
+}
+
+/**
+ * Thêm PostContentImage
+ * input: PostContentImage obj
+ * output: void
+ */
+function add_content_image_link(\Entities\PostContentImage $content_image): void
+{
+    \PostRepository\insert_content_image_link($content_image);
+}
+
+/**
+ * Xóa content_image
+ * input: content_image_id
+ * output: void
+ */
+function delete_content_image(string $image_id): void
+{
+    \PostRepository\delete_content_image_by_id($image_id);
+}
+
+/**
+ * Thêm post_content mới
+ * input: PostContent
+ * output: void
+ */
+function add_post_content(\Entities\PostContent $post_content): void
+{
+    \PostRepository\insert_post_content($post_content);
+}
+
+/**
+ * Xóa post_content
+ * input: content_id
+ * output: void
+ */
+function delete_post_content(string $content_id): void
+{
+    \PostRepository\delete_post_content($content_id);
+}

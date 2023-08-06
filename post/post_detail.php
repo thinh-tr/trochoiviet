@@ -271,7 +271,7 @@ function service_get_post_video_by_post_id(string $post_id): array
         <div class="card-body">
             <h1 class="card-title" style="text-align: center; font-weight: bold;"><?= $post->get_name() ?></h1>
             <p class="card-text"><?= $post->get_description() ?></p>
-            <p class="card-text"><small class="text-body-secondary"><b>Tác giả:</b> <?= $post->get_admin_email() ?><br> <b>Ngày đăng:</b> <?= date("d-m-Y, H:i:s", $post->get_created_date()) ?><br> <b>Ngày cập nhật:</b> <?= date("d-m-Y, H:i:s", $post->get_created_date()) ?></small></p>
+            <p class="card-text"><small class="text-body-secondary"><b>Tác giả:</b> <?= $post->get_admin_email() ?><br> <b>Ngày đăng:</b> <?= date("d-m-Y, H:i:s", $post->get_created_date()) ?><br> <b>Ngày cập nhật:</b> <?= date("d-m-Y, H:i:s", $post->get_modified_date() ?? $post->get_created_date()) ?></small></p>
         </div>
         </div>
         <!-- Nút thích và bình luận -->
