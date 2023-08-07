@@ -349,7 +349,7 @@ function service_get_post_video_by_post_id(string $post_id): array
         ?>
             <!--Thông báo bài viết hiện không có video được chia sẽ-->
             <div class="alert alert-warning" role="alert">
-                <i class="bi bi-info-circle-fill"></i> Không có video nào được chia sẽ
+                <i class="bi bi-info-circle-fill"></i> Không có video nào được chia sẻ
             </div>
         <?php
             }

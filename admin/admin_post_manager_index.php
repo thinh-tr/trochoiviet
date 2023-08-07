@@ -64,7 +64,7 @@
 
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Tranh quản trị</a>
+        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
         <ul class="nav nav-bills">
             <li class="nav-item">
                 <form method="post">
