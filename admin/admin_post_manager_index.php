@@ -46,13 +46,29 @@
     }
     ?>
 
+    <?php
+    // Xử lý xóa post
+    for ($i = 0; $i < count($admin_posts); $i++) {
+        // Nếu như có post nhận được yêu cầu xóa
+        if (isset($_POST[$admin_posts[$i]->get_id()])) {
+            // Xóa post
+            \PostService\delete_post($admin_posts[$i]->get_id());
+            echo(<<<END
+                <div class="alert alert-danger" role="alert">
+                    Đã xóa bài viết
+                </div>          
+                END);
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Tranh quản trị</a>
         <ul class="nav nav-bills">
             <li class="nav-item">
                 <form method="post">
-                    <a href="#" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm bài viết mới</a>
+                    <a href="/admin/admin_create_post.php" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm bài viết mới</a>
                     <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
                 </form>
             </li>
@@ -66,7 +82,7 @@
             <?php
             if (count($admin_posts) > 0) {
             ?>
-                <!--Trường hợp có tìm thấy post đã thích-->
+                <!--Trường hợp có tìm thấy post-->
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <?php
                     for ($i = 0; $i < count($admin_posts); $i++) {

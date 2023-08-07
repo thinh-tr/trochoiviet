@@ -791,3 +791,102 @@ function delete_post_content(string $content_id): void
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Tạo post mới
+ * input: Post obj
+ * output: void
+ */
+function create_post(\Entities\Post $post): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO post VALUES('{$post->get_id()}', '{$post->get_name()}', '{$post->get_description()}', '{$post->get_cover_image_link()}', {$post->get_created_date()}, {$post->get_modified_date()}, {$post->get_views()}, '{$post->get_admin_email()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa post
+ * input: post_id
+ * output: void
+ */
+function delete_post(string $post_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+
+        // Các sql cần thực thi
+        $delete_comments_sql = "DELETE FROM post_comment WHERE post_comment.post_id = '$post_id'";
+        $statement1 = $connection->prepare($delete_comments_sql);
+        $statement1->execute(); // xóa tất cả comments
+
+        $delete_follows_sql = "DELETE FROM user_post_follow WHERE user_post_follow.post_id = '$post_id'";
+        $statement2 = $connection->prepare($delete_follows_sql);
+        $statement2->execute(); // xóa lượt theo dõi
+
+        $delete_likes_sql = "DELETE FROM post_likes WHERE post_likes.post_id = '$post_id'";
+        $statement3 = $connection->prepare($delete_likes_sql);
+        $statement3->execute(); // xóa tất cả lượt like
+
+        $delete_video_sql = "DELETE FROM post_video WHERE post_video.post_id = '$post_id'";
+        $statement4 = $connection->prepare($delete_video_sql);
+        $statement4->execute(); // xóa tất cả video
+
+        // Xóa post content
+        $contents_array = select_post_contents_by_post_id($post_id);
+        // Lần lượt xóa tất cả các image và content
+        foreach ($contents_array as $content) {
+            delete_post_content($content->get_id());    // xóa tất cả content
+        }
+
+        // Xóa post
+        $delete_post_sql = "DELETE FROM post WHERE post.id = '$post_id'";
+        $delete_statement = $connection->prepare($delete_post_sql);
+        $delete_statement->execute();
+
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm link video mới 
+ * input: PostVideo obj
+ * output: void
+ */
+function insert_post_video(\Entities\PostVideo $post_video): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO post_video VALUES('{$post_video->get_id()}', '{$post_video->get_video_source()}', '{$post_video->get_video_link()}', '{$post_video->get_post_id()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa link video
+ * input: post_video_id
+ * output: void
+ */
+function delete_post_video(string $post_video_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM post_video WHERE post_video.id = '$post_video_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

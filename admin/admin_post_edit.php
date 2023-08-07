@@ -138,6 +138,63 @@
     }
     ?>
 
+    <?php
+    // Xử lý thêm link video mới
+    if (isset($_POST["video-submit"])) {
+        // Kiểm tra lại thông tin trên form
+        $video_array = array();
+        
+        // video source
+        $video_array["video_source"] = $_POST["video-source"];
+
+        // Kiểm tra video link
+        if (strlen($_POST["video-link"]) >= 2) {
+            $video_array["video_link"] = $_POST["video-link"];
+        }
+
+        // Kiểm tra lại thông tin array
+        $is_valid_array = true;
+        if (!array_key_exists("video_link", $video_array)) {
+            $is_valid_array = false;
+        }
+
+        if ($is_valid_array) {
+            // tạo PostVideo cần thêm
+            $post_video = new \Entities\PostVideo();
+
+            $post_video->set_id(uniqid());
+            $post_video->set_video_source($video_array["video_source"]);
+            $post_video->set_video_link($video_array["video_link"]);
+            $post_video->set_post_id($post->get_id());
+
+            \PostService\add_post_video($post_video);
+
+            echo(<<<END
+                <div class="alert alert-success" role="alert">
+                    Đã thêm video
+                </div>          
+                END);
+        } else {
+            echo("<script>window.alert('Vui lòng kiểm tra lại thông tin video')</script>");
+        }
+    }
+    ?>
+
+    <?php
+    // Xử lý xóa post_video
+    for ($i = 0; $i < count($post_video_array); $i++) {
+        if (isset($_POST[$post_video_array[$i]->get_id()])) {
+            // Xóa video được chọn
+            \PostService\delete_post_video($post_video_array[$i]->get_id());
+            echo(<<<END
+                <div class="alert alert-danger" role="alert">
+                    Đã xóa video
+                </div>
+                END);
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_post_manager_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
@@ -172,11 +229,11 @@
                 </div>            
                 <div class="mb-3">
                     <label for="post-created-date" class="form-label"><b>Ngày đăng tải</b></label>
-                    <input style="width: 50%;" type="text" class="form-control" id="post-created-date" name="post-created-date" disabled value="<?php if ($post != null) echo(date("d-m-Y", $post->get_created_date())); ?>">
+                    <input style="width: 50%;" type="text" class="form-control" id="post-created-date" name="post-created-date" disabled value="<?php if ($post != null) echo(date("d-m-Y / h:i:sa", $post->get_created_date())); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="post-modified-date" class="form-label"><b>Ngày cập nhật</b></label>
-                    <input style="width: 50%;" type="text" class="form-control" id="post-modified-date" name="post-modified-date" disabled value="<?php if ($post != null) echo(date("d-m-Y", $post->get_modified_date() ?? $post->get_created_date())); ?>">
+                    <input style="width: 50%;" type="text" class="form-control" id="post-modified-date" name="post-modified-date" disabled value="<?php if ($post != null) echo(date("d-m-Y / h:i:sa", $post->get_modified_date() ?? $post->get_created_date())); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="post-views" class="form-label"><b>Lượt xem</b></label>
@@ -208,8 +265,9 @@
                     </div>
                 </div>
             </form><br>
+
             <!--Hiển thị các đoạn nội dung mà post này có-->
-            <h5><b>Các đoạn  nội dung hiện có</b></h5>
+            <h5><b>Các đoạn nội dung hiện có</b></h5>
             <?php
             if (count($post_content_array) > 0) {
                 for ($i = 0; $i < count($post_content_array); $i++) {
@@ -235,6 +293,65 @@
             <!--Hiển thị thông báo không tìm thấy đoạn nội dung-->
             <div class="alert alert-warning" role="alert">
                 <i class="bi bi-info-circle-fill"></i> Bài viết này chưa có đoạn nội dung nào
+            </div>
+            <?php
+            }
+            ?>
+
+            <!--Hiển thị các link nhúng video mà post này có-->
+            <h3><i class="bi bi-play-btn"></i> <b>Video được chia sẻ</b></h3>
+            <h5><i class="bi bi-plus-lg"></i> <b>Thêm video mới</b></h5>
+            <form method="post" class="border border-warning" style="border-style: solid; border-width: 5px; border-radius: 5px; margin-bottom: 5px;">
+                <div class="container">
+                    <div class="mb-3">
+                        <label for="video-source" class="form-label"><b>Nguồn video</b></label>
+                        <input type="text" class="form-control" id="video-source" name="video-source" placeholder="Nguồn video">
+                    </div>
+                    <div class="mb-3">
+                        <label for="video-link" class="form-label"><b>Link video *</b></label>
+                        <input type="text" class="form-control" id="video-link" name="video-link" placeholder="Đường dẫn video (từ 2 ký tự trở lên)">
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-primary" id="video-submit" name="video-submit"><i class="bi bi-arrow-up-square-fill"></i> Tải lên</button>
+                        <button class="btn btn-danger" id="video-cancel" name="video-cancel"><i class="bi bi-x-square-fill"></i> Hủy</button>
+                    </div>
+                </div>
+            </form>
+
+            <h5><b>Các video hiện có</b></h5>
+            <?php
+            if (count($post_video_array) > 0) {
+            ?>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <?php
+                for ($i = 0; $i < count($post_video_array); $i++) {
+            ?>
+                <!--Đoạn video-->
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text">Nguồn: <?= $post_video_array[$i]->get_video_source() ?></p>
+                            <div class="video" style="text-align: center">
+                                <iframe src="<?= $post_video_array[$i]->get_video_link() ?>" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <form method="post">
+                                <button class="btn btn-danger" id="<?= $post_video_array[$i]->get_id() ?>" name="<?= $post_video_array[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <?php
+                }
+            ?>
+            </div>
+            <?php
+            } else {
+            ?>
+            <!--Hiển thị thông báo không tìm thấy đoạn nội dung-->
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-info-circle-fill"></i> Chưa có video nào được chia sẻ
             </div>
             <?php
             }

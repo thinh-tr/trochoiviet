@@ -301,3 +301,43 @@ function delete_post_content(string $content_id): void
 {
     \PostRepository\delete_post_content($content_id);
 }
+
+/**
+ * Tạo post mới
+ * input: Post obj
+ * output: void
+ */
+function add_post(\Entities\Post $post): void
+{
+    \PostRepository\create_post($post);
+}
+
+/**
+ * Xóa post
+ * input: post_id
+ * output: void
+ */
+function delete_post(string $post_id): void
+{
+    \PostRepository\delete_post($post_id);
+}
+
+/**
+ * Thêm link video mới 
+ * input: PostVideo obj
+ * output: void
+ */
+function add_post_video(\Entities\PostVideo $post_video): void
+{
+    \PostRepository\insert_post_video($post_video);
+}
+
+/**
+ * Xóa link video
+ * input: post_video_id
+ * output: void
+ */
+function delete_post_video(string $post_video_id): void
+{
+    \PostRepository\delete_post_video($post_video_id);
+}
