@@ -299,8 +299,8 @@
             ?>
 
             <!--Hiển thị các link nhúng video mà post này có-->
-            <h3><i class="bi bi-play-btn"></i> <b>Video được chia sẻ</b></h3>
-            <h5><i class="bi bi-plus-lg"></i> <b>Thêm video mới</b></h5>
+            <h3><i class="bi bi-play-btn"></i> <b>Video youtube được chia sẻ</b></h3>
+            <h5><i class="bi bi-plus-lg"></i> <b>Thêm youtube video mới</b></h5>
             <form method="post" class="border border-warning" style="border-style: solid; border-width: 5px; border-radius: 5px; margin-bottom: 5px;">
                 <div class="container">
                     <div class="mb-3">
@@ -308,8 +308,8 @@
                         <input type="text" class="form-control" id="video-source" name="video-source" placeholder="Nguồn video">
                     </div>
                     <div class="mb-3">
-                        <label for="video-link" class="form-label"><b>Link video *</b></label>
-                        <input type="text" class="form-control" id="video-link" name="video-link" placeholder="Đường dẫn video (từ 2 ký tự trở lên)">
+                        <label for="video-link" class="form-label"><b>Link nhúng video *</b></label>
+                        <input type="text" class="form-control" id="video-link" name="video-link" placeholder="link nhúng video youtube (từ 2 ký tự trở lên)">
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-primary" id="video-submit" name="video-submit"><i class="bi bi-arrow-up-square-fill"></i> Tải lên</button>
@@ -332,7 +332,7 @@
                         <div class="card-body">
                             <p class="card-text">Nguồn: <?= $post_video_array[$i]->get_video_source() ?></p>
                             <div class="video" style="text-align: center">
-                                <iframe src="<?= $post_video_array[$i]->get_video_link() ?>" allowfullscreen></iframe>
+                                <?= $post_video_array[$i]->get_video_link() ?>
                             </div>
                         </div>
                         <div class="card-footer">

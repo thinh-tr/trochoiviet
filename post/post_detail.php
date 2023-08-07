@@ -338,7 +338,7 @@ function service_get_post_video_by_post_id(string $post_id): array
                     <div class="card-body">
                         <p class="card-text">Nguồn: <?= $video->get_video_source() ?></p>
                         <div class="video" style="text-align: center">
-                            <iframe src="<?= $video->get_video_link() ?>" allowfullscreen></iframe>
+                            <?= $video->get_video_link() ?>
                         </div>
                     </div>
                 </div>
