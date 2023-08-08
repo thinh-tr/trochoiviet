@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 // script xử lý truy vấn thông tin
 
@@ -96,7 +97,6 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
 
 ?>
 
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
