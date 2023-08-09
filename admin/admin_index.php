@@ -30,7 +30,7 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
             <a href="/admin/admin_post_manager_index.php">
                 <div class="col">
-                    <div class="card">
+                    <div class="card h-100">
                         <img src="../static/images/Social-Post.png" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title"><b>Quản lý bài đăng</b></h5>
@@ -45,7 +45,7 @@
 
             <a href="#">
                 <div class="col">
-                    <div class="card">
+                    <div class="card h-100">
                         <img src="../static/images/shop.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title"><b>Quản lý cửa hàng</b></h5>
@@ -60,7 +60,7 @@
 
             <a href="#">
                 <div class="col">
-                    <div class="card">
+                    <div class="card h-100">
                         <img src="../static/images/order.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title"><b>Quản lý đơn hàng</b></h5>
@@ -74,7 +74,7 @@
 
             <a href="/admin/admin_info.php">
                 <div class="col">
-                    <div class="card">
+                    <div class="card h-100">
                         <img src="../static/images/admin.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title"><b>Tài khoản quản trị viên</b></h5>

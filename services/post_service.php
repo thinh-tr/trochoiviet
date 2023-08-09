@@ -341,3 +341,43 @@ function delete_post_video(string $post_video_id): void
 {
     \PostRepository\delete_post_video($post_video_id);
 }
+
+/**
+ * Lấy ra các bình luận chưa được duyệt của một post
+ * input: post_id
+ * output: array chứa các PostComment | array rỗng -> không có kết quả
+ */
+function get_post_comment_with_no_approval(string $post_id): array
+{
+    return \PostRepository\select_post_comment_with_no_approval($post_id);
+}
+
+/**
+ * Lấy ra các bình luận đã được duyệt của một post
+ * input: post_id
+ * output: array chứa các PostComment | array rỗng -> không có kết quả
+ */
+function get_post_comment_with_approval(string $post_id): array
+{
+    return \PostRepository\select_post_comment_with_approval($post_id);
+}
+
+/**
+ * Phê duyệt bình luận
+ * input: post_comment_id
+ * output: void
+ */
+function approve_post_comment(string $post_comment_id): void
+{
+    \PostRepository\approve_post_comment($post_comment_id);
+}
+
+/**
+ * Hủy phê duyệt bình luận
+ * input: post_comment_id
+ * output: void
+ */
+function disapprove_post_comment(string $post_comment_id): void
+{
+    \PostRepository\disapprove_post_comment($post_comment_id);
+}

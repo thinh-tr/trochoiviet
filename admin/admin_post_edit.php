@@ -200,6 +200,7 @@
         <a class="btn btn-primary" href="/admin/admin_post_manager_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
         <ul class="nav nav-pills">
             <form method="post">
+                <a href="/admin/admin_comment_approval.php?post-id=<?= $post->get_id() ?>" class="btn btn-warning"><i class="bi bi-chat"></i> Danh sách bình luận</a>
                 <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
             </form>
         </ul>

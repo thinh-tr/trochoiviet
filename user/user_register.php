@@ -107,32 +107,32 @@
     <!--Form đăng ký thông tin người dùng mới-->
     <div class="container">
         <h3 style="text-align: center;"><b>Đăng ký thông tin người dùng</b></h3><br>
-        <form class="register-form" method="post">
-            <div class="mb-3">
-                <label for="phone-number" class="form-label">Số điện thoại *</label>
-                <input type="tel" class="form-control" id="phone-number" name="phone-number"> 
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
-            </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Tên *</label>
-                <input type="text" class="form-control" id="name" placeholder="Tối thiểu 2 ký tự" name="name"> 
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu *</label>
-                <input type="password" class="form-control" id="password" placeholder="Tối thiểu 5 ký tự" name="password">
-            </div>
-            <div class="mb-3">
-                <label for="confirm-password" class="form-label">Xác nhận lại mật khẩu *</label>
-                <input type="password" class="form-control" id="confirm-password" name="confirm-password"> 
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
-                <a href="/user/user_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
-            </div>
-        </form>
+            <form class="register-form" method="post">
+                <div class="mb-3">
+                    <label for="phone-number" class="form-label">Số điện thoại *</label>
+                    <input type="tel" class="form-control" id="phone-number" name="phone-number"> 
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Tên *</label>
+                    <input type="text" class="form-control" id="name" placeholder="Tối thiểu 2 ký tự" name="name"> 
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu *</label>
+                    <input type="password" class="form-control" id="password" placeholder="Tối thiểu 5 ký tự" name="password">
+                </div>
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">Xác nhận lại mật khẩu *</label>
+                    <input type="password" class="form-control" id="confirm-password" name="confirm-password"> 
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
+                    <a href="/user/user_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
+                </div>
+            </form>
     </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?>  <!--footer-->

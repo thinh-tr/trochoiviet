@@ -80,43 +80,55 @@
             <!--Hiển thị các post mà admin đã đăng tải-->
             <h2><i class="bi bi-newspaper"></i> Bài viết của bạn</h2>
             <?php
-            if (count($admin_posts) > 0) {
+            if (isset($_SESSION["admin_email"])) {
             ?>
-                <!--Trường hợp có tìm thấy post-->
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php
-                    for ($i = 0; $i < count($admin_posts); $i++) {
-                        // Lần lượt hiển thị ra các post
-                    ?>
-                        <div class="col">
-                            <a href="/admin/admin_post_edit.php?post-id=<?= $admin_posts[$i]->get_id() ?>">
-                                <div class="card h-100">
-                                    <img src="<?= $admin_posts[$i]->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= $admin_posts[$i]->get_name() ?></h5>
-                                        <p class="card-text"><?= $admin_posts[$i]->get_description() ?></p>
+                <?php
+                if (count($admin_posts) > 0) {
+                ?>
+                    <!--Trường hợp có tìm thấy post-->
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <?php
+                        for ($i = 0; $i < count($admin_posts); $i++) {
+                            // Lần lượt hiển thị ra các post
+                        ?>
+                            <div class="col">
+                                <a href="/admin/admin_post_edit.php?post-id=<?= $admin_posts[$i]->get_id() ?>">
+                                    <div class="card h-100">
+                                        <img src="<?= $admin_posts[$i]->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?= $admin_posts[$i]->get_name() ?></h5>
+                                            <p class="card-text"><?= $admin_posts[$i]->get_description() ?></p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$admin_posts[$i]->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $admin_posts[$i]->get_admin_email() ?></small><br>
+                                        </div>
+                                        <div class="card-footer">
+                                            <form method="post">
+                                                <button type="submit" class="btn btn-danger" id="<?= $admin_posts[$i]->get_id() ?>" name="<?= $admin_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể phục hồi)</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$admin_posts[$i]->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $admin_posts[$i]->get_admin_email() ?></small><br>
-                                    </div>
-                                    <div class="card-footer">
-                                        <form method="post">
-                                            <button type="submit" class="btn btn-danger" id="<?= $admin_posts[$i]->get_id() ?>" name="<?= $admin_posts[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể phục hồi)</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                                </a>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                <?php
+                } else {
+                ?>
+                <!--Xuất ra thông báo không có post đã thích nào (cả trong trường hợp chưa login)-->
+                <div class="alert alert-warning" role="alert">
+                    <i class="bi bi-info-circle-fill"></i> Bạn vẫn chưa có bài viết nào
                 </div>
+                <?php
+                }
+                ?>
             <?php
             } else {
             ?>
-            <!--Xuất ra thông báo không có post đã thích nào (cả trong trường hợp chưa login)-->
-            <div class="alert alert-warning" role="alert">
-                <i class="bi bi-info-circle-fill"></i> Bạn vẫn chưa có bài viết nào
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-info-circle-fill"></i> Bạn vẫn chưa đăng nhập
             </div>
             <?php
             }

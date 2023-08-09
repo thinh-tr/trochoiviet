@@ -280,6 +280,7 @@ class PostComment
     private $content;
     private $user_phone_number;
     private $post_id;
+    private $approved;
 
     // Constructor
     public function __construct()
@@ -313,6 +314,11 @@ class PostComment
         return $this->post_id;
     }
 
+    public function get_approval(): int
+    {
+        return $this->approved;
+    }
+
 
     // Setter
     public function set_id(string $id): void
@@ -338,6 +344,11 @@ class PostComment
     public function set_post_id(string $post_id): void
     {
         $this->post_id = $post_id;
+    }
+
+    public function set_approval(int $approved): void
+    {
+        $this->approved = $approved;
     }
 }
 

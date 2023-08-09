@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+
 <?php
 // script xử lý truy vấn thông tin
 
@@ -6,7 +7,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php";
 
 /**
  * Repository
- * Truy vấn thông tin các comment của một post thông qua id,
+ * Truy vấn thông tin các comment (đã được duyệt) của một post thông qua id,
  * input: post_id,
  * output: array chứa comment | array rỗng -> không có kết quả
  */
@@ -15,7 +16,7 @@ function repo_select_comment_by_post_id(string $post_id): array
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "SELECT * FROM post_comment WHERE post_comment.post_id = '$post_id'";
+        $sql = "SELECT * FROM post_comment WHERE post_comment.post_id = '$post_id' AND post_comment.approved = 1";
         $statement = $connection->prepare($sql);
         $statement->execute();
         $result = $statement->fetchAll();
@@ -29,6 +30,7 @@ function repo_select_comment_by_post_id(string $post_id): array
                 $comment->set_content($row["content"]);
                 $comment->set_user_phone_number($row["user_phone_number"]);
                 $comment->set_post_id($row["post_id"]);
+                $comment->set_approval($row["approved"]);
                 array_push($comment_array, $comment);   // push comment vào array kết quả
             }
         }
@@ -75,6 +77,7 @@ function repo_select_comment_by_post_id_and_user_phone_number(string $post_id, s
                 $comment->set_content($row["content"]);
                 $comment->set_user_phone_number($row["user_phone_number"]);
                 $comment->set_post_id($row["post_id"]);
+                $comment->set_approval($row["approved"]);
                 array_push($comment_array, $comment);   // push comment vào array kết quả
             }
         }
@@ -220,7 +223,18 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
                         </div>
                         <div class="card-footer">
                             <form method="post">
-                                <a class="btn btn-warning" href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $comment->get_id() ?>"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
+                                <?php
+                                if ($post_comments_of_user[$i]->get_approval() == 1) {
+                                ?>
+                                    <div class="btn btn-success"><i class="bi bi-check-circle"></i></div>
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></div>
+                                <?php
+                                }
+                                ?>
+                                <a class="btn btn-warning" href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
                                 <button class="btn btn-danger" id="<?= $post_comments_of_user[$i]->get_id() ?>" name="<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể hoàn tác)</button>
                             </form>
                         </div>

@@ -253,7 +253,7 @@ function insert_comment(\Entities\PostComment $post_comment): bool
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "INSERT INTO post_comment VALUES('{$post_comment->get_id()}', '{$post_comment->get_created_date()}', '{$post_comment->get_content()}', '{$post_comment->get_user_phone_number()}', '{$post_comment->get_post_id()}')";
+        $sql = "INSERT INTO post_comment VALUES('{$post_comment->get_id()}', '{$post_comment->get_created_date()}', '{$post_comment->get_content()}', '{$post_comment->get_user_phone_number()}', '{$post_comment->get_post_id()}', {$post_comment->get_approval()})";
         $statement = $connection->prepare($sql);
         return $statement->execute();   // trả ra kết quả truy vấn
     } catch (\PDOException $ex) {
@@ -884,6 +884,112 @@ function delete_post_video(string $post_video_id): void
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "DELETE FROM post_video WHERE post_video.id = '$post_video_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra các bình luận chưa được duyệt của một post
+ * input: post_id
+ * output: array chứa các PostComment | array rỗng -> không có kết quả
+ */
+function select_post_comment_with_no_approval(string $post_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_comment WHERE post_comment.post_id = '$post_id' and post_comment.approved = 0";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $comment_array = array();   // Biến chứa kết quả trả ra
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                // Lấy ra từng comment
+                $comment = new \Entities\PostComment();
+                $comment->set_id($row["id"]);
+                $comment->set_created_date($row["created_date"]);
+                $comment->set_content($row["content"]);
+                $comment->set_user_phone_number($row["user_phone_number"]);
+                $comment->set_post_id($row["post_id"]);
+                $comment->set_approval($row["approved"]);
+                array_push($comment_array, $comment);
+            }
+        }
+        return $comment_array;  // trả ra array chứa các comment
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());        
+    }
+}
+
+/**
+ * Lấy ra các bình luận đã được duyệt của một post
+ * input: post_id
+ * output: array chứa các PostComment | array rỗng -> không có kết quả
+ */
+function select_post_comment_with_approval(string $post_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM post_comment WHERE post_comment.post_id = '$post_id' and post_comment.approved = 1";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $comment_array = array();   // Biến chứa kết quả trả ra
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                // Lấy ra từng comment
+                $comment = new \Entities\PostComment();
+                $comment->set_id($row["id"]);
+                $comment->set_created_date($row["created_date"]);
+                $comment->set_content($row["content"]);
+                $comment->set_user_phone_number($row["user_phone_number"]);
+                $comment->set_post_id($row["post_id"]);
+                $comment->set_approval($row["approved"]);
+                array_push($comment_array, $comment);
+            }
+        }
+        return $comment_array;  // trả ra array chứa các comment
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());        
+    }
+}
+
+/**
+ * Phê duyệt bình luận
+ * input: post_comment_id
+ * output: void
+ */
+function approve_post_comment(string $post_comment_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post_comment SET post_comment.approved = 1 WHERE post_comment.id = '$post_comment_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Hủy phê duyệt bình luận
+ * input: post_comment_id
+ * output: void
+ */
+function disapprove_post_comment(string $post_comment_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post_comment SET post_comment.approved = 0 WHERE post_comment.id = '$post_comment_id'";
         $statement = $connection->prepare($sql);
         $statement->execute();
     } catch (\PDOException $ex) {

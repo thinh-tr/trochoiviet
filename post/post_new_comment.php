@@ -42,6 +42,7 @@
                 $new_comment->set_content($_POST["comment-content"]);   // gán nội dung comment
                 $new_comment->set_user_phone_number($_SESSION["user_phone_number"]);    // gán user
                 $new_comment->set_post_id($post->get_id()); // gán post id
+                $new_comment->set_approval(0);  // gán approval cho comment
                 // Thêm comment
                 if (\PostService\add_new_comment($new_comment)) {
                     echo(<<<END
