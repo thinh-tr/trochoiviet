@@ -43,7 +43,7 @@
                 </div>
             </a>
 
-            <a href="#">
+            <a href="/admin/admin_product_manager_index.php">
                 <div class="col">
                     <div class="card h-100">
                         <img src="../static/images/shop.jpg" class="card-img-top" alt="..." />
