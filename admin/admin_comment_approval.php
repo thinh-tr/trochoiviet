@@ -93,7 +93,7 @@
                 <a href="#list-item-1" class="nav-link"><i class="bi bi-x-circle-fill"></i> Bình luận chưa được duyệt</a>
             </li>
             <li class="nav-item">
-                <a href="#list-item-2" class="nav-link">Bình luận đã được duyệt</a>
+                <a href="#list-item-2" class="nav-link"><i class="bi bi-check-circle-fill"></i> Bình luận đã được duyệt</a>
             </li>
             <form method="post">
                 <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>

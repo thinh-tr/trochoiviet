@@ -74,7 +74,7 @@
 
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_post_manager_index.php"><i class="bi bi-arrow-left"></i> Tranh quản lý bài viết</a>
+        <a class="btn btn-primary" href="/admin/admin_post_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý bài viết</a>
     </nav>
     <div class="container">
         <h3><i class="bi bi-info-circle"></i> <b>Thêm thông tin cho bài viết mới</b></h3>

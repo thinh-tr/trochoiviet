@@ -212,7 +212,7 @@
                 <i class="bi bi-info-circle"></i> Sau khi thay đổi thông tin hãy bấn nút lưu để đảm bảo thông tin mới được cập nhật
             </div>
             <!--Thông tin tiêu đề bài viết-->
-            <h3><i class="bi bi-info-circle"></i> <b>Thông tin bài viết</b></h3>
+            <h3><i class="bi bi-info-circle"></i> <b>Thông tin bài viết: <?= $post->get_name() ?></b></h3>
             <form method="post">
                 <div class="mb-3">
                     <label for="post-name" class="form-label"><b>Tên bài viết *</b></label>
@@ -226,7 +226,7 @@
                     <label for="post-cover" class="form-label"><b>Link ảnh bìa</b></label>
                     <input type="text" class="form-control" id="post-cover" name="post-cover" placeholder="link ảnh bìa của bài viết" value="<?php if ($post != null) echo($post->get_cover_image_link()); ?>"><br>
                     <!--Hiển thị ảnh bìa đang được sử dụng-->
-                    <img src="<?php if ($post != null) echo($post->get_cover_image_link()); ?>" class="img-thumbnail" alt="...">
+                    <img src="<?php if ($post != null) echo($post->get_cover_image_link()); ?>" class="img-thumbnail" alt="..." style="width: 50%;">
                 </div>            
                 <div class="mb-3">
                     <label for="post-created-date" class="form-label"><b>Ngày đăng tải</b></label>

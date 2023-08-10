@@ -65,7 +65,7 @@
             ?>
                 <!--Lần lượt hiển thị ra các product-->
                 <div class="col">
-                    <a href="#">
+                    <a href="/admin/admin_product_edit.php?product-id=<?= $product_array[$i]->get_id() ?>">
                         <div class="card h-100">
                             <img src="<?= $product_array[$i]->get_cover_image_link() ?>" class="card-img-top" alt="...">
                             <div class="card-body">

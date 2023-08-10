@@ -82,18 +82,14 @@
             }
         } else {
             // Hiển thịn thông báo
-            echo(<<<END
-                <div class="alert alert-warning" role="alert">
-                    Bạn vẫn chưa đăng nhập
-                </div>
-                END);
+            echo("<script>window.alert('Vui lòng đăng nhập tài khoản quản trị để sử dụng chức năng này')</script>");
         }
     }
     ?>
 
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Tranh quản lý cửa hàng</a>
+        <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
     </nav>
     <div class="container">
         <h3><i class="bi bi-info-circle"></i> <b>Thêm thông tin cho sản phẩm</b></h3>

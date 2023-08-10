@@ -22,3 +22,24 @@ function create_product(\Entities\Product $product): void
 {
     \ProductRepository\insert_product($product);
 }
+
+/**
+ * Lấy ra thông tin product theo product_id
+ * input: product_id
+ * output: Post obj | null -> không tìm thấy kết quả
+ */
+function get_product_by_product_id(string $product_id): \Entities\Product
+{
+    return \ProductRepository\select_product_by_product_id($product_id);
+}
+
+
+/**
+ * Cập nhật thông tin product
+ * input:  id, name, cover_image, description, retail_price, remain_quantity
+ * output: void
+ */
+function update_product(string $product_id, string $name, string $cover_image, string $description, int $retail_price, int $remain_quantity): void
+{
+    \ProductRepository\update_product($product_id, $name, $cover_image,$description, $retail_price, $remain_quantity);
+}
