@@ -20,6 +20,7 @@
     // Lấy ra thông tin product cần chỉnh sửa
     if (isset($_GET["product-id"])) {
         $product = \ProductService\get_product_by_product_id($_GET["product-id"]);
+        $product_image_array = \ProductService\get_product_image_by_product_id($_GET["product-id"]);
     }
     ?>
 
@@ -78,6 +79,44 @@
     }
     ?>
 
+    <?php
+    // Xử lý thêm product_image mới
+    if (isset($_POST["illutration-image-submit"])) {
+        // Kiểm tra đường dẫn trước khi thêm
+        if (strlen($_POST["product-illutration-image"]) >= 2) {
+            // Lưu hình ảnh mới
+            $product_image = new \Entities\ProductImage();
+            $product_image->set_id(uniqid());
+            $product_image->set_image_link($_POST["product-illutration-image"]);
+            $product_image->set_product_id($product->get_id());
+            \ProductService\create_product_image($product_image);
+            echo(<<<END
+                <div class="alert alert-success" role="alert">
+                    Đã thêm hình ảnh
+                </div>          
+                END);
+        } else {
+            // Thông báo kiểm tra lại đường dẫn
+            echo("<script>window.alert('Đường dẫn hình ảnh không hợp lệ, vui lòng kiểm tra lại')</script>");
+        }
+    }
+    ?>
+
+    <?php
+    // Xử lý xóa product image được chọn
+    for ($i = 0; $i < count($product_image_array); $i++) {
+        if (isset($_POST[$product_image_array[$i]->get_id()])) {
+            // xóa image
+            \ProductService\delete_product_image($product_image_array[$i]->get_id());
+            echo(<<<END
+                <div class="alert alert-danger" role="alert">
+                    Đã xóa link ảnh
+                </div>          
+                END);
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
@@ -88,7 +127,10 @@
         </div>
     </nav>
     <div class="container">
-    <h3><i class="bi bi-info-circle"></i> <b>Cập nhật thông tin cho sản phẩm: <?= $product->get_name() ?></b></h3>
+        <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle"></i> Sau khi thay đổi thông tin hãy bấn nút lưu để đảm bảo thông tin mới được cập nhật
+        </div>
+        <h3><i class="bi bi-info-circle"></i> <b>Cập nhật thông tin cho sản phẩm: <?= $product->get_name() ?></b></h3>
         <form method="post" class="border border-primary" style="border-radius: 5px;">
             <div class="container">
                 <div class="mb-3">
@@ -114,10 +156,61 @@
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" id="product-submit" name="product-submit"><i class="bi bi-box-arrow-up"></i> Lưu</button>
-                    <a href="/admin/admin_product_manager_index.php" class="btn btn-danger"><i class="bi bi-trash3-fill"></i> Hủy</a>
+                    <a href="/admin/admin_product_manager_index.php" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i> Hủy</a>
                 </div>
             </div>
-        </form>
+        </form><br>
+
+        <h3><i class="bi bi-card-image"></i> <b>Hình ảnh minh họa cho sản phẩm</b></h3>
+        <h5><i class="bi bi-plus-lg"></i> <b>Thêm ảnh minh họa</b></h5>
+        <form method="post" class="border border-primary" style="border-radius: 5px;">
+            <div class="container">
+                <div class="mb-3">
+                    <label for="product-illutration-image" class="form-label"><b>Link ảnh minh họa sản phẩm *</b></label>
+                    <input type="text" class="form-control" id="product-illutration-image" name="product-illutration-image" placeholder="Link ảnh minh họa cho sản phẩm (từ 2 ký tự trở lên)">
+                </div>
+                <div calss="mb-3">
+                    <button class="btn btn-primary" id="illutration-image-submit" name="illutration-image-submit"><i class="bi bi-box-arrow-up"></i> Lưu</button>
+                    <button class="btn btn-danger" id="illutration-cancel" name="illutration-cancel"><i class="bi bi-x-circle-fill"></i> Hủy</button>
+                </div>
+            </div>
+        </form><br>
+
+        <h5><i class="bi bi-images"></i> <b>Các hình ảnh minh họa hiện có</b></h5>
+        <?php
+        // Lấy ra các ảnh minh họa hiện có
+        if (count($product_image_array) > 0) {
+        ?>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <?php
+            for ($i = 0; $i < count($product_image_array); $i++) {
+            ?>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="<?= $product_image_array[$i]->get_image_link() ?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text"><?= $product_image_array[$i]->get_image_link() ?></p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="post">
+                            <button class="btn btn-danger" id="<?= $product_image_array[$i]->get_id() ?>" name="<?= $product_image_array[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php
+            }
+            ?>
+        </div>
+        <?php
+        } else {
+        ?>
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-info-circle-fill"></i> Sản phẩm này chưa có hình ảnh minh họa
+        </div>
+        <?php
+        }
+        ?>
     </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php"; ?>

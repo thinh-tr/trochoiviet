@@ -107,3 +107,112 @@ function update_product(string $product_id, string $name, string $cover_image, s
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Xóa product
+ * input: product_id
+ * output: void
+ */
+function delete_product(string $product_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+
+        // Xóa các order_detail có liên quan đến product này
+        $delete_order_detail_sql = "DELETE FROM order_detail WHERE order_detail.product_id = '$product_id'";
+        $delete_order_detail_statement = $connection->prepare($delete_order_detail_sql);
+        $delete_order_detail_statement->execute();  // xóa tất cả order_detail
+
+        // Xóa các comment có liên quan đến product này
+        $delete_product_comment_sql = "DELETE FROM product_comment WHERE product_comment.product_id = '$product_id'";
+        $delete_product_comment_statement = $connection->prepare($delete_product_comment_sql);
+        $delete_product_comment_statement->execute();   // xóa tất cả comment
+
+        // Xóa các rating có liên quan đến product này
+        $delete_product_rating_sql = "DELETE FROM product_rating WHERE product_rating.product_id = '$product_id'";
+        $delete_product_rating_statement = $connection->prepare($delete_product_rating_sql);
+        $delete_product_rating_statement->execute();    // xóa tất cả các rating
+
+        // Xóa tất cả các image minh họa của product
+        $delete_product_image_sql = "DELETE FROM product_image WHERE product_image.product_id = '$product_id'";
+        $delete_product_image_statement = $connection->prepare($delete_product_image_sql);
+        $delete_product_image_statement->execute(); // Xóa tất cả các image
+
+        // Xóa product
+        $delete_product_sql = "DELETE FROM product WHERE product.id = '$product_id'";
+        $delete_product_statement = $connection->prepare($delete_product_sql);
+        $delete_product_statement->execute();   // xóa product
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm ảnh minh họa cho product
+ * input: ProductImage obj
+ * output: void
+ */
+function insert_product_image(\Entities\ProductImage $product_image): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO product_image VALUES('{$product_image->get_id()}', '{$product_image->get_image_link()}', '{$product_image->get_product_id()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());        
+    }
+}
+
+/**
+ * Lấy ra các ProductImage của một product được chỉ định
+ * input: product_id
+ * output: array chứa các ProductImage | array rỗng -> không có kết quả
+ */
+function select_product_image_by_product_id(string $product_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM product_image WHERE product_image.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_image_array = array(); // Biến chứa kết quả trả về
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                $image = new \Entities\ProductImage();
+                $image->set_id($row["id"]);
+                $image->set_image_link($row["image_link"]);
+                $image->set_product_id($row["product_id"]);
+                // thêm image vào array
+                array_push($product_image_array, $image);
+            }
+        }
+        // Trả ra array kết quả
+        return $product_image_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa ProductImage được chọn
+ * input: product_image_id
+ * output: void
+ */
+function delete_product_image(string $product_image_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM product_image WHERE product_image.id = '$product_image_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

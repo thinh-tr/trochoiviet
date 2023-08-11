@@ -43,3 +43,43 @@ function update_product(string $product_id, string $name, string $cover_image, s
 {
     \ProductRepository\update_product($product_id, $name, $cover_image,$description, $retail_price, $remain_quantity);
 }
+
+/**
+ * Xóa product
+ * input: product_id
+ * output: void
+ */
+function delete_product(string $product_id): void
+{
+    \ProductRepository\delete_product($product_id);
+}
+
+/**
+ * Thêm ảnh minh họa cho product
+ * input: ProductImage obj
+ * output: void
+ */
+function create_product_image(\Entities\ProductImage $product_image): void
+{
+    \ProductRepository\insert_product_image($product_image);
+}
+
+/**
+ * Lấy ra các ProductImage của một product được chỉ định
+ * input: product_id
+ * output: array chứa các ProductImage | array rỗng -> không có kết quả
+ */
+function get_product_image_by_product_id(string $product_id): array
+{
+    return \ProductRepository\select_product_image_by_product_id($product_id);
+}
+
+/**
+ * Xóa ProductImage được chọn
+ * input: product_image_id
+ * output: void
+ */
+function delete_product_image(string $product_image_id): void
+{
+    \ProductRepository\delete_product_image($product_image_id);
+}

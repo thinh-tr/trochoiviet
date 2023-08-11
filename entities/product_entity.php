@@ -92,3 +92,50 @@ class Product
         $this->admin_email = $admin_email;
     }
 }
+
+// class chứa thông tin của hình ảnh sản phẩm
+class ProductImage
+{
+    // Thuộc tính
+    private $id;
+    private $image_link;
+    private $product_id;
+
+    // contructor
+    public function __construct()
+    {
+
+    }
+
+    // Getter
+    public function get_id(): string
+    {
+        return $this->id;
+    }
+
+    public function get_image_link(): string
+    {
+        return $this->image_link;
+    }
+
+    public function get_product_id(): string
+    {
+        return $this->product_id;
+    }
+
+    // Setter
+    public function set_id(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function set_image_link(string $image_link): void
+    {
+        $this->image_link = $image_link;
+    }
+
+    public function set_product_id(string $product_id): void
+    {
+        $this->product_id = $product_id;
+    }
+}

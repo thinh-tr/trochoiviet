@@ -30,9 +30,26 @@
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; //service ?>
     
     <?php
+    // Lấy ra thông tin product của admin
     $product_array = array();
     if (isset($_SESSION["admin_email"])) {
         $product_array = ProductService\get_product_by_admin_email($_SESSION["admin_email"]);
+    }
+    ?>
+
+    <?php
+    // Xử lý xóa product
+    for ($i = 0; $i < count($product_array); $i++) {
+        // Nếu như có lệnh xóa bất kỳ product nào
+        if (isset($_POST[$product_array[$i]->get_id()])) {
+            \ProductService\delete_product($product_array[$i]->get_id());
+            // Thông báo đã xóa
+            echo(<<<END
+                <div class="alert alert-danger" role="alert">
+                    Đã xóa sản phẩm
+                </div>
+                END);
+        }
     }
     ?>
 
