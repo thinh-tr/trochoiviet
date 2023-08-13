@@ -331,7 +331,7 @@ function service_get_most_views_posts(): array
     <title>Bài đăng</title>
 </head>
 <style>
-    h2 {
+    h3 {
         font-weight: bold;
     }
 
@@ -390,7 +390,7 @@ $random_posts = service_get_randomly_posts(); //
 <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
     <div class="container">
         <!--hiển thị các post mới nhất-->
-        <h2 id="list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</h2>
+        <h3 id="list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         if (count($newest_posts) > 0) {
@@ -437,7 +437,7 @@ $random_posts = service_get_randomly_posts(); //
         </div><br>
 
         <!--Hiển thị post có nhiều lượt xem nhiều nhất-->
-        <h2 id="list-item-2"><i class="bi bi-graph-up"></i> Bài viết có lượt xem nhiều nhất</h2>
+        <h3 id="list-item-2"><i class="bi bi-graph-up"></i> Bài viết có lượt xem nhiều nhất</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         if (count($most_views_posts) > 0) {
@@ -484,7 +484,7 @@ $random_posts = service_get_randomly_posts(); //
         </div><br>
 
         <!--Bài viết có số lượt thích nhiều nhất-->
-        <h2 id="list-item-3"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h2>
+        <h3 id="list-item-3"><i class="bi bi-balloon-heart"></i> Bài viết được yêu thích</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         if (count($most_liked_posts) > 0) {
@@ -531,7 +531,7 @@ $random_posts = service_get_randomly_posts(); //
         </div><br>
 
         <!--Bài viết có số lượt comment nhiều nhất-->
-        <h2 id="list-item-4"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h2>
+        <h3 id="list-item-4"><i class="bi bi-chat"></i> Bài viết được bàn luận nhiều nhất</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         if (count($most_commented_posts) > 0) {
@@ -578,7 +578,7 @@ $random_posts = service_get_randomly_posts(); //
         </div><br>
 
         <!--Bài viết đề xuất-->
-        <h2 id="list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h2>
+        <h3 id="list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</h3>
         <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         if (count($random_posts) > 0) {

@@ -139,3 +139,5 @@ class ProductImage
         $this->product_id = $product_id;
     }
 }
+
+// class chứa thông tin Order (đơn hàng)

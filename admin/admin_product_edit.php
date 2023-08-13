@@ -121,9 +121,14 @@
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
         <div class="nav nav-pills">
-            <form method="post">
-                <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-            </form>
+            <li class="nav-item">
+                <a href="#" class="nav-link"><i class="bi bi-star"></i> Đánh giá về sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <form method="post">
+                    <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                </form>
+            </li>
         </div>
     </nav>
     <div class="container">

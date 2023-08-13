@@ -124,6 +124,11 @@ function delete_product(string $product_id): void
         $delete_order_detail_statement = $connection->prepare($delete_order_detail_sql);
         $delete_order_detail_statement->execute();  // xóa tất cả order_detail
 
+        // Xóa các comment feedback có liên quan đến product này
+        $delete_comment_feedback_sql = "DELETE FROM product_comment_feedback WHERE product_comment_feedback.product_id = '$product_id'";
+        $delete_comment_feedback_statement = $connection->prepare($delete_comment_feedback_sql);
+        $delete_comment_feedback_statement->execute();  // Xóa tất cả các comment feedback
+
         // Xóa các comment có liên quan đến product này
         $delete_product_comment_sql = "DELETE FROM product_comment WHERE product_comment.product_id = '$product_id'";
         $delete_product_comment_statement = $connection->prepare($delete_product_comment_sql);
@@ -212,6 +217,148 @@ function delete_product_image(string $product_image_id): void
         $sql = "DELETE FROM product_image WHERE product_image.id = '$product_image_id'";
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Truy vấn 12 product mới nhất
+ * input: none
+ * output: Product array | array rỗng -> không có kết quả
+ */
+function select_new_product(): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM product ORDER BY product.id DESC LIMIT 12";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                $product = new \Entities\Product();
+                $product->set_id($row["id"]);
+                $product->set_name($row["name"]);
+                $product->set_cover_image_link($row["cover_image_link"]);
+                $product->set_description($row["description"]);
+                $product->set_retail_price($row["retail_price"]);
+                $product->set_remain_quantity($row["remain_quantity"]);
+                $product->set_admin_email($row["admin_email"]);
+                array_push($product_array, $product);   // push product tìm được vào array kết quả
+            }
+        }
+        // trả ra array
+        return $product_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Truy vấn 12 product ngẫu nhiên
+ * input: none
+ * output: product array | array rỗng -> không có kết quả
+ */
+function select_random_product(): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM product ORDER BY rand() LIMIT 12";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                $product = new \Entities\Product();
+                $product->set_id($row["id"]);
+                $product->set_name($row["name"]);
+                $product->set_cover_image_link($row["cover_image_link"]);
+                $product->set_description($row["description"]);
+                $product->set_retail_price($row["retail_price"]);
+                $product->set_remain_quantity($row["remain_quantity"]);
+                $product->set_admin_email($row["admin_email"]);
+                array_push($product_array, $product);   // push product tìm được vào array kết quả
+            }
+        }
+        // trả ra array
+        return $product_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Truy vấn 12 product được mua nhiều nhất
+ * input: none
+ * output: Product array | array rỗng -> không có kết quả
+ */
+function select_popular_product(): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT od.product_id, count(od.product_id) AS orders
+                FROM order_detail AS od
+                GROUP BY od.product_id
+                ORDER BY orders DESC";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_array = array();   // Biến chứa kết quả
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // Dựa theo các product_id tìm được trong $result để truy vấn thông tin của các product
+            foreach ($result as $row) {
+                // Lần lượt truy vấn thông tin của các product
+                $product = select_product_by_product_id($row["product_id"]);
+                array_push($product_array, $product);   // push product tìm được vào array kết quả
+            }
+        }
+        // Trả ra array kết quả
+        return $product_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Tìm kiếm product theo từ khóa (theo name)
+ * input: keyword
+ * output: array Product | array rỗng -> không tìm thấy lết quả
+ */
+function search_product_by_name(string $keyword): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM product WHERE product.name LIKE '%$keyword%'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_array = array();   // Biến chứa kết quả
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                $product = new \Entities\Product();
+                $product->set_id($row["id"]);
+                $product->set_name($row["name"]);
+                $product->set_cover_image_link($row["cover_image_link"]);
+                $product->set_description($row["description"]);
+                $product->set_retail_price($row["retail_price"]);
+                $product->set_remain_quantity($row["remain_quantity"]);
+                $product->set_admin_email($row["admin_email"]);
+                // push product tìm được vào array
+                array_push($product_array, $product);
+            }
+        }
+        // Trả ra kết quả
+        return $product_array;
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }

@@ -40,7 +40,7 @@
                     <a class="nav-link" href="/post/post_index.php"> Bài viết</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cửa hàng</a>
+                    <a class="nav-link" href="/product/product_index.php">Cửa hàng</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Fan page</a>
@@ -64,7 +64,8 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex" role="search" method="post">
+            <form>
+                <a class="btn btn-outline-warning" href="/user/user_shopping_cart.php"><i class="bi bi-cart3"></i> Giỏ hàng</a>
                 <a class="btn btn-outline-info" href="/post_search_page.php"><i class="bi bi-search"></i></button> Tìm kiếm</a>
             </form>
         </div>

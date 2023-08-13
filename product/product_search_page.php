@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>Trang tìm kiếm</title>
+    <title>Tìm kiếm sản phẩm</title>
     <style>
         h2 {
             font-weight: bold;
@@ -34,33 +34,31 @@
             margin-right: 2px;
         }
     </style>
-
 </head>
 <body>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
 
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>  <!--service-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>   <!--entity-->
-
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
 
     <?php
     // Lấy ra kết quả tìm kiếm
     $search_result = array();
     if (isset($_POST["search-submit"]) && strlen($_POST["keyword"]) > 0) {
-        $search_result = \PostService\search_post($_POST["keyword"]);
+        $search_result = \ProductService\search_product_by_name($_POST["keyword"]);
     }
     ?>
 
     <!--Điều hướng-->
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <a class="btn btn-primary" href="/index.php"><i class="bi bi-arrow-left"></i> Trang chủ</a>
+            <a class="btn btn-primary" href="/product/product_index.php"><i class="bi bi-arrow-left"></i> Trang sản phẩm</a>
             <form class="d-flex" role="search" method="post">
-                <input class="form-control me-2" type="search" placeholder="Tên bài viết" aria-label="Search" id="keyword" name="keyword">
+                <input class="form-control me-2" type="search" placeholder="Tên sản phẩm" aria-label="Search" id="keyword" name="keyword">
                 <button class="btn btn-outline-info" type="submit" id="search-submit" name="search-submit"><i class="bi bi-search"></i></button>
             </form>
         </div>
     </nav>
+
     <div class="container">
         <div class="container">
             <!--Hiển thị các kết quả tìm kiếm-->
@@ -71,23 +69,25 @@
                 <!--Trường hợp có tìm thấy kết quả-->
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <?php
-                    for ($i = 0; $i < count($search_result); $i++) {
+                    foreach ($search_result as $product) {
                         // Lần lượt hiển thị ra các post
                     ?>
-                        <div class="col">
-                            <a href="/post/post_detail.php?post-id=<?= $search_result[$i]->get_id() ?>">
-                                <div class="card h-100">
-                                    <img src="<?= $search_result[$i]->get_cover_image_link() ?>" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= $search_result[$i]->get_name() ?></h5>
-                                        <p class="card-text"><?= $search_result[$i]->get_description() ?></p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$search_result[$i]->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $search_result[$i]->get_admin_email() ?></small><br>
-                                    </div>
+                    <!--Lần lượt hiển thị ra các product-->
+                    <div class="col">
+                        <a href="/product/product_detail.php?product-id=<?= $product->get_id() ?>">
+                            <div class="card h-100">
+                                <img src="<?= $product->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><b><?= $product->get_name() ?></b></h5>
+                                    <h5 class="card-title">Đơn giá: <?= $product->get_retail_price() ?> VNĐ</h5>
+                                    <p class="card-text">Số lượng còn lại: <?= $product->get_remain_quantity() ?></p>
                                 </div>
-                            </a>
-                        </div>
+                                <div class="card-footer">
+                                    <p class="card-text">Đăng bởi: <small><?= $product->get_admin_email() ?></small></p>
+                                </div>  
+                            </div>
+                        </a>
+                    </div>
                     <?php
                     }
                     ?>
@@ -104,7 +104,6 @@
             ?>
         </div>
     </div>
-
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php"; ?>
 </body>

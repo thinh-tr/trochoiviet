@@ -83,3 +83,43 @@ function delete_product_image(string $product_image_id): void
 {
     \ProductRepository\delete_product_image($product_image_id);
 }
+
+/**
+ * Truy vấn 12 product mới nhất
+ * input: none
+ * output: Product array | array rỗng -> không có kết quả
+ */
+function get_new_product(): array
+{
+    return \ProductRepository\select_new_product();
+}
+
+/**
+ * Truy vấn 12 product ngẫu nhiên
+ * input: none
+ * output: product array | array rỗng -> không có kết quả
+ */
+function get_random_product(): array
+{
+    return \ProductRepository\select_random_product();
+}
+
+/**
+ * Truy vấn 12 product được mua nhiều nhất
+ * input: none
+ * output: Product array | array rỗng -> không có kết quả
+ */
+function get_popular_product(): array
+{
+    return \ProductRepository\select_popular_product();
+}
+
+/**
+ * Tìm kiếm product theo từ khóa (theo name)
+ * input: keyword
+ * output: array Product | array rỗng -> không tìm thấy lết quả
+ */
+function search_product_by_name(string $keyword): array
+{
+    return \ProductRepository\search_product_by_name($keyword);
+}
