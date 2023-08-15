@@ -124,16 +124,6 @@ function delete_product(string $product_id): void
         $delete_order_detail_statement = $connection->prepare($delete_order_detail_sql);
         $delete_order_detail_statement->execute();  // xóa tất cả order_detail
 
-        // Xóa các comment feedback có liên quan đến product này
-        $delete_comment_feedback_sql = "DELETE FROM product_comment_feedback WHERE product_comment_feedback.product_id = '$product_id'";
-        $delete_comment_feedback_statement = $connection->prepare($delete_comment_feedback_sql);
-        $delete_comment_feedback_statement->execute();  // Xóa tất cả các comment feedback
-
-        // Xóa các comment có liên quan đến product này
-        $delete_product_comment_sql = "DELETE FROM product_comment WHERE product_comment.product_id = '$product_id'";
-        $delete_product_comment_statement = $connection->prepare($delete_product_comment_sql);
-        $delete_product_comment_statement->execute();   // xóa tất cả comment
-
         // Xóa các rating có liên quan đến product này
         $delete_product_rating_sql = "DELETE FROM product_rating WHERE product_rating.product_id = '$product_id'";
         $delete_product_rating_statement = $connection->prepare($delete_product_rating_sql);
