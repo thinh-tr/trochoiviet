@@ -5,6 +5,16 @@ namespace UserService;
 include $_SERVER["DOCUMENT_ROOT"] . "/repositories/user_repo.php";
 
 /**
+ * Tạo user_info.
+ * input: UserInfo obj.
+ * output: void
+ */
+function create_user_info(\Entities\UserInfo $user_info): void
+{
+    \UserRepository\insert_user_info($user_info);
+}
+
+/**
  * Tạo user mới với password login
  * input: UserInfo, UserLoginInfo
  * output: true -> tạo thành công | false -> không thành công

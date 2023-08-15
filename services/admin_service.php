@@ -84,3 +84,13 @@ function is_used_admin_email(string $email): bool
 {
     return \AdminRepositories\is_used_admin_info($email);
 }
+
+/**
+ * Lấy ra tất cả admin_email có trong database
+ * input: none
+ * output: array chứa tất cả admin_email | array rỗng -> không có kết quả
+ */
+function get_all_admin_email(): array
+{
+    return \AdminRepositories\select_all_admin_email();
+}

@@ -31,7 +31,7 @@
         // Nếu có tồn tại biến giỏ hàng
         if (isset($_SESSION["shopping_cart"])) {
             // Nếu như đã tồn tại biến giỏ hàng
-            $cart_item = array("product_id" => $product->get_id(), "quantity" => intval($_POST["item-quantity"]));  // tạo item cần thêm
+            $cart_item = array("product_id" => $product->get_id(), "quantity" => intval($_POST["item-quantity"]), "admin_email" => $product->get_admin_email());  // tạo item cần thêm
             // Kiểm tra xem đã tồn tại mã sản phẩm này trong cart hay chưa
             $is_item_exists = false;
             $index_of_product = -1; // Biến chứa vị trí index mà product được chứa trong cart
@@ -66,7 +66,7 @@
         } else {
             // Nếu chưa tồn tại biến giỏ hàng
             $_SESSION["shopping_cart"] = array();   // tạo biến giỏ hàng
-            $cart_item = array("product_id" => $product->get_id(), "quantity" => intval($_POST["item-quantity"]));  // tạo item cần thêm
+            $cart_item = array("product_id" => $product->get_id(), "quantity" => intval($_POST["item-quantity"]), "admin_email" => $product->get_admin_email());  // tạo item cần thêm
             // Kiểm tra số lượng trước khi thêm
             if ($cart_item["quantity"] >= 1 && $cart_item["quantity"] <= $product->get_remain_quantity()) {
                 array_push($_SESSION["shopping_cart"], $cart_item);

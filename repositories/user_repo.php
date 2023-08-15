@@ -9,14 +9,14 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/user_entity.php";
  * input: UserInfo
  * output: true -> tạo thành công | false -> không thành công
  */
-function insert_user_info(\Entities\UserInfo $user_info): bool
+function insert_user_info(\Entities\UserInfo $user_info): void
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "INSERT INTO db_trochoiviet.user_info VALUES('{$user_info->get_phone_number()}', '{$user_info->get_email()}', '{$user_info->get_name()}', {$user_info->get_join_date()})";
         $statement = $connection->prepare($sql);
-        return $statement->execute();
+        $statement->execute();  // thực hiện truy vấn
     } catch (\PDOexception $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }

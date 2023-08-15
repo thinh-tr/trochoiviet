@@ -186,3 +186,30 @@ function is_used_admin_info(string $email): bool
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Lấy ra tất cả admin_email có trong database
+ * input: none
+ * output: array chứa tất cả admin_email | array rỗng -> không có kết quả
+ */
+function select_all_admin_email(): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT DISTINCT admin_info.email FROM admin_info";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $admin_email_array = array();   // array chứa các admin_email
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                array_push($admin_email_array, $row["email"]);  // push email tìm được vào array
+            }
+        }
+        return $admin_email_array;  // trả ra array kết quả
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());    
+    }
+}
