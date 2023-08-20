@@ -94,3 +94,34 @@ function get_all_admin_email(): array
 {
     return \AdminRepositories\select_all_admin_email();
 }
+
+/**
+ * Tạo QR CODE mới
+ * input: QRCode obj
+ * output: void
+ */
+function create_qr_code_link(\Entities\QRCode $qr_code): void
+{
+    \AdminRepositories\insert_qr_code_link($qr_code);
+}
+
+
+/**
+ * Lấy ra thông tin của QRCode theo admin_email
+ * input: admin_email
+ * output: QRCode obj | null -> không có kết quả
+ */
+function get_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | null
+{
+    return \AdminRepositories\select_qr_code_by_admin_email($admin_email);
+}
+
+/**
+ * Xóa QR code của admin
+ * input: admin_email
+ * output: void
+ */
+function delete_qr_code_by_admin_email(string $admin_email): void
+{
+    \AdminRepositories\delete_qr_code_by_admin_email($admin_email);
+}

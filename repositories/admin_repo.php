@@ -22,7 +22,7 @@ function insert_admin(\Entities\AdminInfo $new_admin): bool
             $new_admin->get_name(),
             $new_admin->get_phone_number(),
             $new_admin->get_join_date(),
-            $new_admin->get_self_intro()
+            $new_admin->get_self_intro(),
         );
         // tiến hành truy vấn thêm dữ liệu
         // Tạo statement
@@ -115,7 +115,8 @@ function update_admininfo_by_email(string $email, string $name, string $phone_nu
         $sql = "UPDATE admin_info
                SET admin_info.name = '$name',
                admin_info.phone_number = '$phone_number',
-               admin_info.self_introduction = '$self_intro' WHERE admin_info.email = '$email'";
+               admin_info.self_introduction = '$self_intro'
+               WHERE admin_info.email = '$email'";
         $statement = $connection->prepare($sql);
         return $statement->execute();   // true nếu update thành công
     } catch (\PDOException $ex) {
@@ -211,5 +212,71 @@ function select_all_admin_email(): array
         return $admin_email_array;  // trả ra array kết quả
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());    
+    }
+}
+
+/**
+ * Tạo QR CODE mới
+ * input: QRCode obj
+ * output: void
+ */
+function insert_qr_code_link(\Entities\QRCode $qr_code): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO qr_code VALUES('{$qr_code->get_id()}', '{$qr_code->get_admin_email()}', '{$qr_code->get_qr_code_link()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+
+/**
+ * Lấy ra thông tin của QRCode theo admin_email
+ * input: admin_email
+ * output: QRCode obj | null -> không có kết quả
+ */
+function select_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | null
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM qr_code WHERE qr_code.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            // Lấy ra thông tin ở row[0]
+            $qr_code = new \Entities\QRCode();
+            $qr_code->set_id($result[0]["id"]);
+            $qr_code->set_admin_email($result[0]["admin_email"]);
+            $qr_code->set_qr_code_link($result[0]["qr_code_link"]);
+            return $qr_code;    // trả ra qr_code cần tìm
+        }
+        return null;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa QR code của admin
+ * input: admin_email
+ * output: void
+ */
+function delete_qr_code_by_admin_email(string $admin_email): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM qr_code WHERE qr_code.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }

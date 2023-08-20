@@ -471,6 +471,9 @@ function create_order_detail(OrderDetail $order_detail): void
 
     <div class="container">
         <!--Lưu ý khi mua hàng-->
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-square-fill"></i> Đảm bảo số điện thoại của bạn là chính xác vì số điện thoại này sẽ được lưu lại để giúp bạn tra cứu thông tin mua hàng. Hơn nữa, đơn hàng của bạn có thể sẽ bị hủy nếu người bán không thể xác minh được số điện thoại mà bạn cung cấp
+        </div>
         <div class="alert alert-info" role="alert">
             <i class="bi bi-info-circle-fill"></i> Trước khi đặt hàng bạn hãy kiểm tra lại thông tin mua hàng và bấm nút "làm mới" ở góc trên bên phải để so sánh số lượng sản phẩm muốn mua so với số sản phẩm hiện có trong kho hàng của người bán nhé (ở trạng thái ✅ là có thể đặt hàng rồi).
         </div>

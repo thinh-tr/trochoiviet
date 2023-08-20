@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Trang thông tin quản trị viên</title>
     <style>
         div.container {
@@ -37,10 +37,12 @@
     <?php
     // Lấy ra thông tin admin đang login
     $admin = null;
+    $qr_code = null;
     // Kiểm tra trạng thái đăng nhập
     if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
         // Có tồn tại tài khoản login và tiến hành truy vấn thông tin tài khoản từ database
         $admin = AdminServices\get_admin_info_by_email($_SESSION["admin_email"]);
+        $qr_code = AdminServices\get_qr_code_by_admin_email($_SESSION["admin_email"]);
     }
     ?>
 
@@ -130,6 +132,31 @@
     }
     ?>
 
+    <?php
+    // Xử lý thêm QR Code
+    if (isset($_POST["qr-code-submit"])) {
+        // Kiểm tra login
+        if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
+            // Xóa các qr code của admin này nếu chúng tồn tại
+            AdminServices\delete_qr_code_by_admin_email($_SESSION["admin_email"]);
+            // Tiến hành thêm
+            $new_qr_code = new \Entities\QRCode();
+            $new_qr_code->set_id(uniqid());
+            $new_qr_code->set_admin_email($_SESSION["admin_email"]);
+            $new_qr_code->set_qr_code_link($_POST["qr-code-link"]);
+            AdminServices\create_qr_code_link($new_qr_code);
+            //Thông báo thêm thành công
+            echo(<<<END
+                <div class="alert alert-success" role="alert">
+                    Đã tạo thành công QR code của bạn
+                </div>              
+                END);
+        } else {
+            echo("<script>window.alert('Vui lòng đăng nhập vào tài khoản quản trị để thêm QR code')</script>");
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
@@ -178,6 +205,47 @@
                 <textarea class="form-control" id="self-intro" rows="3" name="self-intro" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"><?php if ($admin != null) {
                                                                                                                                                                         echo ($admin->get_self_intro());
                                                                                                                                                                     } ?></textarea>
+            </div>
+            <div class="mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <small><i class="bi bi-info-circle-fill"></i> Thêm QR code của bạn tại đây (Hình ảnh QR CODE sẽ được hiển thị bên dưới nến đường dẫn là chính xác)</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="qr-code-link" class="form-label"><i class="bi bi-qr-code"></i> QR code cho thanh toán qua ví điện tử</label>
+                            <input type="text" class="form-control" id="qr-code-link" name="qr-code-link" placeholder="Link QR code">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" id="qr-code-submit" name="qr-code-submit"><i class="bi bi-box-arrow-up"></i> Thêm QR code</button>
+                    </div>
+                </div>
+            </div>                                                                                                                                                        
+            <div class="mb-3">
+                <div class="alert alert-info" role="alert">
+                    <i class="bi bi-info-circle-fill"></i> Chỉ có thể sử dụng duy nhất 1 QR code tại cùng thời điểm
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <small><i class="bi bi-info-circle-fill"></i> QR code của bạn</small>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        if ($qr_code != null) {
+                        ?>
+                        <img src="<?= $qr_code->get_qr_code_link() ?>" class="img-thumbnail" alt="..." style="width: 40%;">
+                        <?php
+                        } else {
+                        ?>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-info-circle-fill"></i> Hiện tại không có thông tin về QR code
+                        </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary" name="submit" value="submit"><i class="bi bi-save-fill"></i> Lưu thay đổi</button>

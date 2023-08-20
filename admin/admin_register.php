@@ -96,7 +96,7 @@
                     );    
                 } else {
                     // Lỗi xử lý data
-                    echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");
+                    echo("<script>window.alert('Đã có lỗi xảy ra trong quá trình xử lý')</script>");    
                 }
             } else {
                 echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn. Có thể email bạn nhập vào đã được sử dụng')</script>");
