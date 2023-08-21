@@ -37,6 +37,40 @@
     }
     ?>
 
+    <?php
+    // Xử lý xóa các order chưa được confirm
+    if (isset($_POST["delete-not-confirm"])) {
+        $order_id_array = OrderService\get_order_ids_at_the_same_state(OrderState\not_confirm);
+        if (count($order_id_array) > 0) {
+            // Nếu như tồn tại order với state được chỉ định
+            foreach ($order_id_array as $order_id) {
+                OrderService\delete_order_detail_with_order_id($order_id);  // xóa order_details
+                OrderService\delete_order_with_order_id($order_id); // xóa order
+            }
+            echo("<script>window.alert('Đã xóa các đơn hàng chưa xác nhận')</script>");
+        } else {
+            echo("<script>window.alert('Không có đơn hàng nào ở trạng thái cần xóa')</script>");
+        }
+    }
+    ?>
+
+    <?php
+    // Xử lý xóa các đơn hàng đã bị hủy
+    if (isset($_POST["delete-canceled"])) {
+        $order_id_array = OrderService\get_order_ids_at_the_same_state(OrderState\canceled);
+        if (count($order_id_array) > 0) {
+            // Nếu như tồn tại order với state được chỉ định
+            foreach ($order_id_array as $order_id) {
+                OrderService\delete_order_detail_with_order_id($order_id);  // xóa order_details
+                OrderService\delete_order_with_order_id($order_id); // xóa order
+            }
+            echo("<script>window.alert('Đã xóa các đơn hàng bị hủy')</script>");
+        } else {
+            echo("<script>window.alert('Không có đơn hàng nào ở trạng thái cần xóa')</script>");
+        }
+    }
+    ?>
+
     <!--Điều hướng-->
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <div class="container-fluid">
@@ -51,7 +85,14 @@
         <h3><i class="bi bi-box2"></i> <b>Danh sách đơn hàng của bạn</b></h3>
 
         <div class="container" style="margin-bottom: 10px;">
-            <h5><i class="bi bi-hourglass"></i> <b>Đơn hàng chưa xử lý</b></h5>
+            <nav class="navbar bg-body-tertiary" style="margin-bottom: 5px;">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h5"><i class="bi bi-hourglass"></i> <b>Đơn hàng chưa xử lý</b></span>
+                    <form class="d-flex" method="post">
+                        <button class="btn btn-outline-danger" type="submit" id="delete-not-confirm" name="delete-not-confirm"><i class="bi bi-trash3-fill"></i> Xóa các đơn hàng chưa được xử lý</button>
+                    </form>
+                </div>
+            </nav>
             <div class="row row-cols-1 row-cols-md-2 g-4">
             <?php
             if (count($not_confirm_order_array) > 0) {
@@ -67,7 +108,7 @@
                         <p class="card-text"><i class="bi bi-person-workspace"></i> <b>Người bán:</b> <?= $order->get_admin_email() ?></p>
                         <p class="card-text"><i class="bi bi-calendar-minus"></i> <b>Ngày đặt hàng:</b> <?= date("d-m-Y", $order->get_order_date()); ?></p>
                         <p class="card-text"><i class="bi bi-info-square-fill"></i> <b>Tình trạng:</b> <?= "Chưa xử lý" ?></p>
-                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
+                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
                     </div>
                     <div class="card-footer">
                         <a href="/user/user_order_detail.php?order-id=<?= $order->get_id() ?>" class="btn btn-primary">Chi tiết</a>
@@ -89,7 +130,11 @@
         </div>
 
         <div class="container" style="margin-bottom: 10px;">
-            <h5><i class="bi bi-hourglass-top"></i> <b>Đơn hàng chờ xử lý</b></h5>
+            <nav class="navbar bg-body-tertiary" style="margin-bottom: 5px;">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h5"><i class="bi bi-hourglass-top"></i> <b>Đơn hàng chờ xử lý</b></span>
+                </div>
+            </nav>
             <div class="row row-cols-1 row-cols-md-2 g-4">
             <?php
             if (count($is_waiting_order_array) > 0) {
@@ -104,7 +149,7 @@
                         <p class="card-text"><i class="bi bi-people"></i> <b>Khách hàng:</b> <?= $order->get_user_phone_number() ?></p>
                         <p class="card-text"><i class="bi bi-person-workspace"></i> <b>Người bán:</b> <?= $order->get_admin_email() ?></p>
                         <p class="card-text"><i class="bi bi-info-square-fill"></i> <b>Tình trạng:</b> <?= "Đang chờ được xử lý" ?></p>
-                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
+                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
                     </div>
                     <div class="card-footer">
                         <a href="/user/user_order_detail.php?order-id=<?= $order->get_id() ?>" class="btn btn-primary">Chi tiết</a>
@@ -126,7 +171,11 @@
         </div>
 
         <div class="container" style="margin-bottom: 10px;">
-            <h5><i class="bi bi-hourglass-split"></i> <b>Đơn hàng đang xử lý</b></h5>
+            <nav class="navbar bg-body-tertiary" style="margin-bottom: 5px;">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h5"><i class="bi bi-hourglass-split"></i> <b>Đơn hàng đang xử lý</b></span>
+                </div>
+            </nav>
             <div class="row row-cols-1 row-cols-md-2 g-4">
             <?php
             if (count($is_processing_order_array) > 0) {
@@ -141,7 +190,7 @@
                         <p class="card-text"><i class="bi bi-people"></i> <b>Khách hàng:</b> <?= $order->get_user_phone_number() ?></p>
                         <p class="card-text"><i class="bi bi-person-workspace"></i> <b>Người bán:</b> <?= $order->get_admin_email() ?></p>
                         <p class="card-text"><i class="bi bi-info-square-fill"></i> <b>Tình trạng:</b> <?= "Đang được xử lý" ?></p>
-                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
+                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
                     </div>
                     <div class="card-footer">
                         <a href="/user/user_order_detail.php?order-id=<?= $order->get_id() ?>" class="btn btn-primary">Chi tiết</a>
@@ -163,7 +212,11 @@
         </div>
 
         <div class="container" style="margin-bottom: 10px;">
-            <h5><i class="bi bi-check2-circle"></i> <b>Đơn hàng đã hoàn tất</b></h5>
+            <nav class="navbar bg-body-tertiary" style="margin-bottom: 5px;">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h5"><i class="bi bi-check2-circle"></i> <b>Đơn hàng đã hoàn tất</b></span>
+                </div>
+            </nav>
             <div class="row row-cols-1 row-cols-md-2 g-4">
             <?php
             if (count($is_finished_order_array) > 0) {
@@ -178,7 +231,7 @@
                         <p class="card-text"><i class="bi bi-people"></i> <b>Khách hàng:</b> <?= $order->get_user_phone_number() ?></p>
                         <p class="card-text"><i class="bi bi-person-workspace"></i> <b>Người bán:</b> <?= $order->get_admin_email() ?></p>
                         <p class="card-text"><i class="bi bi-info-square-fill"></i> <b>Tình trạng:</b> <?= "Đã hoàn tất" ?></p>
-                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
+                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
                     </div>
                     <div class="card-footer">
                         <a href="/user/user_order_detail.php?order-id=<?= $order->get_id() ?>" class="btn btn-primary">Chi tiết</a>
@@ -200,7 +253,14 @@
         </div>
 
         <div class="container" style="margin-bottom: 10px;">
-            <h5><i class="bi bi-x-circle"></i> <b>Đơn hàng đã bị hủy</b></h5>
+            <nav class="navbar bg-body-tertiary" style="margin-bottom: 5px;">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h5"><i class="bi bi-x-circle"></i> <b>Đơn hàng đã bị hủy</b></span>
+                    <form class="d-flex" method="post">
+                        <button class="btn btn-outline-danger" type="submit" id="delete-canceled" name="delete-canceled"><i class="bi bi-trash3-fill"></i> Xóa các đơn hàng đã bị hủy</button>
+                    </form>
+                </div>
+            </nav>
             <div class="row row-cols-1 row-cols-md-2 g-4">
             <?php
             if (count($is_canceled_order_array) > 0) {
@@ -215,7 +275,7 @@
                         <p class="card-text"><i class="bi bi-people"></i> <b>Khách hàng:</b> <?= $order->get_user_phone_number() ?></p>
                         <p class="card-text"><i class="bi bi-person-workspace"></i> <b>Người bán:</b> <?= $order->get_admin_email() ?></p>
                         <p class="card-text"><i class="bi bi-info-square-fill"></i> <b>Tình trạng:</b> <?= "Đã hủy" ?></p>
-                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
+                        <p class="card-text"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán:</b> <?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?></p>
                     </div>
                     <div class="card-footer">
                         <a href="/user/user_order_detail.php?order-id=<?= $order->get_id() ?>" class="btn btn-primary">Chi tiết</a>

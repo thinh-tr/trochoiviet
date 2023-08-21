@@ -265,6 +265,7 @@ function create_order_detail(OrderDetail $order_detail): void
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/order_state.php"; ?>
 
     <?php
     // Xử lý truy vấn thông tin của người mua hàng
@@ -352,7 +353,7 @@ function create_order_detail(OrderDetail $order_detail): void
                     // Lần lượt tạo order tương ứng với từng email
                     $order = new Order();
                     $order->set_id(uniqid());
-                    $order->set_state("not_confirm");
+                    $order->set_state(OrderState\not_confirm);
                     $order->set_payment_state(0);
                     $order->set_order_date(time());
                     $order->set_delivery_date(0);

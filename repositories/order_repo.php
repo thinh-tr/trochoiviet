@@ -291,3 +291,120 @@ function select_order_details_by_order_id(string $order_id): array
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Cập nhật lại địa chỉ đơn hàng
+ * input: order_id, delivery_address
+ * output: void
+ */
+function update_order_delivery_address(string $order_id, string $delivery_address): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE `order` SET `order`.delivery_address = '$delivery_address' WHERE `order`.id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Cập nhật trạng thái order
+ * input: order_state
+ * output: void
+ */
+function update_order_state(string $order_id, string $order_state): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE `order` SET `order`.state = '$order_state' WHERE `order`.id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Cập nhật trang thái thanh toán
+ * input: (string) order_id (int) payment_state
+ * output: void
+ */
+function update_order_payment_state(string $order_id, int $payment_state): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE `order` set `order`.payment_state = $payment_state where `order`.id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa các order có trạng thái được chỉ định
+ * input: order_state
+ * output: void
+ */
+function delete_order_with_order_id(string $order_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM `order` WHERE `order`.id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa các order_detail của một order nhất định
+ * input: order_id
+ * output: void
+ */
+function delete_order_detail_with_order_id(string $order_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM `order_detail` WHERE `order_detail`.order_id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra array chứa các order_id ở một trạng thái nhất định
+ * input: order_state
+ * output: string array (order_id) | array rỗng -> không có kết quả
+ */
+function select_order_ids_at_the_same_state(string $order_state): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT `order`.id FROM `order` WHERE `order`.`state` = '$order_state'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $order_id_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                array_push($order_id_array, $row["id"]);    // push id tìm được vào array
+            }
+        }
+        return $order_id_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

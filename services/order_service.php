@@ -92,3 +92,63 @@ function get_order_details_by_order_id(string $order_id): array
 {
     return \OrderRepository\select_order_details_by_order_id($order_id);
 }
+
+/**
+ * Cập nhật lại địa chỉ đơn hàng
+ * input: order_id, delivery_address
+ * output: void
+ */
+function update_order_delivery_address(string $order_id, string $delivery_address): void
+{
+    \OrderRepository\update_order_delivery_address($order_id, $delivery_address);
+}
+
+/**
+ * Cập nhật trạng thái order
+ * input: order_state
+ * output: void
+ */
+function update_order_state(string $order_id, string $order_state): void
+{
+    \OrderRepository\update_order_state($order_id, $order_state);
+}
+
+/**
+ * Cập nhật trang thái thanh toán
+ * input: (string) order_id (int) payment_state
+ * output: void
+ */
+function update_order_payment_state(string $order_id, int $payment_state): void
+{
+    \OrderRepository\update_order_payment_state($order_id, $payment_state);
+}
+
+/**
+ * Xóa các order được chỉ định
+ * input: order_state
+ * output: void
+ */
+function delete_order_with_order_id(string $order_id): void
+{
+    \OrderRepository\delete_order_with_order_id($order_id);
+}
+
+/**
+ * Xóa các order_detail của một order nhất định
+ * input: order_id
+ * output: void
+ */
+function delete_order_detail_with_order_id(string $order_id): void
+{
+    \OrderRepository\delete_order_detail_with_order_id($order_id);
+}
+
+/**
+ * Lấy ra array chứa các order_id ở một trạng thái nhất định
+ * input: order_state
+ * output: string array (order_id) | array rỗng -> không có kết quả
+ */
+function get_order_ids_at_the_same_state(string $order_state): array
+{
+    return \OrderRepository\select_order_ids_at_the_same_state($order_state);
+}
