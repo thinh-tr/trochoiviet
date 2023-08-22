@@ -74,6 +74,13 @@
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
         <div class="container-fluid">
             <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
+            <ul class="nav nav-bills">
+                <li class="nav-item">
+                    <form method="post">
+                        <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </nav>
 
