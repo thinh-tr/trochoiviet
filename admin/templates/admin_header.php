@@ -24,7 +24,7 @@
                         <a class="nav-link" href="/admin/admin_product_manager_index.php"><i class="bi bi-shop"></i> Quản lý cửa hàng</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Quản lý đơn hàng</a>
+                        <a class="nav-link" href="/admin/admin_order_list.php"><i class="bi bi-receipt"></i> Quản lý đơn hàng</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

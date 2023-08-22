@@ -383,16 +383,16 @@ function delete_order_detail_with_order_id(string $order_id): void
 }
 
 /**
- * Lấy ra array chứa các order_id ở một trạng thái nhất định
+ * Lấy ra array chứa các order_id ở một trạng thái nhất định và thuộc về một user nhất định
  * input: order_state
  * output: string array (order_id) | array rỗng -> không có kết quả
  */
-function select_order_ids_at_the_same_state(string $order_state): array
+function select_order_ids_at_the_same_state_by_user_phone_number(string $order_state, string $user_phone_number): array
 {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "SELECT `order`.id FROM `order` WHERE `order`.`state` = '$order_state'";
+        $sql = "SELECT `order`.id FROM `order` WHERE `order`.`state` = '$order_state' AND `order`.user_phone_number = '$user_phone_number'";
         $statement = $connection->prepare($sql);
         $statement->execute();
         $result = $statement->fetchAll();
@@ -404,6 +404,87 @@ function select_order_ids_at_the_same_state(string $order_state): array
             }
         }
         return $order_id_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra array chứa các order ở trạng thái được chỉ định và thuộc về một admin_email được chỉ định
+ * input: admin_email, order_state
+ * output: array chứa các Order | array rỗng -> không có kết quả
+ */
+function select_orders_by_admin_email_and_state(string $admin_email, string $order_state): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM `order` WHERE `order`.admin_email = '$admin_email' AND `order`.state = '$order_state'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $order_array = array(); // array kết quả
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // Lần lượt lấy ra thông tin của các order
+            foreach ($result as $row) {
+                $order = new \Entities\Order();
+                $order->set_id($row["id"]);
+                $order->set_state($row["state"]);
+                $order->set_payment_state($row["payment_state"]);
+                $order->set_order_date($row["order_date"]);
+                $order->set_delivery_date($row["delivery_date"]);
+                $order->set_user_phone_number($row["user_phone_number"]);
+                $order->set_admin_email($row["admin_email"]);
+                array_push($order_array, $order);   // push order tìm được vào array kết quả
+            }
+        }
+        return $order_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra array chứa các order_id ở một trạng thái nhất định và thuộc về một admin nhất định
+ * input: order_state, admin_email
+ * output: string array (order_id) | array rỗng -> không có kết quả
+ */
+function select_order_ids_at_the_same_state_by_admin_email(string $order_state, string $admin_email): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT `order`.id FROM `order` WHERE `order`.`state` = '$order_state' AND `order`.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $order_id_array = array();
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                array_push($order_id_array, $row["id"]);    // push id tìm được vào array
+            }
+        }
+        return $order_id_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Update delivery_date của một order
+ * input: order_id, (int) delivery_date
+ * output: void
+ */
+function update_order_delivery_date(string $order_id, int $delivery_date): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE `order` SET `order`.delivery_date = $delivery_date where `order`.id = '$order_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }

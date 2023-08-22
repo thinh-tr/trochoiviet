@@ -11,11 +11,9 @@
     <title>Chi tiết đơn hàng</title>
 </head>
 <body>
-    <?php
-    include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php";
-    include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php";
-    ?>
-    <!--OrderService-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+
     <?php
     include $_SERVER["DOCUMENT_ROOT"] . "/services/order_service.php";
     include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php";
@@ -23,69 +21,40 @@
     include $_SERVER["DOCUMENT_ROOT"] . "/entities/order_state.php";
     ?>
 
-
     <?php
     // Lấy ra thông tin của đơn hàng được chỉ định
     $order = null;
     $order_detail_array = array();
-    $admin_qr_code = null;
-    $payment_check_value = 0;
     if (isset($_GET["order-id"])) {
         $order = OrderService\get_order_by_order_id($_GET["order-id"]);
         $order_detail_array = OrderService\get_order_details_by_order_id($_GET["order-id"]);
-        $admin_qr_code = AdminServices\get_qr_code_by_admin_email($order->get_admin_email());
     }
     ?>
 
     <?php
-    if (isset($_POST["payment-check"])) {
-        $payment_check_value = intval($_POST["payment-check"]);
+    $state_selection = "";
+    // Xử lý lựa chọn trạng thái đơn hàng
+    if (isset($_POST["state-selection"])) {
+        $state_selection = strval($_POST["state-selection"]);
     }
     ?>
 
     <?php
-    // Xử lý xác nhận order
-    if (isset($_POST["order-submit"])) {
-        // Nếu có lệnh xác nhận order
-        // Kiểm tra trạng thái order
-        if ($order->get_state() == OrderState\not_confirm) {
-            // Chỉ có thể xác nhận đơn hàng nếu đang ở trạng thái not_confirm
-            // Kiểm tra địa chỉ giao hàng
-            if (strlen($_POST["order-delivery-address"]) >= 10) {
-                // // Tiến hàng xác nhận order
-
-                // Cập nhật trạng thái order sang 'is_waitting'
-                OrderService\update_order_state($order->get_id(), OrderState\waiting);
-
-                // Cập nhật delivery_address
-                OrderService\update_order_delivery_address($order->get_id(), $_POST["order-delivery-address"]);
-
-                // Cập nhật trạng thái thanh toán
-                // Kiểm tra tùy chọn thanh toán
-                OrderService\update_order_payment_state($order->get_id(), $payment_check_value);
-
-                // Thông báo xác nhận order thành công
-                echo(<<<END
-                    <div class="alert alert-success" role="alert">
-                    Đã xác nhận đơn hàng thành công
-                    </div>              
-                    END);
-            } else {
-                // Thông báo address chưa chính xác
-                echo("<script>window.alert('Vui lòng kiểm tra lại địa chỉ giao hàng của bạn')</script>");
-            }
-        } else {
-            echo("<script>window.alert('Hiện tại không thể xác nhận đơn hàng này')</script>");
+    // Xử lý cập nhật trạng thái đơn hàng
+    if (isset($_POST["order-update-submit"])) {
+        // Tiến hành update trạng thái order
+        if ($state_selection != "") {
+            OrderService\update_order_state($order->get_id(), $state_selection);
         }
+        echo("<script>window.alert('Đã cập nhật trạng thái đơn hàng')</script>");
     }
     ?>
 
     <?php
-    // Xử lý hủy order (Chuyển trạng thái của order sang "is_canceled")
+    // Xử lý hủy order
     if (isset($_POST["order-cancel"])) {
-        // Kiểm tra trạng thái order (Chỉ có thể hủy nếu order ở trạng thái "not_confirm", "is_waiting", "is_received")
-        if ($order->get_state() == OrderState\not_confirm || $order->get_state() == OrderState\waiting || $order->get_state() == OrderState\received) {
-            OrderService\update_order_state($order->get_id(), OrderState\canceled); // Chuyển trạng thái order sang canceled
+        if ($order->get_state() == OrderState\waiting || $order->get_state() == OrderState\received) {
+            OrderService\update_order_state($order->get_id(), OrderState\canceled);
             echo("<script>window.alert('Đã hủy đơn hàng')</script>");
         } else {
             echo("<script>window.alert('Không thể hủy đơn hàng này')</script>");
@@ -93,8 +62,17 @@
     }
     ?>
 
+    <?php
+    // Xử lý update ngày giao hàng
+    if (isset($_POST["delivery-date-submit"])) {
+        $delivery_date = strtotime($_POST["delivery-date-picker"]);
+        OrderService\update_order_delivery_date($order->get_id(), $delivery_date);
+        echo("<script>window.alert('Đã cập nhật ngày giao hàng')</script>");
+    }
+    ?>
+
     <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/user/user_order_list.php"><i class="bi bi-arrow-left"></i> Danh sách đơn hàng</a>
+        <a class="btn btn-primary" href="/admin/admin_order_list.php"><i class="bi bi-arrow-left"></i> Quản lý đơn hàng</a>
         <ul class="nav nav-bills">
             <li class="nav-item">
                 <form method="post">
@@ -105,9 +83,6 @@
     </nav>
     <div class="container" style="margin-bottom: 2cm;">
         <div class="container">
-            <div class="alert alert-warning" role="alert">
-                <i class="bi bi-info-circle-fill"></i> Lưu ý, đơn hàng của bạn có thể sẽ bị hủy nếu người bán không thể xác định được địa chỉ giao hàng mà bạn cung cấp
-            </div>
             <form method="post">
                 <div class="card">
                     <div class="card-header">
@@ -137,6 +112,13 @@
                             ?>" disabled>
                         </div>
                         <div class="mb-3">
+                            <label for="order-state-selection" class="form-label"><i class="bi bi-list-task"></i> <b>Chọn trạng thái đơn hàng</b></label><br>
+                            <input type="radio" id="waiting" name="state-selection" value="<?= OrderState\waiting ?>"> <b>Chờ xử lý</b><br>
+                            <input type="radio" id="received" name="state-selection" value="<?= OrderState\received ?>"> <b>Đã xác nhận</b><br>
+                            <input type="radio" id="shipping" name="state-selection" value="<?= OrderState\shipping ?>"> <b>Đang vận chuyển</b><br>
+                            <input type="radio" id="finished" name="state-selection" value="<?= OrderState\finished ?>"> <b>Đã hoàn tất</b><br>
+                        </div>
+                        <div class="mb-3">
                             <label for="order-payment-state" class="form-label"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán</b></label>
                             <input type="text" class="form-control" id="order-payment-state" name="order-payment-state" value="<?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?>" disabled>
                         </div>
@@ -155,8 +137,13 @@
                             ?>" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="order-delivery-address" class="form-label"><i class="bi bi-house"></i> <b>Địa chỉ giao hàng</b> (giữ nguyên trường này nếu như địa chỉ đã chính xác)</label>
-                            <input type="text" class="form-control" id="order-delivery-address" name="order-delivery-address" placeholder="Từ 10 ký tự trở lên" value="<?= $order->get_delivery_address() ?>">
+                            <label for="delivery-date-picker" class="form-label"><i class="bi bi-calendar-event"></i> Chọn ngày giao hàng</label><br>
+                            <input type="date" id="delivery-date-picker" name="delivery-date-picker" style="margin-bottom: 5px;"><br>
+                            <button class="btn btn-info" type="submit" id="delivery-date-submit" name="delivery-date-submit">Cập nhật ngày giao hàng</button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="order-delivery-address" class="form-label"><i class="bi bi-house"></i> <b>Địa chỉ giao hàng</b></label>
+                            <input type="text" class="form-control" id="order-delivery-address" name="order-delivery-address" value="<?= $order->get_delivery_address() ?>" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="order-user-phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại người nhận</b></label>
@@ -215,43 +202,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title"><i class="bi bi-cash-coin"></i> <b> Thanh toán</b></h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="alert alert-info" role="alert">
-                                        <i class="bi bi-info-circle-fill"></i> Thanh toán bằng ví điện tử thông qua mã QR hiển thị bên dưới
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        <i class="bi bi-exclamation-triangle-fill"></i> Chỉ thực hiện thanh toán qua ví điện tử khi mã QR được hiển thị đầy đủ, nếu không hãy chọn cách thanh toán khác
-                                    </div>
-                                    <small><i class="bi bi-qr-code"></i> <b>Thanh toán bằng cách quét mã QR dưới đây thông qua ứng dụng ví điện tử tương ứng</b></small><br>
-                                    <?php
-                                    // Lấy ra thông tin admin
-                                    if ($admin_qr_code != null) {
-                                    ?>
-                                    <img src="<?= $admin_qr_code->get_qr_code_link() ?>" class="img-thumbnail" alt="...">
-                                    <?php
-                                    } else {
-                                    ?>
-                                    <img src="#" class="img-thumbnail" alt="...">
-                                    <?php
-                                    }
-                                    ?>
-                                    <p class="card-text"><i class="bi bi-info-circle-fill"></i> Nội dung thanh toán: <b>Mã đơn hàng - Số điện thoại của bạn</b> (Số tiền thanh toán bằng với tổng giá trị đơn hàng được hiển thị bên trên)</p>
-                                    <p class="card-text"><i class="bi bi-info-circle-fill"></i> Nếu bạn đã thực hiện thanh toán qua ví điện tử thì hãy click vào nút xác nhận bên dưới trước khi bấm xác nhận đơn hàng</p>
-                                </div>
-                                <div class="card-footer">
-                                    <input type="radio" name="payment-check" value="1"> Đã thanh toán qua ví điện tử<br>
-                                    <input type="radio" name="payment-check" value="0"> Thanh toán khi nhận hàng
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary" id="order-submit" name="order-submit"><i class="bi bi-bag-check"></i> Xác nhận đơn hàng</button>
+                        <button class="btn btn-primary" id="order-update-submit" name="order-update-submit"><i class="bi bi-bag-check"></i> Cập nhật đơn hàng</button>
                         <button class="btn btn-warning" id="order-cancel" name="order-cancel"><i class="bi bi-x-circle"></i>  Hủy đơn hàng</button>
                     </div>
                 </div>

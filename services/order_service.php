@@ -148,7 +148,37 @@ function delete_order_detail_with_order_id(string $order_id): void
  * input: order_state
  * output: string array (order_id) | array rỗng -> không có kết quả
  */
-function get_order_ids_at_the_same_state(string $order_state): array
+function get_order_ids_at_the_same_state_by_user_phone_number(string $order_state, string $user_phone_number): array
 {
-    return \OrderRepository\select_order_ids_at_the_same_state($order_state);
+    return \OrderRepository\select_order_ids_at_the_same_state_by_user_phone_number($order_state, $user_phone_number);
+}
+
+/**
+ * Lấy ra array chứa các order ở trạng thái được chỉ định và thuộc về một admin_email được chỉ định
+ * input: admin_email, order_state
+ * output: array chứa các Order | array rỗng -> không có kết quả
+ */
+function get_orders_by_admin_email_and_state(string $admin_email, string $order_state): array
+{
+    return \OrderRepository\select_orders_by_admin_email_and_state($admin_email, $order_state);
+}
+
+/**
+ * Lấy ra array chứa các order_id ở một trạng thái nhất định và thuộc về một admin nhất định
+ * input: order_state, admin_email
+ * output: string array (order_id) | array rỗng -> không có kết quả
+ */
+function get_order_ids_at_the_same_state_by_admin_email(string $order_state, string $admin_email): array
+{
+    return \OrderRepository\select_order_ids_at_the_same_state_by_admin_email($order_state, $admin_email);
+}
+
+/**
+ * Update delivery_date của một order
+ * input: order_id, (int) delivery_date
+ * output: void
+ */
+function update_order_delivery_date(string $order_id, int $delivery_date): void
+{
+    \OrderRepository\update_order_delivery_date($order_id, $delivery_date);
 }
