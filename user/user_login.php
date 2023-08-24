@@ -90,7 +90,7 @@
 
     <!--form đăng nhập-->
     <div id="login-body" class="container">
-        <h3 style="text-align: center;"><b>Đăng nhập người dùng</b></h3><br>
+        <h3 style="text-align: center;"><i class="bi bi-person-circle"></i> <b>Đăng nhập người dùng</b></h3><br>
         <form method="post">
             <div class="mb-3">
                 <label for="user-phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> Số điện thoại</label>
@@ -101,7 +101,7 @@
                 <input type="password" class="form-control" id="user-password" name="user-password">
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng nhập</button><br><br>
+                <button type="submit" class="btn btn-primary" id="submit" name="submit"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</button><br><br>
             </div>
         </form>
     </div>

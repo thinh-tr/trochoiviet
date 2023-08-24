@@ -30,7 +30,7 @@
                             Một website cộng đồng đăng tải những bài viết thú vị về các trò chơi dân gian Việt
                             Nam.
                             Được tạo ra với mong muốn
-                            chia sẽ một phần bản sắc văn hóa Việt Nam đến cho các đọc giả.
+                            chia sẻ một phần bản sắc văn hóa Việt Nam đến cho các đọc giả.
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -45,15 +45,15 @@
                         </p>
                         <p>
                             <i class="bi bi-info-circle"></i>
-                            <a href="#!" class="text-reset">Giới thiệu</a>
+                            <a href="/introduction.php" class="text-reset">Giới thiệu</a>
                         </p>
                         <p>
                             <i class="bi bi-shop"></i>
-                            <a href="#!" class="text-reset">Cửa hàng</a>
+                            <a href="/product/product_index.php" class="text-reset">Cửa hàng</a>
                         </p>
                         <p>
                             <i class="bi bi-people"></i>
-                            <a href="#!" class="text-reset">Fan page</a>
+                            <a href="/fanpage.php" class="text-reset">Fan page</a>
                         </p>
                     </div>
                     <!-- Grid column -->

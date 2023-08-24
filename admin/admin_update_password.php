@@ -88,24 +88,28 @@
     }
     ?>
 
+    <!--Điều hướng-->
+    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+        <a class="btn btn-primary" href="/admin/admin_info.php"><i class="bi bi-arrow-left"></i> Trang thông tin quản trị viên</a>
+    </nav>
     <div id="change-pass-body" class="container">
-        <h3 style="text-align: center;"><b>Cập nhật mật khẩu quản trị viên</b></h3>
+        <h3 style="text-align: center;"><b>Cập nhật mật khẩu quản trị viên</b></h3><br>
         <form method="post">
             <div class="mb-3">
-                <label for="current-password" class="form-label">Mật khẩu hiện tại *</label>
+                <label for="current-password" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu hiện tại *</b></label>
                 <input type="password" class="form-control" id="current-password" name="current-password">
             </div>
             <div class="mb-3">
-                <label for="new-password" class="form-label">Mật khẩu mới *</label>
+                <label for="new-password" class="form-label"><i class="bi bi-key"></i> <b>Mật khẩu mới *</b></label>
                 <input type="password" class="form-control" id="new-password" name="new-password">
             </div>
             <div class="mb-3">
-                <label for="confirm-new-password" class="form-label">Xác nhận lại mật khẩu mới *</label>
+                <label for="confirm-new-password" class="form-label"><i class="bi bi-key"></i> <b>Xác nhận lại mật khẩu mới *</b></label>
                 <input type="password" class="form-control" id="confirm-new-password" name="confirm-new-password">
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" id="submit" name="submit">Lưu mật khẩu mới</button>
-                <a class="btn btn-danger" href="/admin/admin_info.php">Hủy</a>
+                <button type="submit" class="btn btn-primary" id="submit" name="submit"><i class="bi bi-box-arrow-up"></i> Lưu mật khẩu mới</button>
+                <a class="btn btn-danger" href="/admin/admin_info.php"><i class="bi bi-x-circle"></i> Hủy</a>
             </div>
         </form>
     </div>

@@ -97,7 +97,7 @@
                         <h3 class="card-title"><b><?= $product->get_name() ?></b></h3>
                         <p class="card-text">Người đăng: <b><?= $product->get_admin_email() ?></b></p>
                         <h5 class="card-text">Đơn giá: <b><?= $product->get_retail_price() ?> VNĐ</b></h5>
-                        <h5 class="card-text">Đánh giá: </h5>
+                        <h5 class="card-text">Đánh giá: <i class="bi bi-star-half"></i> <?= ProductService\get_avg_of_product_rating_by_product_id($product->get_id()) ?></h5>
                         <p class="card-text">Số lượng còn: <b><?= $product->get_remain_quantity() ?></b></p>
                         <!--Thêm vào giỏ hàng-->
                         <div class="card">
@@ -121,7 +121,7 @@
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
                 <form class="container-fluid justify-content-start" method="post">
-                    <a href="#" class="btn btn-outline-warning"><i class="bi bi-star-half"></i> Đánh giá sản phẩm</a>
+                    <a href="/product/product_rating.php?product-id=<?= $product->get_id() ?>" class="btn btn-outline-warning"><i class="bi bi-star-half"></i> Đánh giá sản phẩm</a>
                     <a class="btn btn-secondary" href="https://www.facebook.com/sharer/sharer.php?u=<?= $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] ?>"><i class="bi bi-arrow-right-short"></i> <i class="bi bi-facebook"></i></i></a>
                 </form>
             </div>

@@ -40,12 +40,25 @@
     ?>
 
     <?php
+    $payment_state_selection = -1;
+    if (isset($_POST["payment-state-selection"])) {
+        $payment_state_selection = intval($_POST["payment-state-selection"]);
+    }
+    ?>
+
+    <?php
     // Xử lý cập nhật trạng thái đơn hàng
     if (isset($_POST["order-update-submit"])) {
         // Tiến hành update trạng thái order
         if ($state_selection != "") {
             OrderService\update_order_state($order->get_id(), $state_selection);
         }
+
+        // Tiến hành update trạng thái thanh toán đơn hàng
+        if ($payment_state_selection != -1) {
+            OrderService\update_order_payment_state($order->get_id(), $payment_state_selection);
+        }
+
         echo("<script>window.alert('Đã cập nhật trạng thái đơn hàng')</script>");
     }
     ?>
@@ -121,6 +134,11 @@
                         <div class="mb-3">
                             <label for="order-payment-state" class="form-label"><i class="bi bi-cash-coin"></i> <b>Trạng thái thanh toán</b></label>
                             <input type="text" class="form-control" id="order-payment-state" name="order-payment-state" value="<?php if ($order->get_payment_state() == 1) {echo("Đã thanh toán");} else {echo("Chưa thanh toán");} ?>" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment-state-selection" class="form-label"><i class="bi bi-cash-coin"></i> <b>Cập nhật trạng thái thanh toán</b></label><br>
+                            <input type="radio" id="payment-state-selection" name="payment-state-selection" value="0"> Chưa thanh toán<br>
+                            <input type="radio" id="payment-state-selection" name="payment-state-selection" value="1"> Đã thanh toán
                         </div>
                         <div class="mb-3">
                             <label for="order-order-date" class="form-label"><i class="bi bi-calendar"></i> <b>Ngày đặt hàng</b></label>

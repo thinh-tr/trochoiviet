@@ -140,4 +140,71 @@ class ProductImage
     }
 }
 
-// class chứa thông tin Order (đơn hàng)
+// class chứa thông tin ProductRating
+class ProductRating
+{
+    // Thuộc tính
+    private string $id;
+    private int $rating_star;
+    private string $content;
+    private string $product_id;
+    private string $user_phone_number;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // Getter
+    public function get_id(): string
+    {
+        return $this->id;
+    }
+
+    public function get_rating_star(): int
+    {
+        return $this->rating_star;
+    }
+
+    public function get_content(): string
+    {
+        return $this->content;
+    }
+
+    public function get_product_id(): string
+    {
+        return $this->product_id;
+    }
+
+    public function get_user_phone_number(): string
+    {
+        return $this->user_phone_number;
+    }
+
+    // Setter
+    public function set_id(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function set_rating_star(int $rating_star): void
+    {
+        $this->rating_star = $rating_star;
+    }
+
+    public function set_content(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    public function set_product_id(string $product_id): void
+    {
+        $this->product_id = $product_id;
+    }
+
+    public function set_user_phone_number(string $user_phone_number): void
+    {
+        $this->user_phone_number = $user_phone_number;
+    }
+}

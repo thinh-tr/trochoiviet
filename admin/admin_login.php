@@ -83,7 +83,7 @@
     ?>
 
     <div id="login-body" class="container">
-        <h3 style="text-align: center;"><b>Đăng nhập quản trị viên</b></h3><br>
+        <h3 style="text-align: center;"><i class="bi bi-gear-wide-connected"></i> <b>Đăng nhập quản trị viên</b></h3><br>
         <form method="post">
             <div class="mb-3">
                 <label for="admin-email" class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
@@ -94,7 +94,7 @@
                 <input type="password" class="form-control" id="admin-password" name="admin-password">
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng nhập</button><br><br>
+                <button type="submit" class="btn btn-primary" id="submit" name="submit"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</button><br><br>
                 <a id="register-link" href="/admin/admin_register.php">Đăng ký trở thành quản trị viên</a>
             </div>
         </form>

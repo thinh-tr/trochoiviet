@@ -106,35 +106,35 @@
 
     <!--form đăng ký quản trị viên-->
     <div class="container">
-        <h3 style="text-align: center;"><b>Đăng ký thông tin quản trị viên</b></h3><br>
+        <h3 style="text-align: center;"><i class="bi bi-gear-wide-connected"></i> <b>Đăng ký thông tin quản trị viên</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Địa chỉ email *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-envelope-fill"></i> <b>Địa chỉ email *</b></label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Mật khẩu *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu *</b></label>
                 <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 5 ký tự" name="password">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Xác nhận lại mật khẩu *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-key-fill"></i> <b>Xác nhận lại mật khẩu *</b></label>
                 <input type="password" class="form-control" id="exampleFormControlInput1" name="confirm-password"> 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Họ tên *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-info-circle-fill"></i> <b>Họ tên *</b></label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tối thiểu 2 ký tự" name="name"> 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Số điện thoại</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại</b></label>
                 <input type="tel" class="form-control" id="exampleFormControlInput1" name="phone-number"> 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Tự giới thiệu</label>
+                <label for="exampleFormControlTextarea1" class="form-label"><i class="bi bi-info-circle-fill"></i> <b>Tự giới thiệu</b></label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
-                <a href="./admin/admin_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
+                <button type="submit" class="btn btn-success" name="submit" value="submit"><i class="bi bi-box-arrow-up"></i> Đăng ký</button>
+                <a href="/admin/admin_index.php" class="btn btn-danger"><i class="bi bi-x-circle"></i> Hủy</a>
             </div>
         </form>
     </div>

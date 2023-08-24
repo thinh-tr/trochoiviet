@@ -114,7 +114,6 @@
         if (session_status() == PHP_SESSION_ACTIVE && isset($_SESSION["admin_email"])) {
             // Xóa biến admin_email trong session và hủy session
             unset($_SESSION["admin_email"]);
-            session_destroy();  // hủy session
             // xóa trống form
             $admin = null;
             echo(<<<END
@@ -166,13 +165,13 @@
         <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>
         <form class="register-form" method="post">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-envelope-fill"></i> Địa chỉ email *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-envelope-fill"></i> <b>Địa chỉ email *</b></label>
                 <input type="email" class="form-control" id="email" name="email" disabled value="<?php if ($admin != null) {
                                                                                                         echo ($admin->get_email());
                                                                                                     } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-key-fill"></i> Mật khẩu *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu *</b></label>
                 <input type="password" class="form-control" id="password" name="password" disabled value="<?php if ($admin != null) {
                                                                                                                 echo ($admin->get_password());
                                                                                                             } ?>">
@@ -181,13 +180,13 @@
                 <a class="btn btn-info" href="/admin/admin_update_password.php"><i class="bi bi-file-earmark-lock2-fill"></i> Đổi mật khẩu</a>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-info-circle-fill"></i> Họ tên *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-info-circle-fill"></i> <b>Họ tên *</b></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="không it hơn 2 ký tự" value="<?php if ($admin != null) {
                                                                                                                             echo ($admin->get_name());
                                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-telephone-fill"></i> Số điện thoại</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại</b></label>
                 <input type="tel" class="form-control" id="phone-number" name="phone-number" value="<?php if ($admin != null) {
                                                                                                         echo ($admin->get_phone_number());
                                                                                                     } ?>">
@@ -195,13 +194,13 @@
 
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-calendar-check-fill"></i> Ngày tham gia *</label>
+                <label for="exampleFormControlInput1" class="form-label"><i class="bi bi-calendar-check-fill"></i> <b>Ngày tham gia *</b></label>
                 <input type="tel" class="form-control" id="join-date" name="join-date" disabled value="<?php if ($admin != null) {
                                                                                                             echo (date("d-m-y", $admin->get_join_date()));
                                                                                                         } ?>">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"><i class="bi bi-info-circle-fill"></i> Tự giới thiệu</label>
+                <label for="exampleFormControlTextarea1" class="form-label"><i class="bi bi-info-circle-fill"></i> <b>Tự giới thiệu</b></label>
                 <textarea class="form-control" id="self-intro" rows="3" name="self-intro" placeholder="Viết vài dòng giới thiệu về bản thân bạn" name="self-intro"><?php if ($admin != null) {
                                                                                                                                                                         echo ($admin->get_self_intro());
                                                                                                                                                                     } ?></textarea>
@@ -213,7 +212,7 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="qr-code-link" class="form-label"><i class="bi bi-qr-code"></i> QR code cho thanh toán qua ví điện tử</label>
+                            <label for="qr-code-link" class="form-label"><i class="bi bi-qr-code"></i> <b>QR code cho thanh toán qua ví điện tử</b></label>
                             <input type="text" class="form-control" id="qr-code-link" name="qr-code-link" placeholder="Link QR code">
                         </div>
                     </div>
@@ -251,9 +250,6 @@
                 <button type="submit" class="btn btn-primary" name="submit" value="submit"><i class="bi bi-save-fill"></i> Lưu thay đổi</button>
                 <button type="submit" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
                 <button type="submit" class="btn btn-warning" name="btn-logout" value="submit"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu đóng tài khoản</button>
             </div>
         </form>
     </div>

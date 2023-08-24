@@ -489,3 +489,29 @@ function update_order_delivery_date(string $order_id, int $delivery_date): void
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Lấy ra số lượng order hiện có của một admin
+ * input: admin_email
+ * output: (int) số order hiện có
+ */
+function select_order_number_of_admin_email(string $admin_email): int
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT count(`order`.id) AS `order_number` FROM `order` WHERE `order`.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $order_number = 0;
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // Lấy ra kết quả
+            $order_number = $result[0]["order_number"];
+        }
+        return $order_number;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

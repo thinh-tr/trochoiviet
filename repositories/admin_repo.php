@@ -1,6 +1,8 @@
 <?php
 namespace AdminRepositories;
 
+use function PostRepository\select_posts_by_admin_email;
+
 include $_SERVER["DOCUMENT_ROOT"] . "/entities/admin_entity.php";
 
 
@@ -274,6 +276,25 @@ function delete_qr_code_by_admin_email(string $admin_email): void
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql = "DELETE FROM qr_code WHERE qr_code.admin_email = '$admin_email'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+
+/**
+ * Xóa tài khoản admin
+ * input: (string) admin-email
+ * output: void
+ */
+function delete_admin_info($admin_email): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM `admin_info` WHERE `admin_info`.email = '$admin_email'";
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {

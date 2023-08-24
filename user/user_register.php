@@ -106,31 +106,31 @@
 
     <!--Form đăng ký thông tin người dùng mới-->
     <div class="container">
-        <h3 style="text-align: center;"><b>Đăng ký thông tin người dùng</b></h3><br>
+        <h3 style="text-align: center;"><i class="bi bi-person-circle"></i> <b>Đăng ký thông tin người dùng</b></h3><br>
             <form class="register-form" method="post">
                 <div class="mb-3">
-                    <label for="phone-number" class="form-label">Số điện thoại *</label>
+                    <label for="phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại *</b></label>
                     <input type="tel" class="form-control" id="phone-number" name="phone-number"> 
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label"><i class="bi bi-envelope-fill"></i> <b>Email</b></label>
                     <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label">Tên *</label>
+                    <label for="name" class="form-label"><i class="bi bi-info-circle-fill"></i> <b>Tên *</b></label>
                     <input type="text" class="form-control" id="name" placeholder="Tối thiểu 2 ký tự" name="name"> 
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Mật khẩu *</label>
+                    <label for="password" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu *</b></label>
                     <input type="password" class="form-control" id="password" placeholder="Tối thiểu 5 ký tự" name="password">
                 </div>
                 <div class="mb-3">
-                    <label for="confirm-password" class="form-label">Xác nhận lại mật khẩu *</label>
+                    <label for="confirm-password" class="form-label"><i class="bi bi-key-fill"></i> <b>Xác nhận lại mật khẩu *</b></label>
                     <input type="password" class="form-control" id="confirm-password" name="confirm-password"> 
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-success" name="submit" value="submit">Đăng ký</button>
-                    <a href="/user/user_index.php"><button type="button" class="btn btn-danger">Hủy</button></a>
+                    <button type="submit" class="btn btn-success" name="submit" value="submit"><i class="bi bi-box-arrow-up"></i> Đăng ký</button>
+                    <a href="/user/user_index.php"><button type="button" class="btn btn-danger"><i class="bi bi-x-circle"></i> Hủy</button></a>
                 </div>
             </form>
     </div>

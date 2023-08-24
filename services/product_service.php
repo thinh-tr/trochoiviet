@@ -117,9 +117,49 @@ function get_popular_product(): array
 /**
  * Tìm kiếm product theo từ khóa (theo name)
  * input: keyword
- * output: array Product | array rỗng -> không tìm thấy lết quả
+ * output: array Product | array rỗng -> không tìm thấy kết quả
  */
 function search_product_by_name(string $keyword): array
 {
     return \ProductRepository\search_product_by_name($keyword);
+}
+
+/**
+ * Thêm rating cho một product
+ * input: ProductRating obj
+ * output: void
+ */
+function create_product_rating(\Entities\ProductRating $product_rating): void
+{
+    \ProductRepository\insert_product_rating($product_rating);
+}
+
+/**
+ * Xóa tất cả các rating của một user đối với một product được chỉ định
+ * input: user_phone_number, product_id
+ * output: void
+ */
+function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void
+{
+    \ProductRepository\delete_product_rating_of_user_to_product($user_phone_number, $product_id);
+}
+
+/**
+ * Lấy ra thông tin ProductRating theo product_id
+ * input: (string) product_id
+ * output: ProductRating array
+ */
+function get_product_ratings_by_product_id(string $product_id): array
+{
+    return \ProductRepository\select_product_ratings_by_product_id($product_id);
+}
+
+/**
+ * Tính trung bình lượt đánh giá của một product
+ * input: product_id
+ * output: (float) trung bình rating
+ */
+function get_avg_of_product_rating_by_product_id(string $product_id): float
+{
+    return \ProductRepository\select_avg_of_product_rating_by_product_id($product_id);
 }

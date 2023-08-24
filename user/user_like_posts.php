@@ -69,7 +69,7 @@
             </li>
         </ul>
     </nav>
-    <div class="container">
+    <div class="container" style="margin-bottom: 2cm;">
         <div class="container">
             <!--Hiển thị các post mà user đã thích-->
             <h2><i class="bi bi-newspaper"></i> Bài viết bạn đã thích</h2>

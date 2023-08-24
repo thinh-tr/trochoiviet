@@ -43,13 +43,13 @@
                     <a class="nav-link" href="/product/product_index.php">Cửa hàng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Fan page</a>
+                    <a class="nav-link" href="/fanpage.php">Fan page</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/admin_index.php">Quản trị</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Giới thiệu</a>
+                    <a class="nav-link" href="/introduction.php">Giới thiệu</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

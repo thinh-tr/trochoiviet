@@ -122,7 +122,7 @@
         <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
         <div class="nav nav-pills">
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="bi bi-star"></i> Đánh giá về sản phẩm</a>
+                <a href="/admin/admin_product_rating.php?product-id=<?= $product->get_id() ?>" class="nav-link"><i class="bi bi-star"></i> Đánh giá về sản phẩm</a>
             </li>
             <li class="nav-item">
                 <form method="post">

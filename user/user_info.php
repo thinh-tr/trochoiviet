@@ -172,9 +172,6 @@
                 <button type="submit" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
                 <button type="submit" class="btn btn-warning" name="btn-logout" value="submit"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button>
             </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-danger"><i class="bi bi-x-square-fill"></i> Yêu cầu đóng tài khoản</button>
-            </div>
         </form>
     </div>
 

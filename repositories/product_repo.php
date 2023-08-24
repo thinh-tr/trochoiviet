@@ -353,3 +353,100 @@ function search_product_by_name(string $keyword): array
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Thêm rating cho một product
+ * input: ProductRating obj
+ * output: void
+ */
+function insert_product_rating(\Entities\ProductRating $product_rating): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO `product_rating` VALUES('{$product_rating->get_id()}', {$product_rating->get_rating_star()}, '{$product_rating->get_content()}', '{$product_rating->get_product_id()}', '{$product_rating->get_user_phone_number()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa tất cả các rating của một user đối với một product được chỉ định
+ * input: user_phone_number, product_id
+ * output: void
+ */
+function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM `product_rating` WHERE `product_rating`.user_phone_number = '$user_phone_number' and `product_rating`.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra thông tin ProductRating theo product_id
+ * input: (string) product_id
+ * output: ProductRating array
+ */
+function select_product_ratings_by_product_id(string $product_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM `product_rating` WHERE `product_rating`.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $product_rating_array = array();    // array kết quả
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            foreach ($result as $row) {
+                // Lần lượt lấy ra các rating
+                $product_rating = new \Entities\ProductRating();
+                $product_rating->set_id($row["id"]);
+                $product_rating->set_rating_star($row["rating_star"]);
+                $product_rating->set_content($row["content"]);
+                $product_rating->set_product_id($row["product_id"]);
+                $product_rating->set_user_phone_number($row["user_phone_number"]);
+
+                // push product_rating tìm được vào array kết quả
+                array_push($product_rating_array, $product_rating);
+            }
+        }
+        return $product_rating_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Tính trung bình lượt đánh giá của một product
+ * input: product_id
+ * output: (float) trung bình rating
+ */
+function select_avg_of_product_rating_by_product_id(string $product_id): float
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT avg(`product_rating`.rating_star) AS `avg_rating` FROM `product_rating` WHERE `product_rating`.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $avg_rating = 0.0;
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            $avg_rating = $result[0]["avg_rating"] ?? 0.0;
+        }
+        return $avg_rating; // Trả ra kết quả
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
