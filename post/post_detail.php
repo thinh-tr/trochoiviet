@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 // script xử lý
 
@@ -154,7 +155,6 @@ function service_get_post_video_by_post_id(string $post_id): array
 
 ?>
 
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
