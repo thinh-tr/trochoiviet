@@ -7,9 +7,6 @@ namespace AdminServices;
  *  - Chuyển đổi thông tin thô từ template về dạng object
  */
 include $_SERVER["DOCUMENT_ROOT"] . "/repositories/admin_repo.php";    // Thêm vào file admin_repo
-include $_SERVER["DOCUMENT_ROOT"] . "/repositories/post_repo.php";
-include $_SERVER["DOCUMENT_ROOT"] . "/repositories/order_repo.php";
-include $_SERVER["DOCUMENT_ROOT"] . "/repositories/product_repo.php";
 
 /**
  * Đăng ký admin mới
@@ -138,41 +135,3 @@ function get_current_admin_password(string $email): string
 {
     return \AdminRepositories\select_current_admin_password($email);
 }
-
-// /**
-//  * Xóa tài khoản admin
-//  * input: admin_email
-//  * output: bool
-//  * note: Đảm bảo rằng tất cả các thông tin liên quan đến admin này đều đã được xóa thủ công trước đó (post, product, order)
-//  */
-// function delete_admin_info(string $admin_email): bool
-// {
-//     // Kiểm tra lại các thông tin trước khi xóa
-
-//     $deleted_allowed = true;    // Biến kiểm tra điều kiện xóa
-
-//     // Kiểm tra Post
-//     if (count(\PostRepository\select_posts_by_admin_email($admin_email))) {
-//         $deleted_allowed = false;   // Không đủ điều kiện xóa
-//     }
-
-//     // Kiểm tra Order
-//     if (\OrderRepository\select_order_number_of_admin_email($admin_email) > 0) {
-//         $deleted_allowed = false;   // Không đủ điều kiện xóa
-//     }
-
-//     // Kiểm tra Product
-//     if (count(\ProductRepository\select_product_by_admin_email($admin_email)) > 0) {
-//         $deleted_allowed = false;   // Không đủ điều kiện xóa
-//     }
-
-//     if ($deleted_allowed) {
-//         // Tiến hành xóa
-//         \AdminRepositories\delete_qr_code_by_admin_email($admin_email);
-//         \AdminRepositories\delete_admin_info($admin_email);
-//         return true;    // Xác nhận đã xóa
-//     } else {
-//         return false;   // Không thể xóa
-//     }
-
-// }
