@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Document</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    </div>
 
     <div class="container" style="margin-top: 2cm; margin-bottom: 2cm;">
     <img src="/static/icons/Logo.jpg" class="img-thumbnail" alt="..." style="width: 100px; height: 100px;"><br>

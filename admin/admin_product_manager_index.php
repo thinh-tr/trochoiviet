@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Quản lý sản phẩm</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         .col a {
             text-decoration: none;
         }
@@ -24,8 +30,23 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
+            <ul class="nav nav-bills">
+                <li class="nav-item">
+                    <form method="post">
+                        <a href="/admin/admin_create_product.php" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm sản phẩm mới</a>
+                        <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; //service ?>
     
@@ -53,18 +74,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
-        <ul class="nav nav-bills">
-            <li class="nav-item">
-                <form method="post">
-                    <a href="/admin/admin_create_product.php" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm sản phẩm mới</a>
-                    <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
+    
     <div class="container">
         <h2><i class="bi bi-box"></i> <b>Sản phẩm của bạn</b></h2>
         <?php

@@ -9,10 +9,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Kiểm tra và phê duyệt bình luận</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>
@@ -83,23 +89,27 @@
         }
     ?>
 
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
 
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_post_edit.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> Thông tin bài viết: <?= $post->get_name() ?></a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="#list-item-1" class="nav-link"><i class="bi bi-x-circle-fill"></i> Bình luận chưa được duyệt</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#list-item-2" class="nav-link"><i class="bi bi-check-circle-fill"></i> Bình luận đã được duyệt</a>
+                </li>
+                <form method="post">
+                    <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                </form>
+            </ul>
+        </nav>
+    </div>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_post_edit.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> Thông tin bài viết: <?= $post->get_name() ?></a>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a href="#list-item-1" class="nav-link"><i class="bi bi-x-circle-fill"></i> Bình luận chưa được duyệt</a>
-            </li>
-            <li class="nav-item">
-                <a href="#list-item-2" class="nav-link"><i class="bi bi-check-circle-fill"></i> Bình luận đã được duyệt</a>
-            </li>
-            <form method="post">
-                <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-            </form>
-        </ul>
-    </nav>
 
     <div class="container">
         <h2><i class="bi bi-chat"></i> <b>Các bình luận cho bài viết: <?= $post->get_name() ?></b></h2>

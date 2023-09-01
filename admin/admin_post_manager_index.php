@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Quản lý bài viết</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         h2 {
             font-weight: bold;
         }
@@ -36,8 +42,23 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>    <!--header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?> <!--user header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>    <!--header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?> <!--user header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
+            <ul class="nav nav-bills">
+                <li class="nav-item">
+                    <form method="post">
+                        <a href="/admin/admin_create_post.php" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm bài viết mới</a>
+                        <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>  <!--service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>   <!--entity-->
@@ -66,18 +87,6 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
-        <ul class="nav nav-bills">
-            <li class="nav-item">
-                <form method="post">
-                    <a href="/admin/admin_create_post.php" class="btn btn-warning"><i class="bi bi-plus-lg"></i> Thêm bài viết mới</a>
-                    <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
 
     <div class="container">
         <!--Hiển thị các post mà admin đã đăng tải-->

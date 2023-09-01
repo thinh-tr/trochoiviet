@@ -10,6 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Đăng ký quản trị viên</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         div.container {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -22,8 +28,10 @@
 </head>
 
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    </div>
 
     <!--file admin_service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; ?>

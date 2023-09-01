@@ -9,6 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Đăng ký mật khẩu người dùng</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         #change-pass-body.container {
             padding-left: 20%;
             padding-right: 20%;
@@ -18,8 +24,10 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--admin header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--admin header-->
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
 
@@ -92,23 +100,26 @@
 
     <div id="change-pass-body" class="container">
         <h3 style="text-align: center;"><b>Đăng ký mật khẩu người dùng</b></h3>
-        <p>(Chỉ dành cho người dùng đã có thông tin trên hệ thống nhưng chưa đăng ký mật khẩu)</p>
+        <div class="alert alert-warning" role="alert" style="text-align: center;">
+            (Chỉ dành cho người dùng đã có thông tin trên hệ thống nhưng chưa đăng ký mật khẩu)
+        </div>
+
         <form method="post">
             <div class="mb-3">
-                <label for="phone-number" class="form-label">Số điện thoại của bạn *</label>
+                <label for="phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại của bạn *</b></label>
                 <input type="tel" class="form-control" id="phone_number" name="phone-number">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu muốn tạo *</label>
+                <label for="password" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu muốn tạo *</b></label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <div class="mb-3">
-                <label for="confirm-password" class="form-label">Xác nhận lại mật khẩu *</label>
+                <label for="confirm-password" class="form-label"><i class="bi bi-key-fill"></i> <b>Xác nhận lại mật khẩu *</b></label>
                 <input type="password" class="form-control" id="confirm-password" name="confirm-password">
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary" id="submit" name="submit">Đăng ký mật khẩu</button>
-                <a class="btn btn-danger" href="/user/user_index.php">Hủy</a>
+                <button type="submit" class="btn btn-primary" id="submit" name="submit"><i class="bi bi-check2-circle"></i> Đăng ký mật khẩu</button>
+                <a class="btn btn-danger" href="/user/user_index.php"><i class="bi bi-x-circle"></i> Hủy</a>
             </div>
         </form>
     </div>

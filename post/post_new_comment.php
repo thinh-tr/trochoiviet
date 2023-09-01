@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Thêm bình luận mới</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>   <!--Service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>
@@ -71,16 +75,21 @@
     }
     ?>
 
-    <!--nav quay lại trang bình luận-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/post/post_comment.php?post-id=<?php if (isset($post)) {echo($post->get_id());} ?>"><i class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
-    </nav>
-    <div class="container">
-        <h3>Đăng tải bình luận cho bài viết: <?php if (isset($post)) {echo($post->get_name());}?> </h3>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
+
+        <!--nav quay lại trang bình luận-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/post/post_comment.php?post-id=<?php if (isset($post)) {echo($post->get_id());} ?>"><i class="bi bi-arrow-left"></i> Bình luận cho bài viết: <?= $post->get_name() ?></a>
+        </nav>
+    </div>
+    
+    <div class="container" style="margin-bottom: 2cm;">
+        <h3><b>Đăng tải bình luận cho bài viết: <?php if (isset($post)) {echo($post->get_name());}?> </b></h3>
         <div class="container">
             <form method="post">
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Nội dung bình luận của bạn</label>
+                    <label for="exampleFormControlTextarea1" class="form-label"><i class="bi bi-chat-fill"></i> <b>Nội dung bình luận của bạn</b></label>
                     <textarea class="form-control" id="comment-content" name="comment-content" rows="3" placeholder="Từ 2 ký tự trở lên và không vượt quá 8000 ký tự"></textarea>
                 </div>
                 <button class="btn btn-primary" id="comment-submit" name="comment-submit"><i class="bi bi-box-arrow-up"></i> Đăng tải</button>

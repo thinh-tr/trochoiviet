@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Bài viết đã thích</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         h2 {
             font-weight: bold;
         }
@@ -28,8 +34,22 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>    <!--header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php"; ?> <!--user header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>    <!--header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php"; ?> <!--user header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
+            <ul class="nav nav-bills">
+                <li class="nav-item">
+                    <form method="post">
+                        <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>  <!--service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>   <!--entity-->
@@ -58,17 +78,6 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
-        <ul class="nav nav-bills">
-            <li class="nav-item">
-                <form method="post">
-                    <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
     <div class="container" style="margin-bottom: 2cm;">
         <div class="container">
             <!--Hiển thị các post mà user đã thích-->

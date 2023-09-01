@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Thông tin người dùng</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         div.container {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -28,8 +34,15 @@
 </head>
 
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?><!--header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--user header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?><!--header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--user header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
+        </nav>
+    </div>
 
     <!--service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
@@ -119,10 +132,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
-    </nav>
+    
     <!--form thông tin quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Thông tin người dùng</b></h3><br>

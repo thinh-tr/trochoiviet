@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Trang thông tin quản trị viên</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         div.container {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -28,8 +34,15 @@
 </head>
 
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?> <!--admin header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?> <!--admin header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; //Nhập vào file admin service 
     ?>
@@ -156,10 +169,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_index.php"><i class="bi bi-arrow-left"></i> Trang quản trị</a>
-    </nav>
+    
     <!--form thông tin quản trị viên-->
     <div class="container">
         <h3 style="text-align: center;"><b>Thông tin quản trị viên</b></h3><br>

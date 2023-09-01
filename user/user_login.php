@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Đăng nhập người dùng</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         #login-body.container {
             padding-left: 20%;
             padding-right: 20%;
@@ -21,8 +27,10 @@
 </head>
 
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?><!--header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--user header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?><!--header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php" ?> <!--user header-->
+    </div>
 
     <!--user service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php" ?>
@@ -93,11 +101,11 @@
         <h3 style="text-align: center;"><i class="bi bi-person-circle"></i> <b>Đăng nhập người dùng</b></h3><br>
         <form method="post">
             <div class="mb-3">
-                <label for="user-phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> Số điện thoại</label>
+                <label for="user-phone-number" class="form-label"><i class="bi bi-telephone-fill"></i> <b>Số điện thoại</b></label>
                 <input type="tel" class="form-control" id="user-phone-number" name="user-phone-number">
             </div>
             <div class="mb-3">
-                <label for="user-password" class="form-label"><i class="bi bi-key-fill"></i> Mật khẩu</label>
+                <label for="user-password" class="form-label"><i class="bi bi-key-fill"></i> <b>Mật khẩu</b></label>
                 <input type="password" class="form-control" id="user-password" name="user-password">
             </div>
             <div class="mb-3">

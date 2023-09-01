@@ -9,6 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <title>Cập nhật mật khẩu quản trị viên</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         #change-pass-body.container {
             padding-left: 20%;
             padding-right: 20%;
@@ -18,8 +24,15 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?> <!--admin header-->
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--Header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php" ?> <!--admin header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_info.php"><i class="bi bi-arrow-left"></i> Trang thông tin quản trị viên</a>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php" ?>
 
@@ -88,10 +101,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_info.php"><i class="bi bi-arrow-left"></i> Trang thông tin quản trị viên</a>
-    </nav>
+    
     <div id="change-pass-body" class="container">
         <h3 style="text-align: center;"><b>Cập nhật mật khẩu quản trị viên</b></h3><br>
         <form method="post">

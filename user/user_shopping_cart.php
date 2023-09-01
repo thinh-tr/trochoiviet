@@ -257,10 +257,30 @@ function create_order_detail(OrderDetail $order_detail): void
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Giỏ hàng</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/index.php"><i class="bi bi-arrow-left"></i> Trang chủ</a>
+            <ul class="nav nav-pills">
+                <form method="post">
+                    <button class="btn btn-danger" id="delete-cart" name="delete-cart"><i class="bi bi-trash3-fill"></i> Xóa giỏ hàng</button>
+                    <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                </form>
+            </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/user_service.php"; ?>
@@ -459,16 +479,7 @@ function create_order_detail(OrderDetail $order_detail): void
     }
     ?>
     
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/index.php"><i class="bi bi-arrow-left"></i> Trang chủ</a>
-        <ul class="nav nav-pills">
-            <form method="post">
-                <button class="btn btn-danger" id="delete-cart" name="delete-cart"><i class="bi bi-trash3-fill"></i> Xóa giỏ hàng</button>
-                <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-            </form>
-        </ul>
-    </nav>
+    
 
     <div class="container">
         <!--Lưu ý khi mua hàng-->

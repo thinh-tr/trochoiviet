@@ -110,10 +110,15 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Bình luận bài viết</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--header-->
-
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php" ?>   <!--Service-->
 
     <!--Xử lý tải thông tin trang-->
@@ -150,26 +155,31 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     }
     ?>
 
-    <!--scroll nav menu-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-1"><i class="bi bi-chat-right-dots-fill"></i> Tất cả bình luận</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-2"><i class="bi bi-person"></i> Bình luận của bạn</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/post/post_new_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-plus"></i> Thêm bình luận</a>
-            </li>
-            <li>
-                <form method="post">
-                    <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
+    <div id="header">
+        <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--header-->
+
+        <!--scroll nav menu-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-1"><i class="bi bi-chat-right-dots-fill"></i> Tất cả bình luận</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-2"><i class="bi bi-person"></i> Bình luận của bạn</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/post/post_new_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-plus"></i> Thêm bình luận</a>
+                </li>
+                <li>
+                    <form method="post">
+                        <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
 
     <h2 style="margin-left: 10px; text-align: center;"><i class="bi bi-chat-fill"></i> <b>Bình luận cho bài viết: <?= $post->get_name() ?></b></h2>
     <div class="container">

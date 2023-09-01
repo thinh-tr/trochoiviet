@@ -9,10 +9,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Thêm sản phẩm mới</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/admin/templates/admin_header.php"; ?>
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
 
@@ -87,10 +101,6 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/admin/admin_product_manager_index.php"><i class="bi bi-arrow-left"></i> Trang quản lý cửa hàng</a>
-    </nav>
     <div class="container">
         <h3><i class="bi bi-info-circle"></i> <b>Thêm thông tin cho sản phẩm</b></h3>
         <form method="post" class="border border-primary" style="border-radius: 5px;">

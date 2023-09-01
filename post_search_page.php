@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Trang tìm kiếm</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         h2 {
             font-weight: bold;
         }
@@ -37,7 +43,20 @@
 
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+
+        <!--Điều hướng-->
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="btn btn-primary" href="/index.php"><i class="bi bi-arrow-left"></i> Trang chủ</a>
+                <form class="d-flex" role="search" method="post">
+                    <input class="form-control me-2" type="search" placeholder="Tên bài viết" aria-label="Search" id="keyword" name="keyword">
+                    <button class="btn btn-outline-info" type="submit" id="search-submit" name="search-submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>  <!--service-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>   <!--entity-->
@@ -51,16 +70,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="btn btn-primary" href="/index.php"><i class="bi bi-arrow-left"></i> Trang chủ</a>
-            <form class="d-flex" role="search" method="post">
-                <input class="form-control me-2" type="search" placeholder="Tên bài viết" aria-label="Search" id="keyword" name="keyword">
-                <button class="btn btn-outline-info" type="submit" id="search-submit" name="search-submit"><i class="bi bi-search"></i></button>
-            </form>
-        </div>
-    </nav>
+    
     <div class="container">
         <div class="container">
             <!--Hiển thị các kết quả tìm kiếm-->

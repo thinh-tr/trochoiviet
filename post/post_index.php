@@ -331,6 +331,11 @@ function service_get_most_views_posts(): array
     <title>Bài đăng</title>
 </head>
 <style>
+    #header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
     h3 {
         font-weight: bold;
     }
@@ -349,8 +354,38 @@ function service_get_most_views_posts(): array
 </style>
 
 <body>
-<?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
-<?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>
+    <div id="header">
+        <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
+
+        <!--scroll nav menu-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục bài viết</b></a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-2"><i class="bi bi-graph-up"></i> Được xem nhiều nhất</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-3"><i class="bi bi-balloon-heart"></i> Được yêu thích nhất</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-4"><i class="bi bi-chat"></i> Được bàn luận nhiều nhất</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post">
+                        <button class="btn btn-info"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>
 
 <?php
 // lấy ra danh sách các bài viết mới thêm gần đây
@@ -361,32 +396,7 @@ $most_commented_posts = service_get_most_commented_post();    // post được c
 $random_posts = service_get_randomly_posts(); //
 ?>
 
-<!--scroll nav menu-->
-<nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-    <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục bài viết</b></a>
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="#list-item-1"><i class="bi bi-newspaper"></i> Bài viết mới</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#list-item-2"><i class="bi bi-graph-up"></i> Được xem nhiều nhất</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#list-item-3"><i class="bi bi-balloon-heart"></i> Được yêu thích nhất</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#list-item-4"><i class="bi bi-chat"></i> Được bàn luận nhiều nhất</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#list-item-5"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
-        </li>
-        <li class="nav-item">
-            <form method="post">
-                <button class="btn btn-info"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
-            </form>
-        </li>
-    </ul>
-</nav>
+
 <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
     <div class="container">
         <!--hiển thị các post mới nhất-->

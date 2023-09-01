@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Trang cửa hàng</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         .col a {
             text-decoration: none;
         }
@@ -20,7 +26,31 @@
     </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
+
+        <!--scroll nav menu-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục sản phẩm</b></a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-1"><i class="bi bi-box-seam"></i> Sản phẩm mới</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-2"><i class="bi bi-bag-heart"></i> Được mua nhiều nhất</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#list-item-3"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post">
+                        <a href="/product/product_search_page.php" class="btn btn-outline-warning"><i class="bi bi-search"></i> Tìm kiếm sản phẩm</a>
+                        <button class="btn btn-info"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
 
@@ -31,27 +61,6 @@
     $random_product_array = \ProductService\get_random_product();
     ?>
 
-    <!--scroll nav menu-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="navbar-brand" href="#"><i class="bi bi-card-list"></i> <b>Danh mục sản phẩm</b></a>
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-1"><i class="bi bi-box-seam"></i> Sản phẩm mới</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-2"><i class="bi bi-bag-heart"></i> Được mua nhiều nhất</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#list-item-3"><i class="bi bi-lightbulb"></i> Có thể bạn quan tâm</a>
-            </li>
-            <li class="nav-item">
-                <form method="post">
-                    <a href="/product/product_search_page.php" class="btn btn-outline-warning"><i class="bi bi-search"></i> Tìm kiếm sản phẩm</a>
-                    <button class="btn btn-info"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
 
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
         <div class="container">

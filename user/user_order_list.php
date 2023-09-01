@@ -9,12 +9,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Danh sách đơn hàng</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php
-    include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php";
-    include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php";
-    ?>
+    <div id="header">
+        <?php
+        include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php";
+        include $_SERVER["DOCUMENT_ROOT"] . "/user/templates/user_header.php";
+        ?>
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <div class="container-fluid">
+                <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
+                <form class="d-flex" role="search" method="post">
+                    <input class="form-control me-2" type="search" placeholder="Số điện thoại" aria-label="Search" id="phone-number" name="phone-number" value="<?php if (isset($_SESSION["user_phone_number"])) {echo($_SESSION["user_phone_number"]);} ?>">
+                    <button class="btn btn-outline-warning" type="submit" id="search-submit" name="search-submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </nav>
+    </div>
 
     <!--OrderService-->
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/order_service.php"; ?>
@@ -81,16 +101,7 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <div class="container-fluid">
-            <a class="btn btn-primary" href="/user/user_index.php"><i class="bi bi-arrow-left"></i> Trung tâm người dùng</a>
-            <form class="d-flex" role="search" method="post">
-                <input class="form-control me-2" type="search" placeholder="Số điện thoại" aria-label="Search" id="phone-number" name="phone-number" value="<?php if (isset($_SESSION["user_phone_number"])) {echo($_SESSION["user_phone_number"]);} ?>">
-                <button class="btn btn-outline-warning" type="submit" id="search-submit" name="search-submit"><i class="bi bi-search"></i></button>
-            </form>
-        </div>
-    </nav>
+    
     <div class="container" style="margin-bottom: 2cm;">
         <h3><i class="bi bi-box2"></i> <b>Danh sách đơn hàng của bạn</b></h3>
 

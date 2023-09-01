@@ -9,9 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Đánh giá sản phẩm</title>
+    <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
 
     <?php
     include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php";
@@ -123,21 +129,25 @@
     }
     ?>
 
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <div class="container-fluid">
-            <a class="btn btn-primary" href="/product/product_detail.php?product-id=<?= $product->get_id() ?>"><i class="bi bi-arrow-left"></i> Trang chi tiết sản phẩm</a>
-            <ul class="nav nav-bills">
-                <li class="nav-item">
-                    <form method="post">
-                        <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div id="header">
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?>
 
-    <div class="container">
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <div class="container-fluid">
+                <a class="btn btn-primary" href="/product/product_detail.php?product-id=<?= $product->get_id() ?>"><i class="bi bi-arrow-left"></i> Trang chi tiết sản phẩm</a>
+                <ul class="nav nav-bills">
+                    <li class="nav-item">
+                        <form method="post">
+                            <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container" style="margin-bottom: 3cm;">
         <h4>Đánh giá cho sản phẩm: <b><?= $product->get_name() ?></b></h4>
         <h5>Đánh giá trung bình: <b><i class="bi bi-star-half"></i> <?= ProductService\get_avg_of_product_rating_by_product_id($product->get_id()) ?></b></h5>
 

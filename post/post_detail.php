@@ -166,6 +166,12 @@ function service_get_post_video_by_post_id(string $post_id): array
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Nội dung bài viết</title>
     <style>
+        #header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
         .post-header {
             width: 100%;
             width: 100vw;
@@ -174,7 +180,21 @@ function service_get_post_video_by_post_id(string $post_id): array
     </style>
 </head>
 <body>
-    <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
+    <div id="header">
+        <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php"; ?> <!--header-->
+
+        <!--Điều hướng-->
+        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
+            <a class="btn btn-primary" href="/post/post_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
+            <ul class="nav nav-bills">
+            <li class="nav-item">
+                <form method="post">
+                    <button class="btn btn-info" name="refresh"><i class="bi bi-arrow-counterclockwise"></i> Làm mới</button>
+                </form>
+            </li>
+        </ul>
+        </nav>
+    </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>  <!--Post service-->
 
@@ -253,10 +273,6 @@ function service_get_post_video_by_post_id(string $post_id): array
     }
     ?>
     
-    <!--Điều hướng-->
-    <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-        <a class="btn btn-primary" href="/post/post_index.php"><i class="bi bi-arrow-left"></i> Trang bài viết</a>
-    </nav>
 
     <!--Nội dung bài viết-->
     <div class="container">
