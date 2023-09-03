@@ -208,3 +208,62 @@ class ProductRating
         $this->user_phone_number = $user_phone_number;
     }
 }
+
+// Class chứa thông tin external link của Product
+class ProductExternalLink
+{
+    // Thuộc tính
+    private string $id;
+    private string $name;
+    private string $link;
+    private string $product_id;
+
+    // constructor
+    public function __construct()
+    {
+
+    }
+
+    // Getter
+    public function get_id(): string
+    {
+        return $this->id;
+    }
+
+    public function get_name(): string
+    {
+        return $this->name;
+    }
+
+    public function get_link(): string
+    {
+        return $this->link;
+    }
+
+    public function get_product_id(): string
+    {
+        return $this->product_id;
+    }
+
+    // Setter
+    public function set_id(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function set_name(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function set_link(string $link): void
+    {
+        $this->link = $link;
+    }
+
+    public function set_product_id(string $product_id): void
+    {
+        $this->product_id = $product_id;
+    }
+
+}

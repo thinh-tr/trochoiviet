@@ -83,6 +83,7 @@
                         <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
                         <p><i class="bi bi-envelope"></i>  trochoiviet@gmail.com</p>
                         <p><i class="bi bi-telephone"></i>  + 84 702 948 947</p>
+                        <p><i class="bi bi-building-exclamation"></i> Tầng 30 Tòa nhà A, Quang Trung, p.Tân Chánh Hiệp, Q.12, TP.HCM</p>
                     </div>
                     <!-- Grid column -->
                 </div>

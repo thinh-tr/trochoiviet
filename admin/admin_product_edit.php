@@ -26,6 +26,7 @@
     if (isset($_GET["product-id"])) {
         $product = \ProductService\get_product_by_product_id($_GET["product-id"]);
         $product_image_array = \ProductService\get_product_image_by_product_id($_GET["product-id"]);
+        $product_external_link_array = \ProductService\get_external_links_by_product_id($product->get_id());
     }
     ?>
 
@@ -217,18 +218,133 @@
             <?php
             }
             ?>
-        </div>
+        </div><br>
         <?php
         } else {
         ?>
         <div class="alert alert-warning" role="alert">
             <i class="bi bi-info-circle-fill"></i> Sản phẩm này chưa có hình ảnh minh họa
-        </div>
+        </div><br>
         <?php
         }
         ?>
+
+        <h3><i class="bi bi-bag"></i> <b>Đường dẫn mua sắm của sản phẩm</b></h3>
+        <h5><i class="bi bi-plus-lg"></i> <b>Thêm đường dẫn mua sắm mới</b></h5>
+        <form method="post" class="border border-primary" style="border-radius: 5px;">
+            <div class="container">
+                <div class="mb-3">
+                    <label for="shop-link-name" class="form-label"><b>Tên link *</b></label>
+                    <input type="text" class="form-control" id="shop-link-name" name="shop-link-name" placeholder="Tên đường dẫn (từ 2 ký tự trở lên)">
+                </div>
+                <div class="mb-3">
+                    <label for="shop-link" class="form-label"><b>Link mua sắm sản phẩm *</b></label>
+                    <input type="text" class="form-control" id="shop-link" name="shop-link" placeholder="Đường dẫn đến cửa hàng sản phẩm (từ 2 ký tự trở lên)">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" id="shop-link-submit" name="shop-link-submit"><i class="bi bi-box-arrow-up"></i> Lưu</button>
+                    <button class="btn btn-danger" id="shop-link-cancel" name="shop-link-cancel"><i class="bi bi-x-circle-fill"></i> Hủy</button>
+                </div>
+            </div>
+        </form><br>
+
+        <h5><i class="bi bi-bag"></i> <b>Các dường dẫn mua sắm hiện có</b></h5>
+        <?php
+        // Lấy ra các external_link hiện có
+        if (count($product_external_link_array) > 0) {
+        ?>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <?php
+            for ($i = 0; $i < count($product_external_link_array); $i++) {
+            ?>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title"><i class="bi bi-box-arrow-up-right"></i> <b><?= $product_external_link_array[$i]->get_name() ?></b></h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="<?= $product_external_link_array[$i]->get_link() ?>"><?= $product_external_link_array[$i]->get_link() ?></a>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="post">
+                            <button class="btn btn-danger" id="<?= $product_external_link_array[$i]->get_id() ?>" name="<?= $product_external_link_array[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php
+            }
+            ?>
+        </div><br>
+        <?php
+        } else {
+        ?>
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-info-circle-fill"></i> Sản phẩm này chưa có đường dẫn mua sắm nào
+        </div><br>
+        <?php
+        }
+        ?>
+
     </div>
+
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php"; ?>
 </body>
 </html>
+
+<?php
+// Xử lý thêm link mua sắm mới cho product
+if (isset($_POST["shop-link-submit"])) {
+    // Kiểm tra thông tin trên form
+    $external_link_info = array();    // array chứa thông tin external_link sau khi đã được kiểm tra
+
+    // Kiểm tra name
+    if (strlen($_POST["shop-link-name"]) >= 2) {
+        $external_link_info["name"] = $_POST["shop-link-name"];
+    }
+
+    // Kiểm tra link
+    if (filter_var($_POST["shop-link"], FILTER_VALIDATE_URL)) {
+        $external_link_info["link"] = $_POST["shop-link"];
+    }
+
+    // Kiểm tra lại array
+    $is_valid_array = true;
+    if (!array_key_exists("name", $external_link_info)) {
+        $is_valid_array = false;
+    } else if (!array_key_exists("link", $external_link_info)) {
+        $is_valid_array = false;
+    }
+
+    // Nếu array hợp lệ thì tiến hành thêm link
+    if ($is_valid_array) {
+        $new_external_link = new Entities\ProductExternalLink();
+        $new_external_link->set_id(uniqid());   // Tạo id
+        $new_external_link->set_name($external_link_info["name"]);  // gán name
+        $new_external_link->set_link($external_link_info["link"]);  // gán link
+        $new_external_link->set_product_id($product->get_id()); // gán product_id
+
+        // Thêm vào database
+        ProductService\create_product_external_link($new_external_link);
+        // Xuất ra thông báo
+        echo("<script>window.alert('Đã thêm đường dẫn mới cho sản phẩm này')</script>");
+    } else {
+        echo("<script>window.alert('Vui lòng kiểm tra lại thông tin của bạn')</script>");
+    }
+}
+?>
+
+<?php
+// Xử lý xóa external_link được chỉ định
+for ($i = 0; $i < count($product_external_link_array); $i++) {
+    // Nếu có lệnh xóa
+    if (isset($_POST[$product_external_link_array[$i]->get_id()])) {
+        ProductService\delete_external_link_by_id($product_external_link_array[$i]->get_id());
+        // Xuất ra thông báo đã xóa
+        echo("<script>window.alert('Đã xóa đường dẫn')</script>");
+    }
+}
+?>

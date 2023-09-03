@@ -79,7 +79,8 @@
                             <div class="card-body">
                                 <h5 class="card-title"><b><?= $product->get_name() ?></b></h5>
                                 <h5 class="card-title">Đơn giá: <?= $product->get_retail_price() ?> VNĐ</h5>
-                                <p class="card-text">Số lượng còn lại: <?= $product->get_remain_quantity() ?></p>
+                                <span class="card-text">Số lượng còn lại: <?= $product->get_remain_quantity() ?></span><br>
+                                <span class="card-text">Đánh giá: <i class="bi bi-star-half"></i> <?= ProductService\get_avg_of_product_rating_by_product_id($product->get_id()) ?></span>
                             </div>
                             <div class="card-footer">
                                 <p class="card-text"><b>Đăng bởi:</b> <small><?= $product->get_admin_email() ?></small></p>

@@ -450,3 +450,98 @@ function select_avg_of_product_rating_by_product_id(string $product_id): float
         echo("Errors occur when querying data: " . $ex->getMessage());
     }
 }
+
+/**
+ * Đếm lượt rating mà một product có
+ * input: product_id
+ * output: (int) rating_number
+ */
+function select_rating_number_by_product_id(string $product_id): int
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT count(pr.id) AS rating_number FROM product_rating pr WHERE pr.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+        $result = $statement->fetchAll();
+        $rating_number = 0;
+        if ($result != false && count($result) > 0) {
+            $rating_number = intval($result[0]["rating_number"]);
+        }
+        return $rating_number;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Thêm external link mới cho product
+ * input: (obj) ProductExternalLink
+ * output: void
+ */
+function insert_product_external_link(\Entities\ProductExternalLink $external_link): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "INSERT INTO product_external_link values('{$external_link->get_id()}', '{$external_link->get_name()}', '{$external_link->get_link()}', '{$external_link->get_product_id()}')";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Lấy ra array chứa các external_link của product chỉ định
+ * input: (string) product_id
+ * output: array -> có kết quả | array rỗng -> không có kết quả
+ */
+function select_external_links_by_product_id(string $product_id): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT * FROM product_external_link pel where pel.product_id = '$product_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+        $result = $statement->fetchAll();
+        $external_link_array = array(); // array chứa kết quả trả ra
+        // Kiểm tra kết quả trả về
+        if ($result != false && count($result) > 0) {
+            // Lần lượt lấy ra các ProductExternalLink tìm được
+            foreach ($result as $row) {
+                $external_link = new \Entities\ProductExternalLink();
+                $external_link->set_id($row["id"]); // gán id
+                $external_link->set_name($row["name"]); // gán name
+                $external_link->set_link($row["link"]); // gán link
+                $external_link->set_product_id($row["product_id"]); // gán product_id
+
+                // push external_link tìm được vào array
+                array_push($external_link_array, $external_link);
+            }
+        }
+        return $external_link_array;
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Xóa external_link theo id
+ * input: (string) external_link_id
+ * output: void
+ */
+function delete_external_link_by_id(string $external_link_id): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "DELETE FROM product_external_link WHERE product_external_link.id = '$external_link_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}

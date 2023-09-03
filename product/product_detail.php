@@ -30,12 +30,15 @@
     </div>
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/product_service.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/admin_service.php"; ?>
 
     <?php
     // Truy vấn thông tin về product
     if (isset($_GET["product-id"])) {
         $product = \ProductService\get_product_by_product_id($_GET["product-id"]);
+        $admin_info = \AdminServices\get_admin_info_by_email($product->get_admin_email());
         $product_image_array = \ProductService\get_product_image_by_product_id($_GET["product-id"]);
+        $product_external_link_array = \ProductService\get_external_links_by_product_id($product->get_id());
     }
     ?>
 
@@ -92,7 +95,6 @@
     }
     ?>
 
-
     <div class="container">
 
         <!--Thẻ hiển thị thông tin sản phẩm-->
@@ -104,16 +106,18 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h3 class="card-title"><b><?= $product->get_name() ?></b></h3>
-                        <p class="card-text">Người đăng: <b><?= $product->get_admin_email() ?></b></p>
-                        <h5 class="card-text">Đơn giá: <b><?= $product->get_retail_price() ?> VNĐ</b></h5>
-                        <h5 class="card-text">Đánh giá: <i class="bi bi-star-half"></i> <?= ProductService\get_avg_of_product_rating_by_product_id($product->get_id()) ?></h5>
+                        <span class="card-text"><i class="bi bi-person-circle"></i> Người đăng: <b><?= $product->get_admin_email() ?></b></span><br>
+                        <span class="card-text"><i class="bi bi-telephone-outbound-fill"></i> Số điện thoại người bán: <b><?php if ($admin_info->get_phone_number() != "") {echo($admin_info->get_phone_number());} else {echo("Không có thông tin");} ?></b></span>
+                        <h5 class="card-text"><i class="bi bi-coin"></i> <b>Đơn giá: <?= $product->get_retail_price() ?> VNĐ</b></h5>
+                        <h5 class="card-text"><i class="bi bi-bookmark-star-fill"></i> <b>Đánh giá:</b> <i class="bi bi-star-half"></i> <?= ProductService\get_avg_of_product_rating_by_product_id($product->get_id()) ?></h5>
+                        <span class="card-text">Số lượt đánh giá: <b><?= ProductService\get_rating_number_by_product_id($product->get_id()) ?></b></span>
                         <p class="card-text">Số lượng còn: <b><?= $product->get_remain_quantity() ?></b></p>
                         <!--Thêm vào giỏ hàng-->
                         <div class="card">
                             <p class="card-header"><small><i class="bi bi-bag"></i> <b>Chọn mua</b></small></p>
                             <div class="card-body">
                                 <form method="post">
-                                    <label for="item-quantity" class="form-label">Số lượng:</label>
+                                    <label for="item-quantity" class="form-label"><b>Số lượng:</b></label>
                                     <input type="number" class="form-control" style="width: 50%;" id="item-quantity" name="item-quantity" placeholder="Số lượng sản phẩm" value="1"><br>
                                     <div class="d-grid gap-2">
                                         <button class="btn btn-outline-primary btn-lg" id="add-product-to-cart" name="add-product-to-cart"><i class="bi bi-cart-plus-fill"></i> THÊM VÀO GIỎ HÀNG</button>
@@ -136,14 +140,6 @@
             </div>
         </nav><br>
 
-        <!--Mô tả-->
-        <div class="card">
-            <h5 class="card-header"><i class="bi bi-info-circle"></i> <b>Mô tả sản phẩm</b></h5>
-            <div class="card-body">
-                <p class="card-text"><?= $product->get_description() ?></p>
-            </div>
-        </div><br>
-
         <!--Hình ảnh về sản phẩm-->
         <div class="card">
             <h5 class="card-header"><i class="bi bi-images"></i> <b>Hình ảnh sản phẩm</b></h5>
@@ -152,17 +148,28 @@
                 if (count($product_image_array) > 0) {
                 ?>
                 <!--Hiển thị carousel hình ảnh-->
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <?php
-                    foreach ($product_image_array as $image) {
-                    ?>
-                    <div class="col">
-                        <img src="<?= $image->get_image_link() ?>" class="img-fluid" alt="...">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" style="width: inherit;">
+                        <?php
+                        foreach ($product_image_array as $image) {
+                        ?>
+                        <div class="carousel-item active">
+                            <img src="<?= $image->get_image_link() ?>" class="d-block w-100" alt="..." style="width: 400px; height: 400px;">
+                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <?php
-                    }
-                    ?>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
+
                 <?php
                 } else {
                 ?>
@@ -174,7 +181,57 @@
                 }
                 ?>
             </div>
-        </div>
+        </div><br>
+
+        <!--Hiển thị danh sách link mua sản phẩm bên ngoài (chỉ hiển thị phần này nếu có)-->
+        <?php
+        // Kiểm tra xem có tồn tại external_link hay không
+        if (count($product_external_link_array) > 0) {
+        ?>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"><i class="bi bi-shop"></i> <b>Danh sách liên kết đến trang cửa hàng</b></h5>
+            </div>
+            <div class="card-body">
+                <?php
+                $last_link = end($product_external_link_array);
+                foreach ($product_external_link_array as $link) {
+                ?>
+                <a href="<?= $link->get_link() ?>"><?= $link->get_name() ?></a>
+                <?php
+                if ($link != $last_link) {
+                    echo(","); // thêm dấu phẩy
+                }
+                ?>
+                <?php
+                }
+                ?>
+            </div>
+        </div><br>
+        <?php
+        }
+        ?>
+
+        <!--Mô tả-->
+        <div class="card">
+            <h5 class="card-header"><i class="bi bi-info-circle"></i> <b>Mô tả sản phẩm</b></h5>
+            <div class="card-body">
+                <!--Mô tả-->
+                <p class="d-inline-flex gap-1">
+                    <!-- <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Link with href
+                    </a> -->
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-info-square-fill"></i> Xem mô tả sản phẩm
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <?= $product->get_description() ?>
+                    </div>
+                </div>
+            </div>
+        </div><br>
 
     </div>
 

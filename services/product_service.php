@@ -163,3 +163,43 @@ function get_avg_of_product_rating_by_product_id(string $product_id): float
 {
     return \ProductRepository\select_avg_of_product_rating_by_product_id($product_id);
 }
+
+/**
+ * Đếm lượt rating mà một product có
+ * input: product_id
+ * output: (int) rating_number
+ */
+function get_rating_number_by_product_id(string $product_id): int
+{
+    return \ProductRepository\select_rating_number_by_product_id($product_id);
+}
+
+/**
+ * Thêm external link mới cho product
+ * input: (obj) ProductExternalLink
+ * output: void
+ */
+function create_product_external_link(\Entities\ProductExternalLink $external_link): void
+{
+    \ProductRepository\insert_product_external_link($external_link);
+}
+
+/**
+ * Lấy ra array chứa các external_link của product chỉ định
+ * input: (string) product_id
+ * output: array -> có kết quả | array rỗng -> không có kết quả
+ */
+function get_external_links_by_product_id(string $product_id): array
+{
+    return \ProductRepository\select_external_links_by_product_id($product_id);
+}
+
+/**
+ * Xóa external_link theo id
+ * input: (string) external_link_id
+ * output: void
+ */
+function delete_external_link_by_id(string $external_link_id): void
+{
+    \ProductRepository\delete_external_link_by_id($external_link_id);
+}
