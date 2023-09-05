@@ -381,3 +381,23 @@ function disapprove_post_comment(string $post_comment_id): void
 {
     \PostRepository\disapprove_post_comment($post_comment_id);
 }
+
+/**
+ * Cập nhật thông tin category cho post
+ * input: (string) post_id, (string) category
+ * output: vvoid
+ */
+function update_post_category(string $post_id, string $category): void
+{
+    \PostRepository\update_post_category($post_id, $category);
+}
+
+/**
+ * Truy vấn một số post có category tương tự như của post được chỉ định
+ * input: (string) post_id, (string) category
+ * output: Post array -> có kết quả | array rỗng -> không có kết quả
+ */
+function get_relative_posts_by_post_id(string $post_id, string $category): array
+{
+    return \PostREpository\select_relative_posts_by_post_id($post_id, $category);
+}

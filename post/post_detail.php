@@ -177,6 +177,18 @@ function service_get_post_video_by_post_id(string $post_id): array
             width: 100vw;
             height: 200px;
         }
+
+        .card h5 {
+            font-weight: bold;
+        }
+
+        div.col-4 {
+            width: 20%;
+        }
+
+        .col a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -204,6 +216,7 @@ function service_get_post_video_by_post_id(string $post_id): array
     $post_likes = -1;
     $post_comments = -1;
     $post_videos = array(); // array chứa post video
+    $relative_post_array = array(); // array chứa các relative_post của post hiện tại
     // nhận lệnh từ url và bắt đầu truy vấn thông tin
     if (isset($_GET["post-id"])) {
         // Truy vấn thông tin theo post_id
@@ -212,6 +225,7 @@ function service_get_post_video_by_post_id(string $post_id): array
         $post_likes = \PostService\get_post_like_number($_GET["post-id"]);
         $post_comments = \PostService\get_post_comment_number($_GET["post-id"]);
         $post_videos = service_get_post_video_by_post_id($_GET["post-id"]); // Lấy ra thông tin video được nhúng trong bài viết
+        $relative_post_array = \PostService\get_relative_posts_by_post_id($post->get_id(), $post->get_category());  // Lấy ra relative posts
     }
     ?>
 
@@ -391,6 +405,47 @@ function service_get_post_video_by_post_id(string $post_id): array
             <p>Đã có lỗi xảy ra trong quá trình truy vấn thông tin.</p>
             <hr>
             <p class="mb-0">Content not found.</p>
+        </div>
+        <?php
+        }
+        ?>
+
+        <!--Danh sách các bài viết liên quan-->
+        <h3><b>Bài viết liên quan</b></h3>
+        <!--Kiểm tra xem có tìm được post liên quan nào hay không-->
+        <?php
+        if (count($relative_post_array) > 0) {
+            // Nếu như tìm thấy bài viết liên quan -> hiển thị ra template
+        ?>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php
+        foreach ($relative_post_array as $post) {
+        ?>
+            <!--Lần lượt hiển thị ra các post tìm được-->
+            <div class="col">
+                <a href="/post/post_detail.php?post-id=<?= $post->get_id() ?>">
+                    <div class="card h-100">
+                        <img src="<?= $post->get_cover_image_link() ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $post->get_name() ?></h5>
+                            <p class="card-text"><?= $post->get_description() ?></p>
+                        </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary"><b>Đăng ngày:</b> <?= date("d-m-y" ,$post->get_created_date()) ?> <br> <b>Tác giả:</b> <?= $post->get_admin_email() ?></small>
+                    </div>
+                    </div>
+                </a>
+            </div>
+        <?php
+        }
+        ?>
+        </div>
+        <?php
+        } else {
+            // Thông báo không tìm thấy bào viết liên quan nào
+        ?>
+        <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle-fill"></i> Không tìm thấy bài viết liên quan nào
         </div>
         <?php
         }

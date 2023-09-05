@@ -13,6 +13,7 @@ class Post
     private $modified_date;
     private $views;
     private $admin_email;
+    private $category;
 
     // constructor
     public function __construct()
@@ -61,6 +62,11 @@ class Post
         return $this->admin_email;
     }
 
+    public function get_category(): string
+    {
+        return $this->category;
+    }
+
     // Setter
     public function set_id(string $id): void    // id
     {
@@ -100,6 +106,11 @@ class Post
     public function set_admin_email(string $admin_email): void   // admin_email
     {
         $this->admin_email = $admin_email;
+    }
+
+    public function set_category(string $category): void    // category
+    {
+        $this->category = $category;
     }
 }
 

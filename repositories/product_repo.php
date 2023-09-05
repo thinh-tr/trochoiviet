@@ -134,6 +134,11 @@ function delete_product(string $product_id): void
         $delete_product_image_statement = $connection->prepare($delete_product_image_sql);
         $delete_product_image_statement->execute(); // Xóa tất cả các image
 
+        // Xóa tất cả các external_link có tham chiếu đến product này
+        $delete_external_link_sql = "DELETE FROM product_external_link WHERE product_external_link.product_id = '$product_id'";
+        $delete_external_link_statement = $connection->prepare($delete_external_link_sql);
+        $delete_external_link_statement->execute(); // Xóa tất cả các external_link
+
         // Xóa product
         $delete_product_sql = "DELETE FROM product WHERE product.id = '$product_id'";
         $delete_product_statement = $connection->prepare($delete_product_sql);

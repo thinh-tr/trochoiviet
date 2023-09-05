@@ -30,7 +30,18 @@
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_categories.php"; ?>
 
+    <?php
+    // Lựa chọn category cho bài viết sắp tạo
+    $new_post_category = PostCategory\unclassified;
+
+    // Xác nhận nếu có lựa chọn category
+    if (isset($_POST["post-category"])) {
+        // Lấy giá trị category vừa chọn gán cho biến category
+        $new_post_category = strval($_POST["post-category"]);
+    }
+    ?>
 
     <?php
     // Xử lý thêm bài viết mới
@@ -70,6 +81,7 @@
                 $new_post->set_modified_date(time());
                 $new_post->set_views(0);
                 $new_post->set_admin_email($_SESSION["admin_email"]);
+                $new_post->set_category($new_post_category);    // gán category cho bài viết
 
                 \PostService\add_post($new_post);   // Tạo post
                 echo(<<<END
@@ -102,6 +114,14 @@
                 <div class="mb-3">
                     <label for="post-description" class="form-label"><b>Mô tả</b></label>
                     <textarea class="form-control" id="post-description" name="post-description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="post-category" class="form-label"><i class="bi bi-tags-fill"></i> <b>Danh mục cho bài viết này</b></label><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\unclassified ?>"> <b>Chưa phân loại</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\general ?>"> <b>Thông tin chung</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\guide ?>"> <b>Hướng dẫn</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\news ?>"> <b>Tin tức</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\memorable ?>"> <b>Kỷ niệm</b><br>
                 </div>
                 <div class="mb-3">
                     <form method="post">

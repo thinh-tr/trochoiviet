@@ -75,6 +75,7 @@ function select_post_by_id(string $post_id): \Entities\Post
             $post->set_modified_date($result[0]["modified_date"] ?? $result[0]["created_date"]);    // modified_date
             $post->set_views($result[0]["views"]);  // views
             $post->set_admin_email($result[0]["admin_email"]);  // admin email
+            $post->set_category($result[0]["category"]);  // category
 
             // trả ra Post obj tìm được
             return $post;
@@ -802,7 +803,7 @@ function create_post(\Entities\Post $post): void
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
-        $sql = "INSERT INTO post VALUES('{$post->get_id()}', '{$post->get_name()}', '{$post->get_description()}', '{$post->get_cover_image_link()}', {$post->get_created_date()}, {$post->get_modified_date()}, {$post->get_views()}, '{$post->get_admin_email()}')";
+        $sql = "INSERT INTO post VALUES('{$post->get_id()}', '{$post->get_name()}', '{$post->get_description()}', '{$post->get_cover_image_link()}', {$post->get_created_date()}, {$post->get_modified_date()}, {$post->get_views()}, '{$post->get_admin_email()}', '{$post->get_category()}')";
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
@@ -992,6 +993,66 @@ function disapprove_post_comment(string $post_comment_id): void
         $sql = "UPDATE post_comment SET post_comment.approved = 0 WHERE post_comment.id = '$post_comment_id'";
         $statement = $connection->prepare($sql);
         $statement->execute();
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Cập nhật thông tin category cho post
+ * input: (string) post_id, (string) category
+ * output: vvoid
+ */
+function update_post_category(string $post_id, string $category): void
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "UPDATE post SET post.category = '$category' WHERE post.id = '$post_id'";
+        $statement = $connection->prepare($sql);
+        $statement->execute();  // Thực hiện truy vấn
+    } catch (\PDOException $ex) {
+        echo("Errors occur when querying data: " . $ex->getMessage());
+    }
+}
+
+/**
+ * Truy vấn một số post có category tương tự như của post được chỉ định
+ * input: (string) post_id, (string) category
+ * output: Post array -> có kết quả | array rỗng -> không có kết quả
+ */
+function select_relative_posts_by_post_id(string $post_id, string $category): array
+{
+    try {
+        require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
+        $connection = new \PDO($dsn, $username, $db_password);
+        $sql = "SELECT *
+                FROM `post`
+                WHERE post.category = '$category' AND post.id != '$post_id'
+                ORDER BY rand()
+                LIMIT 6";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $relative_post_array = array(); // array chứa kết quả trả ra
+        // Kiểm tra kết quả truy vấn
+        if ($result != false && count($result) > 0) {
+            // Lần lượt lấy ra các post tìm được
+            foreach ($result as $row) {
+                $relative_post = new \Entities\Post();
+                $relative_post->set_id($row["id"]);
+                $relative_post->set_name($row["name"]);
+                $relative_post->set_description($row["description"]);
+                $relative_post->set_cover_image_link($row["cover_image_link"]);
+                $relative_post->set_created_date($row["created_date"]);
+                $relative_post->set_modified_date($row["modified_date"]);
+                $relative_post->set_views($row["views"]);
+                $relative_post->set_admin_email($row["admin_email"]);
+                $relative_post->set_category($row["category"]);
+                array_push($relative_post_array, $relative_post);   // push Post tìm được vào array kết quả
+            }
+        }
+        return $relative_post_array;
     } catch (\PDOException $ex) {
         echo("Errors occur when querying data: " . $ex->getMessage());
     }

@@ -24,6 +24,7 @@
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php"; ?>
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php"; ?>
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_categories.php"; ?>
 
     <?php
     // Truy vấn thông tin của post cần edit
@@ -253,6 +254,28 @@
                     <input style="width: 50%;" type="number" class="form-control" id="post-views" name="post-views" value="<?php if ($post != null) echo($post->get_views()); ?>">
                 </div>
                 <div class="mb-3">
+                    <label for="post-current-category" class="form-label"><b>Danh mục bài viết</b></label>
+                    <input style="width: 50%;" type="text" class="form-control" id="post-current-category" name="post-current-category" value="<?php
+                        if ($post->get_category() == PostCategory\unclassified) {
+                            echo("Chưa phân loại");
+                        } else if ($post->get_category() == PostCategory\general) {
+                            echo("Thông tin chung");
+                        } else if ($post->get_category() == PostCategory\guide) {
+                            echo("Hướng dẫn");
+                        } else if ($post->get_category() == PostCategory\news) {
+                            echo("Tin tức");
+                        } else if ($post->get_category() == PostCategory\memorable) {
+                            echo("Kỷ niệm");
+                        }
+                    ?>" disabled><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\unclassified ?>"> <b>Chưa phân loại</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\general ?>"> <b>Thông tin chung</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\guide ?>"> <b>Hướng dẫn</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\news ?>"> <b>Tin tức</b><br>
+                    <input type="radio" name="post-category" value="<?= PostCategory\memorable ?>"> <b>Kỷ niệm</b><br><br>
+                    <button class="btn btn-info" type="submit" id="post-category-submit" name="post-category-submit"><i class="bi bi-tags-fill"></i> Cập nhật danh mục bài viết</button>
+                </div>
+                <div class="mb-3">
                     <button class="btn btn-primary" id="post-save-submit" name="post-save-submit"><i class="bi bi-arrow-up-square-fill"></i> Lưu</button>
                     <button class="btn btn-danger" id="post-cancel" name="post-cancel"><i class="bi bi-x-square-fill"></i> Hủy</button>
                 </div>
@@ -376,3 +399,20 @@
 </body>
 
 </html>
+
+<?php
+// Xử lý cập nhật category cho bài viết
+$selected_category = PostCategory\unclassified;
+
+// Nếu như user chọn một category khác
+if (isset($_POST["post-category"])) {
+    $selected_category = strval($_POST["post-category"]);   // gán vào biến selected giá trị của category đó
+}
+
+// Nếu như có lệnh cập nhật category
+if (isset($_POST["post-category-submit"])) {
+    PostService\update_post_category($post->get_id(), $selected_category);
+    // Hiển thị thông báo
+    echo("<script>window.alert('Đã cập nhật danh mục bài viết')</script>");
+}
+?>
