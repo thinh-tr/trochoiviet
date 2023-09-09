@@ -399,5 +399,5 @@ function update_post_category(string $post_id, string $category): void
  */
 function get_relative_posts_by_post_id(string $post_id, string $category): array
 {
-    return \PostREpository\select_relative_posts_by_post_id($post_id, $category);
+    return \PostRepository\select_relative_posts_by_post_id($post_id, $category);
 }
