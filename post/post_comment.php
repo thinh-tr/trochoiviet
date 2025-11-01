@@ -11,8 +11,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/post_entity.php";
  * input: post_id,
  * output: array chứa comment | array rỗng -> không có kết quả
  */
-function repo_select_comment_by_post_id(string $post_id): array
-{
+function repo_select_comment_by_post_id(string $post_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -36,7 +35,7 @@ function repo_select_comment_by_post_id(string $post_id): array
         }
         return $comment_array;  // trả ra array kết quả
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -46,8 +45,7 @@ function repo_select_comment_by_post_id(string $post_id): array
  * input: post_id,
  * output: array chứa comment | array rỗng -> không có kết quả
  */
-function service_get_post_comment(string $post_id): array
-{
+function service_get_post_comment(string $post_id): array {
     return repo_select_comment_by_post_id($post_id);
 }
 
@@ -58,8 +56,7 @@ function service_get_post_comment(string $post_id): array
  * input: post_id, user_phone_number
  * output: array chứa comment | array rỗng -> không có kết quả
  */
-function repo_select_comment_by_post_id_and_user_phone_number(string $post_id, string $user_phone_number): array
-{
+function repo_select_comment_by_post_id_and_user_phone_number(string $post_id, string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -83,7 +80,7 @@ function repo_select_comment_by_post_id_and_user_phone_number(string $post_id, s
         }
         return $comment_array;  // trả ra array kết quả
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -93,8 +90,7 @@ function repo_select_comment_by_post_id_and_user_phone_number(string $post_id, s
  * input: post_id,
  * output: array chứa comment | array rỗng -> không có kết quả
  */
-function service_get_post_comment_of_specified_user(string $post_id, string $user_phone_number): array
-{
+function service_get_post_comment_of_specified_user(string $post_id, string $user_phone_number): array {
     return repo_select_comment_by_post_id_and_user_phone_number($post_id, $user_phone_number);
 }
 
@@ -102,12 +98,16 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Bình luận bài viết</title>
     <style>
@@ -118,8 +118,9 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
         }
     </style>
 </head>
+
 <body>
-    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php" ?>   <!--Service-->
+    <?php include $_SERVER["DOCUMENT_ROOT"] . "/services/post_service.php" ?> <!--Service-->
 
     <!--Xử lý tải thông tin trang-->
     <?php
@@ -127,7 +128,7 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     $post = new \Entities\Post();   // obj trống
     $post_comments = array();   // array trống
     $post_comments_of_user = array();   // array trống
-
+    
     // Nhận request param từ trang post_detail
     if (isset($_GET["post-id"])) {
         // Truy vấn thông tin
@@ -146,7 +147,7 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
         if (isset($_POST["{$post_comments_of_user[$i]->get_id()}"])) {
             // chạy lệnh xóa comment được chọn
             \PostService\delete_comment($post_comments_of_user[$i]->get_id());
-            echo(<<<END
+            echo (<<<END
                 <div class="alert alert-success" role="alert">
                     <i class="bi bi-check-circle-fill"></i> Đã xóa bình luận
                 </div>          
@@ -156,24 +157,28 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     ?>
 
     <div id="header">
-        <?php include  $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--header-->
+        <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/header.php" ?> <!--header-->
 
         <!--scroll nav menu-->
         <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">
-            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
+            <a class="btn btn-primary" href="/post/post_detail.php?post-id=<?= $post->get_id() ?>"><i
+                    class="bi bi-arrow-left"></i> <?= $post->get_name() ?></a>
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link" href="#list-item-1"><i class="bi bi-chat-right-dots-fill"></i> Tất cả bình luận</a>
+                    <a class="nav-link" href="#list-item-1"><i class="bi bi-chat-right-dots-fill"></i> Tất cả bình
+                        luận</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#list-item-2"><i class="bi bi-person"></i> Bình luận của bạn</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/post/post_new_comment.php?post-id=<?= $post->get_id() ?>"><i class="bi bi-plus"></i> Thêm bình luận</a>
+                    <a class="nav-link" href="/post/post_new_comment.php?post-id=<?= $post->get_id() ?>"><i
+                            class="bi bi-plus"></i> Thêm bình luận</a>
                 </li>
                 <li>
                     <form method="post">
-                        <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-repeat"></i> Làm mới</button>
+                        <button class="btn btn-info" id="refresh" name="refresh"><i class="bi bi-arrow-repeat"></i> Làm
+                            mới</button>
                     </form>
                 </li>
             </ul>
@@ -181,9 +186,11 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
     </div>
 
 
-    <h2 style="margin-left: 10px; text-align: center;"><i class="bi bi-chat-fill"></i> <b>Bình luận cho bài viết: <?= $post->get_name() ?></b></h2>
+    <h2 style="margin-left: 10px; text-align: center;"><i class="bi bi-chat-fill"></i> <b>Bình luận cho bài viết:
+            <?= $post->get_name() ?></b></h2>
     <div class="container">
-        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+            data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
             <!--Tất cả bình luận-->
             <!--Hiển thị tất cả các bình luận-->
             <h4 id="list-item-1"><i class="bi bi-chat-right-dots-fill"></i> <b>Tất cả bình luận</b></h4>
@@ -191,26 +198,28 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
                 <?php
                 if (count($post_comments) > 0) {
                     foreach ($post_comments as $comment) {
-                ?>
-                    <!--card chứa nội dung comment-->
-                    <div class="card border-primary w-75 mb-3">
-                        <div class="card-header">
-                            <small class="text-body-secondary">Bình luận của: <b><?= $comment->get_user_phone_number() ?></b></small>,
-                            <small class="text-body-secondary">Ngày đăng: <b><?= date("d-m-Y", $comment->get_created_date()) ?></b></small>
+                        ?>
+                        <!--card chứa nội dung comment-->
+                        <div class="card border-primary w-75 mb-3">
+                            <div class="card-header">
+                                <small class="text-body-secondary">Bình luận của:
+                                    <b><?= $comment->get_user_phone_number() ?></b></small>,
+                                <small class="text-body-secondary">Ngày đăng:
+                                    <b><?= date("d-m-Y", $comment->get_created_date()) ?></b></small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><?= $comment->get_content() ?></p>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text"><?= $comment->get_content() ?></p>
-                        </div>
-                    </div>
-                <?php
+                        <?php
                     }
                 } else {
-                ?>
-                <!--Nếu không có bình luận nào thì hiển thị thông báo-->
-                <div class="alert alert-warning" role="alert">
-                    <i class="bi bi-info-circle"></i> Hiện tại không có bình luận nào
-                </div>
-                <?php
+                    ?>
+                    <!--Nếu không có bình luận nào thì hiển thị thông báo-->
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-info-circle"></i> Hiện tại không có bình luận nào
+                    </div>
+                    <?php
                 }
                 ?>
             </div>
@@ -220,44 +229,50 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
                 <?php
                 if (count($post_comments_of_user) > 0) {
                     for ($i = 0; $i < count($post_comments_of_user); $i++) {
-                ?>
-                <!--card chứa nội dung comment-->
-                    <!--card chứa nội dung comment-->
-                    <div class="card border-warning w-75 mb-3">
-                        <div class="card-header">
-                            <small class="text-body-secondary">Bình luận của: <b><?= $post_comments_of_user[$i]->get_user_phone_number() ?></b></small>,
-                            <small class="text-body-secondary">Ngày đăng: <b><?= date("d-m-Y", $post_comments_of_user[$i]->get_created_date()) ?></b></small>
+                        ?>
+                        <!--card chứa nội dung comment-->
+                        <!--card chứa nội dung comment-->
+                        <div class="card border-warning w-75 mb-3">
+                            <div class="card-header">
+                                <small class="text-body-secondary">Bình luận của:
+                                    <b><?= $post_comments_of_user[$i]->get_user_phone_number() ?></b></small>,
+                                <small class="text-body-secondary">Ngày đăng:
+                                    <b><?= date("d-m-Y", $post_comments_of_user[$i]->get_created_date()) ?></b></small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><?= $post_comments_of_user[$i]->get_content() ?></p>
+                            </div>
+                            <div class="card-footer">
+                                <form method="post">
+                                    <?php
+                                    if ($post_comments_of_user[$i]->get_approval() == 1) {
+                                        ?>
+                                        <div class="btn btn-success"><i class="bi bi-check-circle"></i></div>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <div class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <a class="btn btn-warning"
+                                        href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $post_comments_of_user[$i]->get_id() ?>"><i
+                                            class="bi bi-pencil-square"></i> Chỉnh sửa</a>
+                                    <button class="btn btn-danger" id="<?= $post_comments_of_user[$i]->get_id() ?>"
+                                        name="<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa
+                                        (Không thể hoàn tác)</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text"><?= $post_comments_of_user[$i]->get_content() ?></p>
-                        </div>
-                        <div class="card-footer">
-                            <form method="post">
-                                <?php
-                                if ($post_comments_of_user[$i]->get_approval() == 1) {
-                                ?>
-                                    <div class="btn btn-success"><i class="bi bi-check-circle"></i></div>
-                                <?php
-                                } else {
-                                ?>
-                                    <div class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></div>
-                                <?php
-                                }
-                                ?>
-                                <a class="btn btn-warning" href="/post/post_update_comment.php?post-id=<?= $post->get_id() ?>&comment-id=<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-pencil-square"></i> Chỉnh sửa</a>
-                                <button class="btn btn-danger" id="<?= $post_comments_of_user[$i]->get_id() ?>" name="<?= $post_comments_of_user[$i]->get_id() ?>"><i class="bi bi-trash3-fill"></i> Xóa (Không thể hoàn tác)</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php
+                        <?php
                     }
                 } else {
-                ?>
-                <!--Hiển thị thông báo không có bình luận nào-->
-                <div class="alert alert-warning" role="alert">
-                    <i class="bi bi-info-circle"></i> Bạn chưa có bình luận nào về bài viết này
-                </div>
-                <?php
+                    ?>
+                    <!--Hiển thị thông báo không có bình luận nào-->
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-info-circle"></i> Bạn chưa có bình luận nào về bài viết này
+                    </div>
+                    <?php
                 }
                 ?>
             </div>
@@ -266,4 +281,5 @@ function service_get_post_comment_of_specified_user(string $post_id, string $use
 
     <?php include $_SERVER["DOCUMENT_ROOT"] . "/templates/footer.php" ?> <!--footer-->
 </body>
+
 </html>

@@ -2,8 +2,7 @@
 namespace Entities;
 
 // Class thông tin người dùng
-class UserInfo
-{
+class UserInfo {
     // Thuộc tính
     private $phone_number;
     private $email;
@@ -11,8 +10,7 @@ class UserInfo
     private $join_date;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
@@ -62,16 +60,14 @@ class UserInfo
 }
 
 // Class thông tin đăng nhập của người dùng
-class UserLoginInfo
-{
+class UserLoginInfo {
     // Thuộc tính
     private $id;
     private $phone_number;
     private $password;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
@@ -86,8 +82,7 @@ class UserLoginInfo
         return $this->phone_number;
     }
 
-    public function get_password(): string
-    {
+    public function get_password(): string {
         return $this->password;
     }
 
@@ -106,5 +101,5 @@ class UserLoginInfo
     {
         $this->password = $password;
     }
-    
+
 }

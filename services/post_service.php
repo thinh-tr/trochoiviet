@@ -11,8 +11,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/repositories/post_repo.php";
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function service_get_10_newest_post(): array
-{
+function service_get_10_newest_post(): array {
     return \PostRepository\repo_get_10_newest_post();    // trả ra kết quả
 }
 
@@ -21,8 +20,7 @@ function service_get_10_newest_post(): array
  * input: post_id
  * output: obj Post chứa thông tin của post cần tìm | null -> không tìm thấy thông tin
  */
-function get_post_by_id(string $post_id): \Entities\Post
-{
+function get_post_by_id(string $post_id): \Entities\Post {
     return \PostRepository\select_post_by_id($post_id);
 }
 
@@ -31,8 +29,7 @@ function get_post_by_id(string $post_id): \Entities\Post
  * input: post_id
  * output: số lượt thích
  */
-function get_post_like_number(string $post_id): int
-{
+function get_post_like_number(string $post_id): int {
     return \PostRepository\select_post_like_number_by_post_id($post_id);
 }
 
@@ -41,8 +38,7 @@ function get_post_like_number(string $post_id): int
  * input: post_id
  * output: số comment
  */
-function get_post_comment_number(string $post_id): int
-{
+function get_post_comment_number(string $post_id): int {
     return \PostRepository\select_post_comment_by_post_id($post_id);
 }
 
@@ -51,8 +47,7 @@ function get_post_comment_number(string $post_id): int
  * input: post_id
  * output: void
  */
-function increase_post_views(string $post_id): void
-{
+function increase_post_views(string $post_id): void {
     \PostRepository\update_post_views($post_id);
 }
 
@@ -62,8 +57,7 @@ function increase_post_views(string $post_id): void
  * input: post_id, user_phone_number
  * output: true -> đã like | false -> chưa like
  */
-function is_liked_post(string $post_id, string $user_phone_number): bool
-{
+function is_liked_post(string $post_id, string $user_phone_number): bool {
     return \PostRepository\is_liked_post($post_id, $user_phone_number);
 }
 
@@ -72,8 +66,7 @@ function is_liked_post(string $post_id, string $user_phone_number): bool
  * input: post_id, user_phone_number
  * output: void
  */
-function like_post(string $post_id, string $user_phone_number): void
-{
+function like_post(string $post_id, string $user_phone_number): void {
     \PostRepository\insert_like($post_id, $user_phone_number);
 }
 
@@ -82,8 +75,7 @@ function like_post(string $post_id, string $user_phone_number): void
  * input: post_id, user_phone_number
  * output: void
  */
-function unlike_post(string $post_id, string $user_phone_number): void
-{
+function unlike_post(string $post_id, string $user_phone_number): void {
     \PostRepository\delete_like($post_id, $user_phone_number);
 }
 
@@ -92,8 +84,7 @@ function unlike_post(string $post_id, string $user_phone_number): void
  * input: obj PostComment
  * output: true -> Đăng tải thành công | false -> không thành công
  */
-function add_new_comment(\Entities\PostComment $post_comment): bool
-{
+function add_new_comment(\Entities\PostComment $post_comment): bool {
     return \PostRepository\insert_comment($post_comment);
 }
 
@@ -102,8 +93,7 @@ function add_new_comment(\Entities\PostComment $post_comment): bool
  * input: comment_id
  * output: true -> xóa thành công | fasle -> không thành công
  */
-function delete_comment(string $comment_id): void
-{
+function delete_comment(string $comment_id): void {
     \PostRepository\delete_comment($comment_id);
 }
 
@@ -112,8 +102,7 @@ function delete_comment(string $comment_id): void
  * input: comment_id
  * output: obj PostComment -> tìm thấy thông tin | null -> không tìm thấy
  */
-function get_comment(string $comment_id): \Entities\PostComment
-{
+function get_comment(string $comment_id): \Entities\PostComment {
     return \PostRepository\select_comment_by_id($comment_id);
 }
 
@@ -123,8 +112,7 @@ function get_comment(string $comment_id): \Entities\PostComment
  * input: comment_id, content
  * output: void
  */
-function update_comment_content(string $comment_id, string $content): void
-{
+function update_comment_content(string $comment_id, string $content): void {
     \PostRepository\update_comment_content($comment_id, $content);
 }
 
@@ -133,8 +121,7 @@ function update_comment_content(string $comment_id, string $content): void
  * input: UserPostFollow
  * output: bool
  */
-function follow_post(string $user_phone_number, string $post_id): void
-{
+function follow_post(string $user_phone_number, string $post_id): void {
     \PostRepository\insert_user_post_follow($user_phone_number, $post_id);
 }
 
@@ -143,8 +130,7 @@ function follow_post(string $user_phone_number, string $post_id): void
  * input: user_post_follow_id
  * output: void
  */
-function unfollow_post(string $user_phone_number, string $post_id): void
-{
+function unfollow_post(string $user_phone_number, string $post_id): void {
     \PostRepository\delete_user_post_follow($user_phone_number, $post_id);
 }
 
@@ -153,8 +139,7 @@ function unfollow_post(string $user_phone_number, string $post_id): void
  * input: user_phone_number, post_id
  * output: true -> đã follow | false -> chưa follow
  */
-function is_post_followed(string $user_phone_number, string $post_id): bool
-{
+function is_post_followed(string $user_phone_number, string $post_id): bool {
     return \PostRepository\is_post_followed($user_phone_number, $post_id);
 }
 
@@ -163,8 +148,7 @@ function is_post_followed(string $user_phone_number, string $post_id): bool
  * input: user_phone_number
  * output: array chứa post obj | array rỗng -> không có kết quả
  */
-function get_liked_posts(string $user_phone_number): array
-{
+function get_liked_posts(string $user_phone_number): array {
     return \PostRepository\select_liked_posts_by_user_phone_number($user_phone_number);
 }
 
@@ -173,8 +157,7 @@ function get_liked_posts(string $user_phone_number): array
  * input: user_phone_number
  * output: array chứa post obj | array rỗng -> không có kết quả
  */
-function get_follow_posts(string $user_phone_number): array
-{
+function get_follow_posts(string $user_phone_number): array {
     return \PostRepository\select_follow_posts_by_user_phone_number($user_phone_number);
 }
 
@@ -183,8 +166,7 @@ function get_follow_posts(string $user_phone_number): array
  * input: admin_email
  * output: array chứa Post obj | array rỗng -> không có kết quả
  */
-function get_posts_by_admin(string $admin_email): array
-{
+function get_posts_by_admin(string $admin_email): array {
     return \PostRepository\select_posts_by_admin_email($admin_email);
 }
 
@@ -194,8 +176,7 @@ function get_posts_by_admin(string $admin_email): array
  * input: post_id
  * output: array chứa post_content -> có kết quả | array rỗng -> không có kết quả
  */
-function get_post_contents_by_post_id(string $post_id): array
-{
+function get_post_contents_by_post_id(string $post_id): array {
     return \PostRepository\select_post_contents_by_post_id($post_id);
 }
 
@@ -206,8 +187,7 @@ function get_post_contents_by_post_id(string $post_id): array
  * input: post_content_id
  * output: array chứa các PosrtContentImage -> tìm thấy kết quả | array rỗng -> không tìm thấy kết quả
  */
-function get_post_content_image_by_post_content_id(string $post_content_id): array
-{
+function get_post_content_image_by_post_content_id(string $post_content_id): array {
     return \PostRepository\select_post_content_image_by_post_content_id($post_content_id);
 }
 
@@ -217,8 +197,7 @@ function get_post_content_image_by_post_content_id(string $post_content_id): arr
  * input: post_id
  * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
  */
-function get_post_video_by_post_id(string $post_id): array
-{
+function get_post_video_by_post_id(string $post_id): array {
     return \PostRepository\select_post_video_by_post_id($post_id);
 }
 
@@ -227,8 +206,7 @@ function get_post_video_by_post_id(string $post_id): array
  * input: post_name
  * output: array post obj | array rỗng -> không có kết quả
  */
-function search_post(string $keyword): array
-{
+function search_post(string $keyword): array {
     return \PostRepository\select_post_by_keyword($keyword);
 }
 
@@ -237,8 +215,7 @@ function search_post(string $keyword): array
  * input: post_id, post_name, post_description, post_cover_image, post_modified_date, post_views
  * output: void
  */
-function update_post_info(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void
-{
+function update_post_info(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void {
     \PostRepository\update_post_info_by_post_id($post_id, $post_name, $post_description, $post_cover_image_link, $post_modified_date, $post_views);
 }
 
@@ -247,8 +224,7 @@ function update_post_info(string $post_id, string $post_name, string $post_descr
  * input: content_title, content_body
  * output: void
  */
-function update_post_content(string $content_id, string $content_title, string $content_body): void
-{
+function update_post_content(string $content_id, string $content_title, string $content_body): void {
     \PostRepository\update_post_content_by_content_id($content_id, $content_title, $content_body);
 }
 
@@ -257,8 +233,7 @@ function update_post_content(string $content_id, string $content_title, string $
  * input: content_id
  * output: PostContent obj | null -> không tìm thấy thông tin
  */
-function get_post_content(string $content_id): \Entities\PostContent
-{
+function get_post_content(string $content_id): \Entities\PostContent {
     return \PostRepository\select_content_by_content_id($content_id);
 }
 
@@ -267,8 +242,7 @@ function get_post_content(string $content_id): \Entities\PostContent
  * input: PostContentImage obj
  * output: void
  */
-function add_content_image_link(\Entities\PostContentImage $content_image): void
-{
+function add_content_image_link(\Entities\PostContentImage $content_image): void {
     \PostRepository\insert_content_image_link($content_image);
 }
 
@@ -277,8 +251,7 @@ function add_content_image_link(\Entities\PostContentImage $content_image): void
  * input: content_image_id
  * output: void
  */
-function delete_content_image(string $image_id): void
-{
+function delete_content_image(string $image_id): void {
     \PostRepository\delete_content_image_by_id($image_id);
 }
 
@@ -287,8 +260,7 @@ function delete_content_image(string $image_id): void
  * input: PostContent
  * output: void
  */
-function add_post_content(\Entities\PostContent $post_content): void
-{
+function add_post_content(\Entities\PostContent $post_content): void {
     \PostRepository\insert_post_content($post_content);
 }
 
@@ -297,8 +269,7 @@ function add_post_content(\Entities\PostContent $post_content): void
  * input: content_id
  * output: void
  */
-function delete_post_content(string $content_id): void
-{
+function delete_post_content(string $content_id): void {
     \PostRepository\delete_post_content($content_id);
 }
 
@@ -307,8 +278,7 @@ function delete_post_content(string $content_id): void
  * input: Post obj
  * output: void
  */
-function add_post(\Entities\Post $post): void
-{
+function add_post(\Entities\Post $post): void {
     \PostRepository\create_post($post);
 }
 
@@ -317,8 +287,7 @@ function add_post(\Entities\Post $post): void
  * input: post_id
  * output: void
  */
-function delete_post(string $post_id): void
-{
+function delete_post(string $post_id): void {
     \PostRepository\delete_post($post_id);
 }
 
@@ -327,8 +296,7 @@ function delete_post(string $post_id): void
  * input: PostVideo obj
  * output: void
  */
-function add_post_video(\Entities\PostVideo $post_video): void
-{
+function add_post_video(\Entities\PostVideo $post_video): void {
     \PostRepository\insert_post_video($post_video);
 }
 
@@ -337,8 +305,7 @@ function add_post_video(\Entities\PostVideo $post_video): void
  * input: post_video_id
  * output: void
  */
-function delete_post_video(string $post_video_id): void
-{
+function delete_post_video(string $post_video_id): void {
     \PostRepository\delete_post_video($post_video_id);
 }
 
@@ -347,8 +314,7 @@ function delete_post_video(string $post_video_id): void
  * input: post_id
  * output: array chứa các PostComment | array rỗng -> không có kết quả
  */
-function get_post_comment_with_no_approval(string $post_id): array
-{
+function get_post_comment_with_no_approval(string $post_id): array {
     return \PostRepository\select_post_comment_with_no_approval($post_id);
 }
 
@@ -357,8 +323,7 @@ function get_post_comment_with_no_approval(string $post_id): array
  * input: post_id
  * output: array chứa các PostComment | array rỗng -> không có kết quả
  */
-function get_post_comment_with_approval(string $post_id): array
-{
+function get_post_comment_with_approval(string $post_id): array {
     return \PostRepository\select_post_comment_with_approval($post_id);
 }
 
@@ -367,8 +332,7 @@ function get_post_comment_with_approval(string $post_id): array
  * input: post_comment_id
  * output: void
  */
-function approve_post_comment(string $post_comment_id): void
-{
+function approve_post_comment(string $post_comment_id): void {
     \PostRepository\approve_post_comment($post_comment_id);
 }
 
@@ -377,8 +341,7 @@ function approve_post_comment(string $post_comment_id): void
  * input: post_comment_id
  * output: void
  */
-function disapprove_post_comment(string $post_comment_id): void
-{
+function disapprove_post_comment(string $post_comment_id): void {
     \PostRepository\disapprove_post_comment($post_comment_id);
 }
 
@@ -387,8 +350,7 @@ function disapprove_post_comment(string $post_comment_id): void
  * input: (string) post_id, (string) category
  * output: vvoid
  */
-function update_post_category(string $post_id, string $category): void
-{
+function update_post_category(string $post_id, string $category): void {
     \PostRepository\update_post_category($post_id, $category);
 }
 
@@ -397,7 +359,6 @@ function update_post_category(string $post_id, string $category): void
  * input: (string) post_id, (string) category
  * output: Post array -> có kết quả | array rỗng -> không có kết quả
  */
-function get_relative_posts_by_post_id(string $post_id, string $category): array
-{
+function get_relative_posts_by_post_id(string $post_id, string $category): array {
     return \PostRepository\select_relative_posts_by_post_id($post_id, $category);
 }

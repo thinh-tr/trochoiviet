@@ -8,8 +8,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/repositories/product_repo.php";
  * input: admin_email
  * output: array chứa các Product obj | array rỗng -> không có kết quả nào
  */
-function get_product_by_admin_email(string $admin_email): array
-{
+function get_product_by_admin_email(string $admin_email): array {
     return \ProductRepository\select_product_by_admin_email($admin_email);
 }
 
@@ -18,8 +17,7 @@ function get_product_by_admin_email(string $admin_email): array
  * input: obj Product
  * output: void
  */
-function create_product(\Entities\Product $product): void
-{
+function create_product(\Entities\Product $product): void {
     \ProductRepository\insert_product($product);
 }
 
@@ -28,8 +26,7 @@ function create_product(\Entities\Product $product): void
  * input: product_id
  * output: Post obj | null -> không tìm thấy kết quả
  */
-function get_product_by_product_id(string $product_id): \Entities\Product
-{
+function get_product_by_product_id(string $product_id): \Entities\Product {
     return \ProductRepository\select_product_by_product_id($product_id);
 }
 
@@ -39,9 +36,8 @@ function get_product_by_product_id(string $product_id): \Entities\Product
  * input:  id, name, cover_image, description, retail_price, remain_quantity
  * output: void
  */
-function update_product(string $product_id, string $name, string $cover_image, string $description, int $retail_price, int $remain_quantity): void
-{
-    \ProductRepository\update_product($product_id, $name, $cover_image,$description, $retail_price, $remain_quantity);
+function update_product(string $product_id, string $name, string $cover_image, string $description, int $retail_price, int $remain_quantity): void {
+    \ProductRepository\update_product($product_id, $name, $cover_image, $description, $retail_price, $remain_quantity);
 }
 
 /**
@@ -49,8 +45,7 @@ function update_product(string $product_id, string $name, string $cover_image, s
  * input: product_id
  * output: void
  */
-function delete_product(string $product_id): void
-{
+function delete_product(string $product_id): void {
     \ProductRepository\delete_product($product_id);
 }
 
@@ -59,8 +54,7 @@ function delete_product(string $product_id): void
  * input: ProductImage obj
  * output: void
  */
-function create_product_image(\Entities\ProductImage $product_image): void
-{
+function create_product_image(\Entities\ProductImage $product_image): void {
     \ProductRepository\insert_product_image($product_image);
 }
 
@@ -69,8 +63,7 @@ function create_product_image(\Entities\ProductImage $product_image): void
  * input: product_id
  * output: array chứa các ProductImage | array rỗng -> không có kết quả
  */
-function get_product_image_by_product_id(string $product_id): array
-{
+function get_product_image_by_product_id(string $product_id): array {
     return \ProductRepository\select_product_image_by_product_id($product_id);
 }
 
@@ -79,8 +72,7 @@ function get_product_image_by_product_id(string $product_id): array
  * input: product_image_id
  * output: void
  */
-function delete_product_image(string $product_image_id): void
-{
+function delete_product_image(string $product_image_id): void {
     \ProductRepository\delete_product_image($product_image_id);
 }
 
@@ -89,8 +81,7 @@ function delete_product_image(string $product_image_id): void
  * input: none
  * output: Product array | array rỗng -> không có kết quả
  */
-function get_new_product(): array
-{
+function get_new_product(): array {
     return \ProductRepository\select_new_product();
 }
 
@@ -99,8 +90,7 @@ function get_new_product(): array
  * input: none
  * output: product array | array rỗng -> không có kết quả
  */
-function get_random_product(): array
-{
+function get_random_product(): array {
     return \ProductRepository\select_random_product();
 }
 
@@ -109,8 +99,7 @@ function get_random_product(): array
  * input: none
  * output: Product array | array rỗng -> không có kết quả
  */
-function get_popular_product(): array
-{
+function get_popular_product(): array {
     return \ProductRepository\select_popular_product();
 }
 
@@ -119,8 +108,7 @@ function get_popular_product(): array
  * input: keyword
  * output: array Product | array rỗng -> không tìm thấy kết quả
  */
-function search_product_by_name(string $keyword): array
-{
+function search_product_by_name(string $keyword): array {
     return \ProductRepository\search_product_by_name($keyword);
 }
 
@@ -129,8 +117,7 @@ function search_product_by_name(string $keyword): array
  * input: ProductRating obj
  * output: void
  */
-function create_product_rating(\Entities\ProductRating $product_rating): void
-{
+function create_product_rating(\Entities\ProductRating $product_rating): void {
     \ProductRepository\insert_product_rating($product_rating);
 }
 
@@ -139,8 +126,7 @@ function create_product_rating(\Entities\ProductRating $product_rating): void
  * input: user_phone_number, product_id
  * output: void
  */
-function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void
-{
+function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void {
     \ProductRepository\delete_product_rating_of_user_to_product($user_phone_number, $product_id);
 }
 
@@ -149,8 +135,7 @@ function delete_product_rating_of_user_to_product(string $user_phone_number, str
  * input: (string) product_id
  * output: ProductRating array
  */
-function get_product_ratings_by_product_id(string $product_id): array
-{
+function get_product_ratings_by_product_id(string $product_id): array {
     return \ProductRepository\select_product_ratings_by_product_id($product_id);
 }
 
@@ -159,8 +144,7 @@ function get_product_ratings_by_product_id(string $product_id): array
  * input: product_id
  * output: (float) trung bình rating
  */
-function get_avg_of_product_rating_by_product_id(string $product_id): float
-{
+function get_avg_of_product_rating_by_product_id(string $product_id): float {
     return \ProductRepository\select_avg_of_product_rating_by_product_id($product_id);
 }
 
@@ -169,8 +153,7 @@ function get_avg_of_product_rating_by_product_id(string $product_id): float
  * input: product_id
  * output: (int) rating_number
  */
-function get_rating_number_by_product_id(string $product_id): int
-{
+function get_rating_number_by_product_id(string $product_id): int {
     return \ProductRepository\select_rating_number_by_product_id($product_id);
 }
 
@@ -179,8 +162,7 @@ function get_rating_number_by_product_id(string $product_id): int
  * input: (obj) ProductExternalLink
  * output: void
  */
-function create_product_external_link(\Entities\ProductExternalLink $external_link): void
-{
+function create_product_external_link(\Entities\ProductExternalLink $external_link): void {
     \ProductRepository\insert_product_external_link($external_link);
 }
 
@@ -189,8 +171,7 @@ function create_product_external_link(\Entities\ProductExternalLink $external_li
  * input: (string) product_id
  * output: array -> có kết quả | array rỗng -> không có kết quả
  */
-function get_external_links_by_product_id(string $product_id): array
-{
+function get_external_links_by_product_id(string $product_id): array {
     return \ProductRepository\select_external_links_by_product_id($product_id);
 }
 
@@ -199,7 +180,6 @@ function get_external_links_by_product_id(string $product_id): array
  * input: (string) external_link_id
  * output: void
  */
-function delete_external_link_by_id(string $external_link_id): void
-{
+function delete_external_link_by_id(string $external_link_id): void {
     \ProductRepository\delete_external_link_by_id($external_link_id);
 }

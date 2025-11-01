@@ -8,8 +8,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/order_entity.php";
  * input: Order obj
  * output: void
  */
-function insert_order(\Entities\Order $order): void
-{
+function insert_order(\Entities\Order $order): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -17,7 +16,7 @@ function insert_order(\Entities\Order $order): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -26,8 +25,7 @@ function insert_order(\Entities\Order $order): void
  * input: OrderDetail obj
  * output: void
  */
-function insert_order_detail(\Entities\OrderDetail $order_detail): void
-{
+function insert_order_detail(\Entities\OrderDetail $order_detail): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -35,7 +33,7 @@ function insert_order_detail(\Entities\OrderDetail $order_detail): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -44,8 +42,7 @@ function insert_order_detail(\Entities\OrderDetail $order_detail): void
  * input: user_phone_number
  * output: Order array | array rỗng -> không tìm thấy thông tin
  */
-function select_not_confirm_order_by_user_phone_number(string $user_phone_number): array
-{
+function select_not_confirm_order_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -54,7 +51,7 @@ function select_not_confirm_order_by_user_phone_number(string $user_phone_number
         $statement->execute();
         $result = $statement->fetchAll();
         $order_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -72,7 +69,7 @@ function select_not_confirm_order_by_user_phone_number(string $user_phone_number
         // trả ra kết quả
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -81,8 +78,7 @@ function select_not_confirm_order_by_user_phone_number(string $user_phone_number
  * input: user_phone_number
  * output: Order array | array rỗng -> không tìm thấy thông tin
  */
-function select_is_waiting_order_by_user_phone_number(string $user_phone_number): array
-{
+function select_is_waiting_order_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -91,7 +87,7 @@ function select_is_waiting_order_by_user_phone_number(string $user_phone_number)
         $statement->execute();
         $result = $statement->fetchAll();
         $order_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -109,7 +105,7 @@ function select_is_waiting_order_by_user_phone_number(string $user_phone_number)
         // trả ra kết quả
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -118,8 +114,7 @@ function select_is_waiting_order_by_user_phone_number(string $user_phone_number)
  * input: user_phone_number
  * output: Order array | array rỗng -> không tìm thấy thông tin
  */
-function select_is_processing_order_by_user_phone_number(string $user_phone_number): array
-{
+function select_is_processing_order_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -128,7 +123,7 @@ function select_is_processing_order_by_user_phone_number(string $user_phone_numb
         $statement->execute();
         $result = $statement->fetchAll();
         $order_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -146,7 +141,7 @@ function select_is_processing_order_by_user_phone_number(string $user_phone_numb
         // trả ra kết quả
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -155,8 +150,7 @@ function select_is_processing_order_by_user_phone_number(string $user_phone_numb
  * input: user_phone_number
  * output: Order array | array rỗng -> không tìm thấy thông tin
  */
-function select_is_finished_order_by_user_phone_number(string $user_phone_number): array
-{
+function select_is_finished_order_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -165,7 +159,7 @@ function select_is_finished_order_by_user_phone_number(string $user_phone_number
         $statement->execute();
         $result = $statement->fetchAll();
         $order_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -183,7 +177,7 @@ function select_is_finished_order_by_user_phone_number(string $user_phone_number
         // trả ra kết quả
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -192,8 +186,7 @@ function select_is_finished_order_by_user_phone_number(string $user_phone_number
  * input: user_phone_number
  * output: Order array | array rỗng -> không tìm thấy thông tin
  */
-function select_is_canceled_order_by_user_phone_number(string $user_phone_number): array
-{
+function select_is_canceled_order_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -202,7 +195,7 @@ function select_is_canceled_order_by_user_phone_number(string $user_phone_number
         $statement->execute();
         $result = $statement->fetchAll();
         $order_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -220,7 +213,7 @@ function select_is_canceled_order_by_user_phone_number(string $user_phone_number
         // trả ra kết quả
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -229,8 +222,7 @@ function select_is_canceled_order_by_user_phone_number(string $user_phone_number
  * input: order_id
  * output: Order obj | null -> không có kết quả
  */
-function select_order_by_order_id(string $order_id): \Entities\Order | null
-{
+function select_order_by_order_id(string $order_id): \Entities\Order|null {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -253,7 +245,7 @@ function select_order_by_order_id(string $order_id): \Entities\Order | null
         }
         return $order;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -261,8 +253,7 @@ function select_order_by_order_id(string $order_id): \Entities\Order | null
 /**
  * Lấy ra array chứa các order_detail của một order chỉ định
  */
-function select_order_details_by_order_id(string $order_id): array
-{
+function select_order_details_by_order_id(string $order_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -271,7 +262,7 @@ function select_order_details_by_order_id(string $order_id): array
         $statement->execute();
         $result = $statement->fetchAll();
         $order_detail_array = array(); // array chứa kết quả trả về
-        
+
         // Kiểm tra kết quả truy vấn
         if ($result != false && count($result) > 0) {
             foreach ($result as $row) {
@@ -288,7 +279,7 @@ function select_order_details_by_order_id(string $order_id): array
         // trả ra kết quả
         return $order_detail_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -297,8 +288,7 @@ function select_order_details_by_order_id(string $order_id): array
  * input: order_id, delivery_address
  * output: void
  */
-function update_order_delivery_address(string $order_id, string $delivery_address): void
-{
+function update_order_delivery_address(string $order_id, string $delivery_address): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -306,7 +296,7 @@ function update_order_delivery_address(string $order_id, string $delivery_addres
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -315,8 +305,7 @@ function update_order_delivery_address(string $order_id, string $delivery_addres
  * input: order_state
  * output: void
  */
-function update_order_state(string $order_id, string $order_state): void
-{
+function update_order_state(string $order_id, string $order_state): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -324,7 +313,7 @@ function update_order_state(string $order_id, string $order_state): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -333,8 +322,7 @@ function update_order_state(string $order_id, string $order_state): void
  * input: (string) order_id (int) payment_state
  * output: void
  */
-function update_order_payment_state(string $order_id, int $payment_state): void
-{
+function update_order_payment_state(string $order_id, int $payment_state): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -342,7 +330,7 @@ function update_order_payment_state(string $order_id, int $payment_state): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -351,8 +339,7 @@ function update_order_payment_state(string $order_id, int $payment_state): void
  * input: order_state
  * output: void
  */
-function delete_order_with_order_id(string $order_id): void
-{
+function delete_order_with_order_id(string $order_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -360,7 +347,7 @@ function delete_order_with_order_id(string $order_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -369,8 +356,7 @@ function delete_order_with_order_id(string $order_id): void
  * input: order_id
  * output: void
  */
-function delete_order_detail_with_order_id(string $order_id): void
-{
+function delete_order_detail_with_order_id(string $order_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -378,7 +364,7 @@ function delete_order_detail_with_order_id(string $order_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -387,8 +373,7 @@ function delete_order_detail_with_order_id(string $order_id): void
  * input: order_state
  * output: string array (order_id) | array rỗng -> không có kết quả
  */
-function select_order_ids_at_the_same_state_by_user_phone_number(string $order_state, string $user_phone_number): array
-{
+function select_order_ids_at_the_same_state_by_user_phone_number(string $order_state, string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -405,7 +390,7 @@ function select_order_ids_at_the_same_state_by_user_phone_number(string $order_s
         }
         return $order_id_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -414,8 +399,7 @@ function select_order_ids_at_the_same_state_by_user_phone_number(string $order_s
  * input: admin_email, order_state
  * output: array chứa các Order | array rỗng -> không có kết quả
  */
-function select_orders_by_admin_email_and_state(string $admin_email, string $order_state): array
-{
+function select_orders_by_admin_email_and_state(string $admin_email, string $order_state): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -441,7 +425,7 @@ function select_orders_by_admin_email_and_state(string $admin_email, string $ord
         }
         return $order_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -450,8 +434,7 @@ function select_orders_by_admin_email_and_state(string $admin_email, string $ord
  * input: order_state, admin_email
  * output: string array (order_id) | array rỗng -> không có kết quả
  */
-function select_order_ids_at_the_same_state_by_admin_email(string $order_state, string $admin_email): array
-{
+function select_order_ids_at_the_same_state_by_admin_email(string $order_state, string $admin_email): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -468,7 +451,7 @@ function select_order_ids_at_the_same_state_by_admin_email(string $order_state, 
         }
         return $order_id_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -477,8 +460,7 @@ function select_order_ids_at_the_same_state_by_admin_email(string $order_state, 
  * input: order_id, (int) delivery_date
  * output: void
  */
-function update_order_delivery_date(string $order_id, int $delivery_date): void
-{
+function update_order_delivery_date(string $order_id, int $delivery_date): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -486,7 +468,7 @@ function update_order_delivery_date(string $order_id, int $delivery_date): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -495,8 +477,7 @@ function update_order_delivery_date(string $order_id, int $delivery_date): void
  * input: admin_email
  * output: (int) số order hiện có
  */
-function select_order_number_of_admin_email(string $admin_email): int
-{
+function select_order_number_of_admin_email(string $admin_email): int {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -512,6 +493,6 @@ function select_order_number_of_admin_email(string $admin_email): int
         }
         return $order_number;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }

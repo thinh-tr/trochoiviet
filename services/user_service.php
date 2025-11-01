@@ -9,8 +9,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/repositories/user_repo.php";
  * input: UserInfo obj.
  * output: void
  */
-function create_user_info(\Entities\UserInfo $user_info): void
-{
+function create_user_info(\Entities\UserInfo $user_info): void {
     \UserRepository\insert_user_info($user_info);
 }
 
@@ -19,8 +18,7 @@ function create_user_info(\Entities\UserInfo $user_info): void
  * input: UserInfo, UserLoginInfo
  * output: true -> tạo thành công | false -> không thành công
  */
-function create_full_user_info(\Entities\UserInfo $user_info, \Entities\UserLoginInfo $user_login_info): bool
-{
+function create_full_user_info(\Entities\UserInfo $user_info, \Entities\UserLoginInfo $user_login_info): bool {
     // Giả sử các thông tin đã được kiểm tra tại template
     $is_created = false;
     if (\UserRepository\insert_user_info($user_info) && \UserRepository\insert_user_login_info($user_login_info)) {
@@ -34,8 +32,7 @@ function create_full_user_info(\Entities\UserInfo $user_info, \Entities\UserLogi
  * input: phone_number, password
  * output: true -> login thành công | false -> không thành công
  */
-function login(string $phone_number, string $password): bool
-{
+function login(string $phone_number, string $password): bool {
     return \UserRepository\repo_login($phone_number, $password);    // trả ra kết quả login
 }
 
@@ -44,8 +41,7 @@ function login(string $phone_number, string $password): bool
  * input: phone_number
  * output: UserInfo -> có tồn tại thông tin | null -> không tồn tại thông tin
  */
-function get_user_info(string $phone_number): \Entities\UserInfo
-{
+function get_user_info(string $phone_number): \Entities\UserInfo {
     return \UserRepository\select_user_info_by_phone_number($phone_number);
 }
 
@@ -54,8 +50,7 @@ function get_user_info(string $phone_number): \Entities\UserInfo
  * input: phone_number
  * output: password
  */
-function get_user_password(string $phone_number): string
-{
+function get_user_password(string $phone_number): string {
     return \UserRepository\select_current_user_password($phone_number);
 }
 
@@ -64,8 +59,7 @@ function get_user_password(string $phone_number): string
  * input: phone_number, email, name
  * output: true -> update thành công | false -> không thành công
  */
-function update_user_info(string $phone_number, string $email, string $name): bool
-{
+function update_user_info(string $phone_number, string $email, string $name): bool {
     return \UserRepository\update_user_info_by_phone_number($phone_number, $email, $name);
 }
 
@@ -74,8 +68,7 @@ function update_user_info(string $phone_number, string $email, string $name): bo
  * input: phone_number
  * output: true -> đã được sử dụng | false -> chưa được sử dụng
  */
-function is_used_user_phone_number(string $phone_number): bool
-{
+function is_used_user_phone_number(string $phone_number): bool {
     return \UserRepository\is_used_user_phone_number($phone_number);
 }
 
@@ -84,8 +77,7 @@ function is_used_user_phone_number(string $phone_number): bool
  * input: password
  * output: true -> tạo thành công | false -> không thành công
  */
-function create_user_password(\Entities\UserLoginInfo $user_login_info): bool
-{
+function create_user_password(\Entities\UserLoginInfo $user_login_info): bool {
     return \UserRepository\insert_user_new_password($user_login_info);
 }
 
@@ -94,8 +86,7 @@ function create_user_password(\Entities\UserLoginInfo $user_login_info): bool
  * input: phone_number, current_password, new_password
  * output: true -> update thành công | false -> không thành công
  */
-function update_user_password(string $phone_number, string $current_password, string $new_password): bool
-{
+function update_user_password(string $phone_number, string $current_password, string $new_password): bool {
     // Kiểm tra current_password đầu vào
     $user_current_password = \UserRepository\select_current_user_password($phone_number);
     if ($current_password != $user_current_password) {
@@ -116,8 +107,7 @@ function update_user_password(string $phone_number, string $current_password, st
  * input: phone_number
  * output: true -> đã tồn tại | false -> chưa tồn tại
  */
-function is_user_info_exists(string $phone_number): bool
-{
+function is_user_info_exists(string $phone_number): bool {
     return \UserRepository\is_user_info_exists($phone_number);
 }
 
@@ -126,7 +116,6 @@ function is_user_info_exists(string $phone_number): bool
  * input: phone_number,
  * output: true -> đã tồn tại | false -> chưa tồn tại
  */
-function is_user_login_info_exists(string $phone_number): bool
-{
+function is_user_login_info_exists(string $phone_number): bool {
     return \UserRepository\is_user_login_info_exists($phone_number);
 }

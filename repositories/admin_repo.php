@@ -11,8 +11,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/admin_entity.php";
  * input: array chứa thông tin admin mới cần lưu
  * output: true -> tạo thành công | false -> không thành công
  */
-function insert_admin(\Entities\AdminInfo $new_admin): bool
-{
+function insert_admin(\Entities\AdminInfo $new_admin): bool {
     // Giả sử các tham số có trong $new_admin đều đã được kiểm tra ở service
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";  // yêu cầu file thông tin để kết nối với db
@@ -42,8 +41,7 @@ function insert_admin(\Entities\AdminInfo $new_admin): bool
  * input: email, password
  * output: true -> login thành công | false -> không thành công
  */
-function repo_login(string $email, string $password): bool
-{
+function repo_login(string $email, string $password): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -58,7 +56,7 @@ function repo_login(string $email, string $password): bool
             return false;
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -67,8 +65,7 @@ function repo_login(string $email, string $password): bool
  * input: username
  * output: AdminInfo obj -> có tồn tại thông tin | null -> không tồn tại thông tin
  */
-function select_admininfo_by_email(string $email): \Entities\AdminInfo
-{
+function select_admininfo_by_email(string $email): \Entities\AdminInfo {
     // Giả sử các tham số đầu vào đều đã được kiểm tra ở service
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
@@ -100,7 +97,7 @@ function select_admininfo_by_email(string $email): \Entities\AdminInfo
             return null;    // Trả ra null khi không thể xác định thông tin đăng nhập
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -109,8 +106,7 @@ function select_admininfo_by_email(string $email): \Entities\AdminInfo
  * input: name, phone_number, self_intro
  * output: true -> update thành công | false -> không thành công
  */
-function update_admininfo_by_email(string $email, string $name, string $phone_number, string $self_intro): bool
-{
+function update_admininfo_by_email(string $email, string $name, string $phone_number, string $self_intro): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -122,7 +118,7 @@ function update_admininfo_by_email(string $email, string $name, string $phone_nu
         $statement = $connection->prepare($sql);
         return $statement->execute();   // true nếu update thành công
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -131,8 +127,7 @@ function update_admininfo_by_email(string $email, string $name, string $phone_nu
  * input: admin_email, new_password
  * output: true -> update thành công | false -> không thành công
  */
-function update_admin_password(string $email, string $new_password): bool
-{
+function update_admin_password(string $email, string $new_password): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -140,7 +135,7 @@ function update_admin_password(string $email, string $new_password): bool
         $statement = $connection->prepare($sql);
         return $statement->execute();   // Trả ra kết quả truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occurs when querying data: " . $ex->getMessage());
+        echo ("Errors occurs when querying data: " . $ex->getMessage());
     }
 }
 
@@ -149,8 +144,7 @@ function update_admin_password(string $email, string $new_password): bool
  * input: admin_email
  * output: password -> thành công | string rỗng -> không tìm thấy
  */
-function select_current_admin_password(string $email): string
-{
+function select_current_admin_password(string $email): string {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -163,7 +157,7 @@ function select_current_admin_password(string $email): string
         }
         return $current_password;   // trả ra password cần lấy
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -172,8 +166,7 @@ function select_current_admin_password(string $email): string
  * input: email
  * output: true -> đã được đăng ký | false -> chưa được đăng ký
  */
-function is_used_admin_info(string $email): bool
-{
+function is_used_admin_info(string $email): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -186,7 +179,7 @@ function is_used_admin_info(string $email): bool
         }
         return false;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -195,8 +188,7 @@ function is_used_admin_info(string $email): bool
  * input: none
  * output: array chứa tất cả admin_email | array rỗng -> không có kết quả
  */
-function select_all_admin_email(): array
-{
+function select_all_admin_email(): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -213,7 +205,7 @@ function select_all_admin_email(): array
         }
         return $admin_email_array;  // trả ra array kết quả
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());    
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -222,8 +214,7 @@ function select_all_admin_email(): array
  * input: QRCode obj
  * output: void
  */
-function insert_qr_code_link(\Entities\QRCode $qr_code): void
-{
+function insert_qr_code_link(\Entities\QRCode $qr_code): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -231,7 +222,7 @@ function insert_qr_code_link(\Entities\QRCode $qr_code): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -241,8 +232,7 @@ function insert_qr_code_link(\Entities\QRCode $qr_code): void
  * input: admin_email
  * output: QRCode obj | null -> không có kết quả
  */
-function select_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | null
-{
+function select_qr_code_by_admin_email(string $admin_email): \Entities\QRCode|null {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -261,7 +251,7 @@ function select_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | 
         }
         return null;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -270,8 +260,7 @@ function select_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | 
  * input: admin_email
  * output: void
  */
-function delete_qr_code_by_admin_email(string $admin_email): void
-{
+function delete_qr_code_by_admin_email(string $admin_email): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -279,7 +268,7 @@ function delete_qr_code_by_admin_email(string $admin_email): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -289,8 +278,7 @@ function delete_qr_code_by_admin_email(string $admin_email): void
  * input: (string) admin-email
  * output: void
  */
-function delete_admin_info($admin_email): void
-{
+function delete_admin_info($admin_email): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -298,6 +286,6 @@ function delete_admin_info($admin_email): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }

@@ -9,8 +9,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/user_entity.php";
  * input: UserInfo
  * output: true -> tạo thành công | false -> không thành công
  */
-function insert_user_info(\Entities\UserInfo $user_info): void
-{
+function insert_user_info(\Entities\UserInfo $user_info): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -18,7 +17,7 @@ function insert_user_info(\Entities\UserInfo $user_info): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOexception $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -27,8 +26,7 @@ function insert_user_info(\Entities\UserInfo $user_info): void
  * input: UserLoginInfo
  * output: true -> tạo thành công | false -> không thành công
  */
-function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
-{
+function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -36,7 +34,7 @@ function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
         $statement = $connection->prepare($sql);
         return $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when  querying data: " . $ex->getMessage());
+        echo ("Errors occur when  querying data: " . $ex->getMessage());
     }
 }
 
@@ -45,8 +43,7 @@ function insert_user_login_info(\Entities\UserLoginInfo $user_login_info): bool
  * input: phone_number, password
  * output: true -> login thành công | false -> không thành công
  */
-function repo_login(string $phone_number, string $password): bool
-{
+function repo_login(string $phone_number, string $password): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -61,7 +58,7 @@ function repo_login(string $phone_number, string $password): bool
             return false;   // không thành công
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -70,8 +67,7 @@ function repo_login(string $phone_number, string $password): bool
  * input: phone_number
  * output: UserInfo -> có tồn tại thông tin | null -> không tồn tại thông tin
  */
-function select_user_info_by_phone_number(string $phone_number): \Entities\UserInfo
-{
+function select_user_info_by_phone_number(string $phone_number): \Entities\UserInfo {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -99,7 +95,7 @@ function select_user_info_by_phone_number(string $phone_number): \Entities\UserI
             return null;    // trả ra null khi không tìm thấy kết quả
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -108,8 +104,7 @@ function select_user_info_by_phone_number(string $phone_number): \Entities\UserI
  * input: phone_number
  * output: password
  */
-function select_current_user_password(string $phone_number): string
-{
+function select_current_user_password(string $phone_number): string {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -122,7 +117,7 @@ function select_current_user_password(string $phone_number): string
         }
         return $current_password;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -131,8 +126,7 @@ function select_current_user_password(string $phone_number): string
  * input: phone_number, email, name
  * output: true -> update thành công | false -> không thành công
  */
-function update_user_info_by_phone_number(string $phone_number, string $email, string $name): bool
-{
+function update_user_info_by_phone_number(string $phone_number, string $email, string $name): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -140,7 +134,7 @@ function update_user_info_by_phone_number(string $phone_number, string $email, s
         $statement = $connection->prepare($sql);
         return $statement->execute();   // Trả ra kết quả truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -149,8 +143,7 @@ function update_user_info_by_phone_number(string $phone_number, string $email, s
  * input: phone_number
  * output: true -> đã được sử dụng | false -> chưa được sử dụng
  */
-function is_used_user_phone_number(string $phone_number): bool
-{
+function is_used_user_phone_number(string $phone_number): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -163,7 +156,7 @@ function is_used_user_phone_number(string $phone_number): bool
         }
         return false;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -172,8 +165,7 @@ function is_used_user_phone_number(string $phone_number): bool
  * input: UserLoginInfo
  * output: true -> tạo thành công | false -> không thành công
  */
-function insert_user_new_password(\entities\UserLoginInfo $user_login_info): bool
-{
+function insert_user_new_password(\entities\UserLoginInfo $user_login_info): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -181,7 +173,7 @@ function insert_user_new_password(\entities\UserLoginInfo $user_login_info): boo
         $statement = $connection->prepare($sql);
         return $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -190,8 +182,7 @@ function insert_user_new_password(\entities\UserLoginInfo $user_login_info): boo
  * input: phone_number, new_password
  * output: true -> uodate thành công | false -> không thành công
  */
-function update_user_password(string $phone_number, string $new_password): bool
-{
+function update_user_password(string $phone_number, string $new_password): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -199,7 +190,7 @@ function update_user_password(string $phone_number, string $new_password): bool
         $statement = $connection->prepare($sql);
         return $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -208,8 +199,7 @@ function update_user_password(string $phone_number, string $new_password): bool
  * input: phone_number
  * output: true -> đã tồn tại | false -> chưa tồn tại
  */
-function is_user_info_exists(string $phone_number): bool
-{
+function is_user_info_exists(string $phone_number): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -222,7 +212,7 @@ function is_user_info_exists(string $phone_number): bool
         }
         return false;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -231,8 +221,7 @@ function is_user_info_exists(string $phone_number): bool
  * input: phone_number,
  * output: true -> đã tồn tại | false -> chưa tồn tại
  */
-function is_user_login_info_exists(string $phone_number): bool
-{
+function is_user_login_info_exists(string $phone_number): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -245,6 +234,6 @@ function is_user_login_info_exists(string $phone_number): bool
         }
         return false;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }

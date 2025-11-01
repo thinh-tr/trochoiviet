@@ -11,8 +11,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/trochoiviet/entities/post_entity.php";
  * input: none
  * output: array chứa các bài đăng -> tìm thấy kết quả | array rỗng -> không có kết quả
  */
-function repo_get_10_newest_post(): array
-{
+function repo_get_10_newest_post(): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -43,7 +42,7 @@ function repo_get_10_newest_post(): array
         // Nếu không có kết quả -> trả ra array rỗng
         return $newest_posts;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -52,8 +51,7 @@ function repo_get_10_newest_post(): array
  * input: post_id
  * output: obj Post chứa thông tin của post cần tìm | null -> không tìm thấy thông tin
  */
-function select_post_by_id(string $post_id): \Entities\Post
-{
+function select_post_by_id(string $post_id): \Entities\Post {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -83,7 +81,7 @@ function select_post_by_id(string $post_id): \Entities\Post
         // trường hợp không có kết quả
         return null;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -92,8 +90,7 @@ function select_post_by_id(string $post_id): \Entities\Post
  * input: post_id
  * output: số lượt thích
  */
-function select_post_like_number_by_post_id(string $post_id): int
-{
+function select_post_like_number_by_post_id(string $post_id): int {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -106,7 +103,7 @@ function select_post_like_number_by_post_id(string $post_id): int
         // lấy ra kết quả cần tìm
         return $result[0]["likes"];
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -115,8 +112,7 @@ function select_post_like_number_by_post_id(string $post_id): int
  * input: post_id
  * output: số comment
  */
-function select_post_comment_by_post_id(string $post_id): int
-{
+function select_post_comment_by_post_id(string $post_id): int {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -129,7 +125,7 @@ function select_post_comment_by_post_id(string $post_id): int
         // Lấy ra kết quả cần tìm
         return $result[0]["comments"];
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -138,8 +134,7 @@ function select_post_comment_by_post_id(string $post_id): int
  * input: post_id
  * output: void
  */
-function update_post_views(string $post_id): void
-{
+function update_post_views(string $post_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -147,7 +142,7 @@ function update_post_views(string $post_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -156,8 +151,7 @@ function update_post_views(string $post_id): void
  * input: user_phone_number, post_id
  * output: void
  */
-function update_post_likes(string $user_phone_number, string $post_id): void
-{
+function update_post_likes(string $user_phone_number, string $post_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -176,7 +170,7 @@ function update_post_likes(string $user_phone_number, string $post_id): void
 
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -185,8 +179,7 @@ function update_post_likes(string $user_phone_number, string $post_id): void
  * input: post_id, user_phone_number
  * output: true -> đã like | false -> chưa like
  */
-function is_liked_post(string $post_id, string $user_phone_number): bool
-{
+function is_liked_post(string $post_id, string $user_phone_number): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -202,7 +195,7 @@ function is_liked_post(string $post_id, string $user_phone_number): bool
             return false;
         }
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -211,8 +204,7 @@ function is_liked_post(string $post_id, string $user_phone_number): bool
  * input: post_id, user_phone_number
  * output: void
  */
-function insert_like(string $post_id, string $user_phone_number): void
-{
+function insert_like(string $post_id, string $user_phone_number): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -221,7 +213,7 @@ function insert_like(string $post_id, string $user_phone_number): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // chạy truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -230,8 +222,7 @@ function insert_like(string $post_id, string $user_phone_number): void
  * input: post_id, user_phone_number
  * output: void
  */
-function delete_like(string $post_id, string $user_phone_number): void
-{
+function delete_like(string $post_id, string $user_phone_number): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -239,7 +230,7 @@ function delete_like(string $post_id, string $user_phone_number): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // chạy truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 
 }
@@ -249,8 +240,7 @@ function delete_like(string $post_id, string $user_phone_number): void
  * input: obj PostComment
  * output: true -> Đăng tải thành công | false -> không thành công
  */
-function insert_comment(\Entities\PostComment $post_comment): bool
-{
+function insert_comment(\Entities\PostComment $post_comment): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -258,7 +248,7 @@ function insert_comment(\Entities\PostComment $post_comment): bool
         $statement = $connection->prepare($sql);
         return $statement->execute();   // trả ra kết quả truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -267,8 +257,7 @@ function insert_comment(\Entities\PostComment $post_comment): bool
  * input: comment_id
  * output: true -> xóa thành công | fasle -> không thành công
  */
-function delete_comment(string $comment_id): void
-{
+function delete_comment(string $comment_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -276,7 +265,7 @@ function delete_comment(string $comment_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // xóa comment
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -285,8 +274,7 @@ function delete_comment(string $comment_id): void
  * input: comment_id
  * output: obj PostComment -> tìm thấy thông tin | null -> không tìm thấy
  */
-function select_comment_by_id(string $comment_id): \Entities\PostComment
-{
+function select_comment_by_id(string $comment_id): \Entities\PostComment {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
         $connection = new \PDO($dsn, $username, $db_password);
@@ -308,7 +296,7 @@ function select_comment_by_id(string $comment_id): \Entities\PostComment
         // trường hợp không tìm ra kết quả
         return $comment;
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -317,8 +305,7 @@ function select_comment_by_id(string $comment_id): \Entities\PostComment
  * input: comment_id, content
  * output: void
  */
-function update_comment_content(string $comment_id, string $content): void
-{
+function update_comment_content(string $comment_id, string $content): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . '/connection_info.php';
         $connection = new \PDO($dsn, $username, $db_password);
@@ -326,7 +313,7 @@ function update_comment_content(string $comment_id, string $content): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // chạy lệnh truy vấn
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -335,8 +322,7 @@ function update_comment_content(string $comment_id, string $content): void
  * input: UserPostFollow
  * output: bool
  */
-function insert_user_post_follow(string $user_phone_number, string $post_id): void
-{
+function insert_user_post_follow(string $user_phone_number, string $post_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -345,7 +331,7 @@ function insert_user_post_follow(string $user_phone_number, string $post_id): vo
         $statement = $connection->prepare($sql);
         $statement->execute();   // trả ra kết quả truy vấn
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -354,8 +340,7 @@ function insert_user_post_follow(string $user_phone_number, string $post_id): vo
  * input: user_post_follow_id
  * output: void
  */
-function delete_user_post_follow(string $user_phone_number, string $post_id): void
-{
+function delete_user_post_follow(string $user_phone_number, string $post_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -363,7 +348,7 @@ function delete_user_post_follow(string $user_phone_number, string $post_id): vo
         $statement = $connection->prepare($sql);
         $statement->execute();   // Xóa follow được chọn
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -372,8 +357,7 @@ function delete_user_post_follow(string $user_phone_number, string $post_id): vo
  * input: user_phone_number, post_id
  * output: true -> đã follow | false -> chưa follow
  */
-function is_post_followed(string $user_phone_number, string $post_id): bool
-{
+function is_post_followed(string $user_phone_number, string $post_id): bool {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -387,7 +371,7 @@ function is_post_followed(string $user_phone_number, string $post_id): bool
             return false;   // chưa follow
         }
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -396,8 +380,7 @@ function is_post_followed(string $user_phone_number, string $post_id): bool
  * input: user_phone_number
  * output: array chứa post obj | array rỗng -> không có kết quả
  */
-function select_liked_posts_by_user_phone_number(string $user_phone_number): array
-{
+function select_liked_posts_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -415,7 +398,7 @@ function select_liked_posts_by_user_phone_number(string $user_phone_number): arr
         }
         return $liked_posts_array; // trả ra biến kết quả
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -424,8 +407,7 @@ function select_liked_posts_by_user_phone_number(string $user_phone_number): arr
  * input: user_phone_number,
  * output: array chứa post obj | array rỗng -> không có kết quả
  */
-function select_follow_posts_by_user_phone_number(string $user_phone_number): array
-{
+function select_follow_posts_by_user_phone_number(string $user_phone_number): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -443,7 +425,7 @@ function select_follow_posts_by_user_phone_number(string $user_phone_number): ar
         }
         return $follow_posts_array; // trả ra biến kết quả
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -452,8 +434,7 @@ function select_follow_posts_by_user_phone_number(string $user_phone_number): ar
  * input: admin_email
  * output: array chứa Post obj | array rỗng -> không có kết quả
  */
-function select_posts_by_admin_email(string $admin_email): array
-{
+function select_posts_by_admin_email(string $admin_email): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -481,7 +462,7 @@ function select_posts_by_admin_email(string $admin_email): array
         // trả ra array kết quả
         return $post_array;
     } catch (\PDOException $ex) {
-        echo("Error occur when querying data: " . $ex->getMessage());
+        echo ("Error occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -492,8 +473,7 @@ function select_posts_by_admin_email(string $admin_email): array
  * input: post_id
  * output: array chứa post_content -> có kết quả | array rỗng -> không có kết quả
  */
-function select_post_contents_by_post_id(string $post_id): array
-{
+function select_post_contents_by_post_id(string $post_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -520,7 +500,7 @@ function select_post_contents_by_post_id(string $post_id): array
         // trả ra array rỗng
         return $post_contents;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -531,8 +511,7 @@ function select_post_contents_by_post_id(string $post_id): array
  * input: post_content_id
  * output: array chứa các PosrtContentImage -> tìm thấy kết quả | array rỗng -> không tìm thấy kết quả
  */
-function select_post_content_image_by_post_content_id(string $post_content_id): array
-{
+function select_post_content_image_by_post_content_id(string $post_content_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -558,7 +537,7 @@ function select_post_content_image_by_post_content_id(string $post_content_id): 
         // trường hợp không tìm được kết quả
         return $post_content_images;    // trả ra array rỗng
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -568,8 +547,7 @@ function select_post_content_image_by_post_content_id(string $post_content_id): 
  * input: post_id
  * output: array chứa các video link của bài post -> có kết quả | array rỗng -> không có kết quả
  */
-function select_post_video_by_post_id(string $post_id): array
-{
+function select_post_video_by_post_id(string $post_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -596,7 +574,7 @@ function select_post_video_by_post_id(string $post_id): array
         // Nếu không tìm được kết quả
         return $post_video_array;   // trả ra array rỗng
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -605,8 +583,7 @@ function select_post_video_by_post_id(string $post_id): array
  * input: post_name
  * output: array post obj | array rỗng -> không có kết quả
  */
-function select_post_by_keyword(string $keyword): array
-{
+function select_post_by_keyword(string $keyword): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -633,7 +610,7 @@ function select_post_by_keyword(string $keyword): array
         // trả ra kết quả
         return $search_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -642,8 +619,7 @@ function select_post_by_keyword(string $keyword): array
  * input: post_id, post_name, post_description, post_cover_image, post_modified_date, post_views
  * output: void
  */
-function update_post_info_by_post_id(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void
-{
+function update_post_info_by_post_id(string $post_id, string $post_name, string $post_description, string $post_cover_image_link, int $post_modified_date, int $post_views): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -657,7 +633,7 @@ function update_post_info_by_post_id(string $post_id, string $post_name, string 
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -666,8 +642,7 @@ function update_post_info_by_post_id(string $post_id, string $post_name, string 
  * input: content_title, content_body
  * output: void
  */
-function update_post_content_by_content_id(string $content_id, string $content_title, string $content_body): void
-{
+function update_post_content_by_content_id(string $content_id, string $content_title, string $content_body): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -678,7 +653,7 @@ function update_post_content_by_content_id(string $content_id, string $content_t
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -687,8 +662,7 @@ function update_post_content_by_content_id(string $content_id, string $content_t
  * input: content_id
  * output: PostContent obj | null -> không tìm thấy thông tin
  */
-function select_content_by_content_id(string $content_id): \Entities\PostContent
-{
+function select_content_by_content_id(string $content_id): \Entities\PostContent {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -709,7 +683,7 @@ function select_content_by_content_id(string $content_id): \Entities\PostContent
         // trả ra kết quả
         return $content;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -718,8 +692,7 @@ function select_content_by_content_id(string $content_id): \Entities\PostContent
  * input: PostContentImage obj
  * output: void
  */
-function insert_content_image_link(\Entities\PostContentImage $content_image): void
-{
+function insert_content_image_link(\Entities\PostContentImage $content_image): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -727,7 +700,7 @@ function insert_content_image_link(\Entities\PostContentImage $content_image): v
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -736,8 +709,7 @@ function insert_content_image_link(\Entities\PostContentImage $content_image): v
  * input: content_image_id
  * output: void
  */
-function delete_content_image_by_id(string $image_id): void
-{
+function delete_content_image_by_id(string $image_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -745,7 +717,7 @@ function delete_content_image_by_id(string $image_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -754,8 +726,7 @@ function delete_content_image_by_id(string $image_id): void
  * input: PostContent
  * output: void
  */
-function insert_post_content(\Entities\PostContent $post_content): void
-{
+function insert_post_content(\Entities\PostContent $post_content): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -763,7 +734,7 @@ function insert_post_content(\Entities\PostContent $post_content): void
         $statement = $connection->prepare($sql);
         $statement->execute();      // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -773,14 +744,13 @@ function insert_post_content(\Entities\PostContent $post_content): void
  * input: content_id
  * output: void
  */
-function delete_post_content(string $content_id): void
-{
+function delete_post_content(string $content_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
         $sql_delete_images = "DELETE FROM post_content_image WHERE post_content_image.post_content_id = '$content_id'";
         $sql_delete_content = "DELETE FROM post_content WHERE post_content.id = '$content_id'";
-        
+
         // xóa images
         $delete_images = $connection->prepare($sql_delete_images);
         $delete_images->execute();  // thực hiện truy vấn
@@ -789,7 +759,7 @@ function delete_post_content(string $content_id): void
         $delete_content = $connection->prepare($sql_delete_content);
         $delete_content->execute(); // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -798,8 +768,7 @@ function delete_post_content(string $content_id): void
  * input: Post obj
  * output: void
  */
-function create_post(\Entities\Post $post): void
-{
+function create_post(\Entities\Post $post): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -807,7 +776,7 @@ function create_post(\Entities\Post $post): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -816,8 +785,7 @@ function create_post(\Entities\Post $post): void
  * input: post_id
  * output: void
  */
-function delete_post(string $post_id): void
-{
+function delete_post(string $post_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -852,7 +820,7 @@ function delete_post(string $post_id): void
         $delete_statement->execute();
 
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -861,8 +829,7 @@ function delete_post(string $post_id): void
  * input: PostVideo obj
  * output: void
  */
-function insert_post_video(\Entities\PostVideo $post_video): void
-{
+function insert_post_video(\Entities\PostVideo $post_video): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -870,7 +837,7 @@ function insert_post_video(\Entities\PostVideo $post_video): void
         $statement = $connection->prepare($sql);
         $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -879,8 +846,7 @@ function insert_post_video(\Entities\PostVideo $post_video): void
  * input: post_video_id
  * output: void
  */
-function delete_post_video(string $post_video_id): void
-{
+function delete_post_video(string $post_video_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -888,7 +854,7 @@ function delete_post_video(string $post_video_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -897,8 +863,7 @@ function delete_post_video(string $post_video_id): void
  * input: post_id
  * output: array chứa các PostComment | array rỗng -> không có kết quả
  */
-function select_post_comment_with_no_approval(string $post_id): array
-{
+function select_post_comment_with_no_approval(string $post_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -923,7 +888,7 @@ function select_post_comment_with_no_approval(string $post_id): array
         }
         return $comment_array;  // trả ra array chứa các comment
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());        
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -932,8 +897,7 @@ function select_post_comment_with_no_approval(string $post_id): array
  * input: post_id
  * output: array chứa các PostComment | array rỗng -> không có kết quả
  */
-function select_post_comment_with_approval(string $post_id): array
-{
+function select_post_comment_with_approval(string $post_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -958,7 +922,7 @@ function select_post_comment_with_approval(string $post_id): array
         }
         return $comment_array;  // trả ra array chứa các comment
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());        
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -967,8 +931,7 @@ function select_post_comment_with_approval(string $post_id): array
  * input: post_comment_id
  * output: void
  */
-function approve_post_comment(string $post_comment_id): void
-{
+function approve_post_comment(string $post_comment_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -976,7 +939,7 @@ function approve_post_comment(string $post_comment_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -985,8 +948,7 @@ function approve_post_comment(string $post_comment_id): void
  * input: post_comment_id
  * output: void
  */
-function disapprove_post_comment(string $post_comment_id): void
-{
+function disapprove_post_comment(string $post_comment_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -994,7 +956,7 @@ function disapprove_post_comment(string $post_comment_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -1003,8 +965,7 @@ function disapprove_post_comment(string $post_comment_id): void
  * input: (string) post_id, (string) category
  * output: vvoid
  */
-function update_post_category(string $post_id, string $category): void
-{
+function update_post_category(string $post_id, string $category): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -1012,7 +973,7 @@ function update_post_category(string $post_id, string $category): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -1021,8 +982,7 @@ function update_post_category(string $post_id, string $category): void
  * input: (string) post_id, (string) category
  * output: Post array -> có kết quả | array rỗng -> không có kết quả
  */
-function select_relative_posts_by_post_id(string $post_id, string $category): array
-{
+function select_relative_posts_by_post_id(string $post_id, string $category): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -1054,6 +1014,6 @@ function select_relative_posts_by_post_id(string $post_id, string $category): ar
         }
         return $relative_post_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }

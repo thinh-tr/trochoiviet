@@ -2,8 +2,7 @@
 namespace Entities;
 
 // class chứa thông tin của một Post
-class Post
-{
+class Post {
     // Thuộc tính
     private $id;
     private $name;
@@ -16,9 +15,8 @@ class Post
     private $category;
 
     // constructor
-    public function __construct()
-    {
-        
+    public function __construct() {
+
     }
 
     // Getter
@@ -52,8 +50,7 @@ class Post
         return $this->modified_date;
     }
 
-    public function get_views(): int
-    {
+    public function get_views(): int {
         return $this->views;
     }
 
@@ -62,8 +59,7 @@ class Post
         return $this->admin_email;
     }
 
-    public function get_category(): string
-    {
+    public function get_category(): string {
         return $this->category;
     }
 
@@ -78,8 +74,7 @@ class Post
         $this->name = $name;
     }
 
-    public function set_description(string $description): void
-    {
+    public function set_description(string $description): void {
         $this->description = $description;
     }
 
@@ -98,8 +93,7 @@ class Post
         $this->modified_date = $modified_date;
     }
 
-    public function set_views(int $views): void
-    {
+    public function set_views(int $views): void {
         $this->views = $views;
     }
 
@@ -115,8 +109,7 @@ class Post
 }
 
 // class chứa thông tin của một Post Content
-class PostContent
-{
+class PostContent {
     // Thuộc tính
     private $id;
     private $title;
@@ -124,8 +117,7 @@ class PostContent
     private $post_id;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
@@ -175,16 +167,14 @@ class PostContent
 }
 
 // class chứa thông tin của một Post Content Image
-class PostContentImage
-{
+class PostContentImage {
     // Thuộc tính
     private $id;
     private $image_link;
     private $post_content_id;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
@@ -223,8 +213,7 @@ class PostContentImage
 }
 
 // class chứa thông tin về link nhúng video
-class PostVideo
-{
+class PostVideo {
     // thuộc tính
     private $id;
     private $video_source;
@@ -232,50 +221,41 @@ class PostVideo
     private $post_id;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
     // Getter
-    public function get_id(): string
-    {
+    public function get_id(): string {
         return $this->id;
     }
 
-    public function get_video_source(): string
-    {
+    public function get_video_source(): string {
         return $this->video_source;
     }
 
-    public function get_video_link(): string
-    {
+    public function get_video_link(): string {
         return $this->video_link;
     }
 
-    public function get_post_id(): string
-    {
+    public function get_post_id(): string {
         return $this->post_id;
     }
 
     // Setter
-    public function set_id(string $id): void
-    {
+    public function set_id(string $id): void {
         $this->id = $id;
     }
 
-    public function set_video_source(string $video_source): void
-    {
+    public function set_video_source(string $video_source): void {
         $this->video_source = $video_source;
     }
 
-    public function set_video_link(string $video_link): void
-    {
+    public function set_video_link(string $video_link): void {
         $this->video_link = $video_link;
     }
 
-    public function set_post_id(string $post_id): void
-    {
+    public function set_post_id(string $post_id): void {
         $this->post_id = $post_id;
     }
 
@@ -283,8 +263,7 @@ class PostVideo
 
 
 // class lưu thông tin bình luận bài viết
-class PostComment
-{
+class PostComment {
     // Thuộc tính
     private $id;
     private $created_date;
@@ -294,71 +273,58 @@ class PostComment
     private $approved;
 
     // Constructor
-    public function __construct()
-    {
-        
+    public function __construct() {
+
     }
 
     // Getter
-    public function get_id(): string
-    {
+    public function get_id(): string {
         return $this->id;
     }
 
-    public function get_created_date(): int
-    {
+    public function get_created_date(): int {
         return $this->created_date;
     }
 
-    public function get_content(): string
-    {
+    public function get_content(): string {
         return $this->content;
     }
 
-    public function get_user_phone_number(): string
-    {
+    public function get_user_phone_number(): string {
         return $this->user_phone_number;
     }
 
-    public function get_post_id(): string
-    {
+    public function get_post_id(): string {
         return $this->post_id;
     }
 
-    public function get_approval(): int
-    {
+    public function get_approval(): int {
         return $this->approved;
     }
 
 
     // Setter
-    public function set_id(string $id): void
-    {
+    public function set_id(string $id): void {
         $this->id = $id;
     }
 
-    public function set_created_date(int $created_date): void
-    {
+    public function set_created_date(int $created_date): void {
         $this->created_date = $created_date;
     }
 
-    public function set_content(string $content): void
-    {
+    public function set_content(string $content): void {
         $this->content = $content;
     }
 
-    public function set_user_phone_number(string $user_phone_number): void
-    {
+    public function set_user_phone_number(string $user_phone_number): void {
         $this->user_phone_number = $user_phone_number;
     }
 
-    public function set_post_id(string $post_id): void
-    {
+    public function set_post_id(string $post_id): void {
         $this->post_id = $post_id;
     }
 
-    public function set_approval(int $approved): void
-    {
+    public function set_approval(int $approved): void {
         $this->approved = $approved;
     }
 }
@@ -371,40 +337,33 @@ class UserPostFollow {
     private $post_id;
 
     // constructor
-    public function __construct()
-    {
+    public function __construct() {
 
     }
 
     // Getter
-    public function get_id(): string
-    {
+    public function get_id(): string {
         return $this->id;
     }
 
-    public function get_user_phone_number(): string
-    {
+    public function get_user_phone_number(): string {
         return $this->user_phone_number;
     }
 
-    public function get_post_id(): string
-    {
+    public function get_post_id(): string {
         return $this->post_id;
     }
 
     // Setter
-    public function set_id(string $id): void
-    {
+    public function set_id(string $id): void {
         $this->id = $id;
     }
 
-    public function set_user_phone_number(string $user_phone_number): void
-    {
+    public function set_user_phone_number(string $user_phone_number): void {
         $this->user_phone_number = $user_phone_number;
     }
 
-    public function set_post_id(string $post_id): void
-    {
+    public function set_post_id(string $post_id): void {
         $this->post_id = $post_id;
     }
 

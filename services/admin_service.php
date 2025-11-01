@@ -13,8 +13,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/repositories/admin_repo.php";    // Thêm 
  * Input: object chứa thông tin admin mới
  * Output: true -> thêm thành công | false -> không thành công
  */
-function register_new_admin(\Entities\AdminInfo $new_admin): bool
-{
+function register_new_admin(\Entities\AdminInfo $new_admin): bool {
     $service_result = \AdminRepositories\insert_admin($new_admin);
     return $service_result;
 }
@@ -26,8 +25,7 @@ function register_new_admin(\Entities\AdminInfo $new_admin): bool
  * input: username, password
  * output: true -> login thành công | false -> không thành công
  */
-function login(string $email, string $password): bool
-{
+function login(string $email, string $password): bool {
     return \AdminRepositories\repo_login($email, $password);
 }
 
@@ -36,8 +34,7 @@ function login(string $email, string $password): bool
  * input: email
  * output: AdminInfo obj -> có tồn tại | null -> Không tồn tại
  */
-function get_admin_info_by_email(string $email): \Entities\AdminInfo
-{
+function get_admin_info_by_email(string $email): \Entities\AdminInfo {
     return \AdminRepositories\select_admininfo_by_email($email);
 }
 
@@ -46,8 +43,7 @@ function get_admin_info_by_email(string $email): \Entities\AdminInfo
  * input: email, name, phone_number, self_intro
  * output: true -> update thành công | false -> không thành công
  */
-function update_admin_info(string $email, string $name, string $phone_number, string $self_intro): bool
-{
+function update_admin_info(string $email, string $name, string $phone_number, string $self_intro): bool {
     return \AdminRepositories\update_admininfo_by_email($email, $name, $phone_number, $self_intro);
 }
 
@@ -56,8 +52,7 @@ function update_admin_info(string $email, string $name, string $phone_number, st
  * input: admin_email, current_password, new_password
  * output: true -> update thành công | false -> không thành công
  */
-function update_password(string $email, string $current_password, string $new_password): bool
-{
+function update_password(string $email, string $current_password, string $new_password): bool {
     // Kiểm tra current_password do người dùng nhập vào
     $db_current_password = \AdminRepositories\select_current_admin_password($email);
 
@@ -80,8 +75,7 @@ function update_password(string $email, string $current_password, string $new_pa
  * input: admin_email
  * output: password -> thành công | string rỗng -> không tìm thấy
  */
-function is_used_admin_email(string $email): bool
-{
+function is_used_admin_email(string $email): bool {
     return \AdminRepositories\is_used_admin_info($email);
 }
 
@@ -90,8 +84,7 @@ function is_used_admin_email(string $email): bool
  * input: none
  * output: array chứa tất cả admin_email | array rỗng -> không có kết quả
  */
-function get_all_admin_email(): array
-{
+function get_all_admin_email(): array {
     return \AdminRepositories\select_all_admin_email();
 }
 
@@ -100,8 +93,7 @@ function get_all_admin_email(): array
  * input: QRCode obj
  * output: void
  */
-function create_qr_code_link(\Entities\QRCode $qr_code): void
-{
+function create_qr_code_link(\Entities\QRCode $qr_code): void {
     \AdminRepositories\insert_qr_code_link($qr_code);
 }
 
@@ -111,8 +103,7 @@ function create_qr_code_link(\Entities\QRCode $qr_code): void
  * input: admin_email
  * output: QRCode obj | null -> không có kết quả
  */
-function get_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | null
-{
+function get_qr_code_by_admin_email(string $admin_email): \Entities\QRCode|null {
     return \AdminRepositories\select_qr_code_by_admin_email($admin_email);
 }
 
@@ -121,8 +112,7 @@ function get_qr_code_by_admin_email(string $admin_email): \Entities\QRCode | nul
  * input: admin_email
  * output: void
  */
-function delete_qr_code_by_admin_email(string $admin_email): void
-{
+function delete_qr_code_by_admin_email(string $admin_email): void {
     \AdminRepositories\delete_qr_code_by_admin_email($admin_email);
 }
 
@@ -131,7 +121,6 @@ function delete_qr_code_by_admin_email(string $admin_email): void
  * input: admin_email
  * output: password -> thành công | string rỗng -> không tìm thấy
  */
-function get_current_admin_password(string $email): string
-{
+function get_current_admin_password(string $email): string {
     return \AdminRepositories\select_current_admin_password($email);
 }

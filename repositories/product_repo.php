@@ -8,8 +8,7 @@ include $_SERVER["DOCUMENT_ROOT"] . "/entities/product_entity.php";
  * input: admin_email
  * output: array chứa các Product obj | array rỗng -> không có kết quả nào
  */
-function select_product_by_admin_email(string $admin_email): array
-{
+function select_product_by_admin_email(string $admin_email): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -35,7 +34,7 @@ function select_product_by_admin_email(string $admin_email): array
         }
         return $product_array;  // trả ra danh sách product
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -44,8 +43,7 @@ function select_product_by_admin_email(string $admin_email): array
  * input: obj Product
  * output: void
  */
-function insert_product(\Entities\Product $product): void
-{
+function insert_product(\Entities\Product $product): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -53,7 +51,7 @@ function insert_product(\Entities\Product $product): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -62,8 +60,7 @@ function insert_product(\Entities\Product $product): void
  * input: product_id
  * output: Post obj | null -> không tìm thấy kết quả
  */
-function select_product_by_product_id(string $product_id): \Entities\Product
-{
+function select_product_by_product_id(string $product_id): \Entities\Product {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -86,7 +83,7 @@ function select_product_by_product_id(string $product_id): \Entities\Product
         // Trả ra kết quả
         return $product;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -95,8 +92,7 @@ function select_product_by_product_id(string $product_id): \Entities\Product
  * input:  id, name, cover_image, description, retail_price, remain_quantity
  * output: void
  */
-function update_product(string $product_id, string $name, string $cover_image, string $description, int $retail_price, int $remain_quantity): void
-{
+function update_product(string $product_id, string $name, string $cover_image, string $description, int $retail_price, int $remain_quantity): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -104,7 +100,7 @@ function update_product(string $product_id, string $name, string $cover_image, s
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -113,8 +109,7 @@ function update_product(string $product_id, string $name, string $cover_image, s
  * input: product_id
  * output: void
  */
-function delete_product(string $product_id): void
-{
+function delete_product(string $product_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -144,7 +139,7 @@ function delete_product(string $product_id): void
         $delete_product_statement = $connection->prepare($delete_product_sql);
         $delete_product_statement->execute();   // xóa product
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -153,8 +148,7 @@ function delete_product(string $product_id): void
  * input: ProductImage obj
  * output: void
  */
-function insert_product_image(\Entities\ProductImage $product_image): void
-{
+function insert_product_image(\Entities\ProductImage $product_image): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -162,7 +156,7 @@ function insert_product_image(\Entities\ProductImage $product_image): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());        
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -171,8 +165,7 @@ function insert_product_image(\Entities\ProductImage $product_image): void
  * input: product_id
  * output: array chứa các ProductImage | array rỗng -> không có kết quả
  */
-function select_product_image_by_product_id(string $product_id): array
-{
+function select_product_image_by_product_id(string $product_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -195,7 +188,7 @@ function select_product_image_by_product_id(string $product_id): array
         // Trả ra array kết quả
         return $product_image_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -204,8 +197,7 @@ function select_product_image_by_product_id(string $product_id): array
  * input: product_image_id
  * output: void
  */
-function delete_product_image(string $product_image_id): void
-{
+function delete_product_image(string $product_image_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -213,7 +205,7 @@ function delete_product_image(string $product_image_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -222,8 +214,7 @@ function delete_product_image(string $product_image_id): void
  * input: none
  * output: Product array | array rỗng -> không có kết quả
  */
-function select_new_product(): array
-{
+function select_new_product(): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -249,7 +240,7 @@ function select_new_product(): array
         // trả ra array
         return $product_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -258,8 +249,7 @@ function select_new_product(): array
  * input: none
  * output: product array | array rỗng -> không có kết quả
  */
-function select_random_product(): array
-{
+function select_random_product(): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -285,7 +275,7 @@ function select_random_product(): array
         // trả ra array
         return $product_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -294,8 +284,7 @@ function select_random_product(): array
  * input: none
  * output: Product array | array rỗng -> không có kết quả
  */
-function select_popular_product(): array
-{
+function select_popular_product(): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -319,7 +308,7 @@ function select_popular_product(): array
         // Trả ra array kết quả
         return $product_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -328,8 +317,7 @@ function select_popular_product(): array
  * input: keyword
  * output: array Product | array rỗng -> không tìm thấy lết quả
  */
-function search_product_by_name(string $keyword): array
-{
+function search_product_by_name(string $keyword): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -355,7 +343,7 @@ function search_product_by_name(string $keyword): array
         // Trả ra kết quả
         return $product_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -364,8 +352,7 @@ function search_product_by_name(string $keyword): array
  * input: ProductRating obj
  * output: void
  */
-function insert_product_rating(\Entities\ProductRating $product_rating): void
-{
+function insert_product_rating(\Entities\ProductRating $product_rating): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -373,7 +360,7 @@ function insert_product_rating(\Entities\ProductRating $product_rating): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -382,8 +369,7 @@ function insert_product_rating(\Entities\ProductRating $product_rating): void
  * input: user_phone_number, product_id
  * output: void
  */
-function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void
-{
+function delete_product_rating_of_user_to_product(string $user_phone_number, string $product_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -391,7 +377,7 @@ function delete_product_rating_of_user_to_product(string $user_phone_number, str
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -400,8 +386,7 @@ function delete_product_rating_of_user_to_product(string $user_phone_number, str
  * input: (string) product_id
  * output: ProductRating array
  */
-function select_product_ratings_by_product_id(string $product_id): array
-{
+function select_product_ratings_by_product_id(string $product_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -427,7 +412,7 @@ function select_product_ratings_by_product_id(string $product_id): array
         }
         return $product_rating_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -436,8 +421,7 @@ function select_product_ratings_by_product_id(string $product_id): array
  * input: product_id
  * output: (float) trung bình rating
  */
-function select_avg_of_product_rating_by_product_id(string $product_id): float
-{
+function select_avg_of_product_rating_by_product_id(string $product_id): float {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -452,7 +436,7 @@ function select_avg_of_product_rating_by_product_id(string $product_id): float
         }
         return $avg_rating; // Trả ra kết quả
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -461,8 +445,7 @@ function select_avg_of_product_rating_by_product_id(string $product_id): float
  * input: product_id
  * output: (int) rating_number
  */
-function select_rating_number_by_product_id(string $product_id): int
-{
+function select_rating_number_by_product_id(string $product_id): int {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -476,7 +459,7 @@ function select_rating_number_by_product_id(string $product_id): int
         }
         return $rating_number;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -485,8 +468,7 @@ function select_rating_number_by_product_id(string $product_id): int
  * input: (obj) ProductExternalLink
  * output: void
  */
-function insert_product_external_link(\Entities\ProductExternalLink $external_link): void
-{
+function insert_product_external_link(\Entities\ProductExternalLink $external_link): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -494,7 +476,7 @@ function insert_product_external_link(\Entities\ProductExternalLink $external_li
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -503,8 +485,7 @@ function insert_product_external_link(\Entities\ProductExternalLink $external_li
  * input: (string) product_id
  * output: array -> có kết quả | array rỗng -> không có kết quả
  */
-function select_external_links_by_product_id(string $product_id): array
-{
+function select_external_links_by_product_id(string $product_id): array {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -529,7 +510,7 @@ function select_external_links_by_product_id(string $product_id): array
         }
         return $external_link_array;
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
 
@@ -538,8 +519,7 @@ function select_external_links_by_product_id(string $product_id): array
  * input: (string) external_link_id
  * output: void
  */
-function delete_external_link_by_id(string $external_link_id): void
-{
+function delete_external_link_by_id(string $external_link_id): void {
     try {
         require $_SERVER["DOCUMENT_ROOT"] . "/connection_info.php";
         $connection = new \PDO($dsn, $username, $db_password);
@@ -547,6 +527,6 @@ function delete_external_link_by_id(string $external_link_id): void
         $statement = $connection->prepare($sql);
         $statement->execute();  // Thực hiện truy vấn
     } catch (\PDOException $ex) {
-        echo("Errors occur when querying data: " . $ex->getMessage());
+        echo ("Errors occur when querying data: " . $ex->getMessage());
     }
 }
